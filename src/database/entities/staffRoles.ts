@@ -18,6 +18,6 @@ export class StaffRole {
     role_id: number;
 
     @Field(() => [StaffAccount])
-    @OneToMany(() => StaffAccount, (staffAccount) => staffAccount.staff_role)
-    staff_accounts: StaffAccount[];
+    @OneToMany(() => StaffAccount, (staffAccounts) => staffAccounts.staffRole)
+    staffAccounts: StaffAccount[];
 }

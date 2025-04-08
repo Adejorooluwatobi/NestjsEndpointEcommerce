@@ -1,4 +1,5 @@
 export class AccessTokenDto {
     accessToken: string;
-    role: string;
+    //role: string;
+    isAdmin: boolean;
   }

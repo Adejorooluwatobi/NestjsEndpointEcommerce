@@ -22,6 +22,6 @@ export class AttributeValue {
     color: string;
 
     @Field(() => [VariantAttributeValue])
-    @OneToMany(() => VariantAttributeValue, (variantAttributeValue) => variantAttributeValue.attribute_value)
-    variant_attribute_values: VariantAttributeValue[];
+    @OneToMany(() => VariantAttributeValue, (variantAttributeValues) => variantAttributeValues.attributeValues)
+    variantAttributeValues: VariantAttributeValue[];
 }

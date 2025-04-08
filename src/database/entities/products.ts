@@ -47,7 +47,7 @@ export class Product {
 
     @Field(() => [ProductCoupon])
     @OneToMany(() => ProductCoupon, (productCoupon) => productCoupon.product)
-    product_coupons: ProductCoupon[];
+    productCoupons: ProductCoupon[];
 
     @Field()
     @Column('numeric')
@@ -79,33 +79,33 @@ export class Product {
 
     @Field(() => [ProductCategory])
     @OneToMany(() => ProductCategory, (productCategory) => productCategory.product)
-    product_categories: ProductCategory[];
+    productCategory: ProductCategory[];
 
     @Field(() => [Variant])
     @OneToMany(() => Variant, (variant) => variant.product)
     variants: Variant[];
 
     @Field(() => [ProductAttribute])
-    @OneToMany(() => ProductAttribute, (productAttribute) => productAttribute.product)
-    product_attributes: ProductAttribute[];
+    @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.product)
+    productAttributes: ProductAttribute[];
 
     @Field(() => [Gallery])
-    @OneToMany(() => Gallery, (gallery) => gallery.product)
+    @OneToMany(() => Gallery, (galleries) => galleries.product)
     galleries: Gallery[];
 
     @Field(() => [ProductTag])
-    @OneToMany(() => ProductTag, (productTag) => productTag.product)
-    product_tags: ProductTag[];
+    @OneToMany(() => ProductTag, (productTags) => productTags.product)
+    productTags: ProductTag[];
 
     @Field(() => [OrderItem])
-    @OneToMany(() => OrderItem, (orderItem) => orderItem.product)
-    order_items: OrderItem[];
+    @OneToMany(() => OrderItem, (orderItems) => orderItems.product)
+    orderItems: OrderItem[];
 
     @Field(() => [ProductShipping])
-    @OneToMany(() => ProductShipping, (productShipping) => productShipping.product)
-    product_shippings: ProductShipping[];
+    @OneToMany(() => ProductShipping, (productShippings) => productShippings.product)
+    productShippings: ProductShipping[];
 
     @Field(() => [CardItem])
-    @OneToMany(() => CardItem, (cardItem) => cardItem.product)
-    card_items: CardItem[];
+    @OneToMany(() => CardItem, (cardItems) => cardItems.product)
+    cardItems: CardItem[];
 }

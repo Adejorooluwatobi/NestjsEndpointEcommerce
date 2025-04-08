@@ -19,10 +19,10 @@ export class ProductCoupon {
     product_id: string;
 
     @Field(() => Coupon)
-    @ManyToOne(() => Coupon, (coupon) => coupon.product_coupons)
+    @ManyToOne(() => Coupon, (coupon) => coupon.productCoupons)
     coupon: Coupon;
 
     @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.product_coupons)
+    @ManyToOne(() => Product, (product) => product.productCoupons)
     product: Product;
 }

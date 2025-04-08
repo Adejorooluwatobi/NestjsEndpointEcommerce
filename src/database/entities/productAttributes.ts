@@ -3,6 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Product } from './products';
 import { Attribute } from './attributes';
 
+
 @ObjectType()
 @Entity({ name: 'product_attributes' })
 export class ProductAttribute {
@@ -19,10 +20,10 @@ export class ProductAttribute {
     attribute_id: string;
 
     @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.product_attributes)
+    @ManyToOne(() => Product, (product) => product.productAttributes)
     product: Product;
 
     @Field(() => Attribute)
-    @ManyToOne(() => Attribute, (attribute) => attribute.product_attributes)
+    @ManyToOne(() => Attribute, (attribute) => attribute.productAttributes)
     attribute: Attribute;
 }

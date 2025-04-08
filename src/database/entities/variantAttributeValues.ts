@@ -19,10 +19,10 @@ export class VariantAttributeValue {
     variant_value_id: string;
 
     @Field(() => Variant)
-    @ManyToOne(() => Variant, (variant) => variant.variant_attribute_values)
+    @ManyToOne(() => Variant, (variant) => variant.variantAttributeValues)
     variant: Variant;
 
     @Field(() => AttributeValue)
-    @ManyToOne(() => AttributeValue, (attributeValue) => attributeValue.variant_attribute_values)
-    attribute_value: AttributeValue;
+    @ManyToOne(() => AttributeValue, (attributeValues) => attributeValues.variantAttributeValues)
+    attributeValues: AttributeValue;
 }

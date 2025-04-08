@@ -38,6 +38,6 @@ export class OrderStatus {
     updated_by: string;
 
     @Field(() => [Order])
-    @OneToMany(() => Order, (order) => order.order_status)
+    @OneToMany(() => Order, (order) => order.orderStatus)
     orders: Order[];
 }

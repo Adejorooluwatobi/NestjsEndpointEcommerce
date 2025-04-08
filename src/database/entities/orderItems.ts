@@ -27,10 +27,10 @@ export class OrderItem {
     quantity: number;
 
     @Field(() => Order)
-    @ManyToOne(() => Order, (order) => order.order_items)
+    @ManyToOne(() => Order, (order) => order.orderItems)
     order: Order;
 
     @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.order_items)
+    @ManyToOne(() => Product, (product) => product.orderItems)
     product: Product;
 }

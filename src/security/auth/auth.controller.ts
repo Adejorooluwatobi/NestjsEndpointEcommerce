@@ -21,6 +21,6 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async userLogin(@Body() loginDto: LoginDto): Promise<AccessTokenDto> {
     const token = await this.authService.loginUser(loginDto.email, loginDto.password);
-    return { accessToken: token.access_token, role: 'user' };
+    return { accessToken: token.access_token, isAdmin: token.user.isAdmin };
   }
 }

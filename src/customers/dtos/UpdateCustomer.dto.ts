@@ -1,8 +1,7 @@
-export class UpdateUserDto {
+export class UpdateCustomerDto {
     firstname: string;
     lastname: string;
     username: string;
     email: string;
-    isAdmin: boolean;
     password: string;
 }

@@ -22,6 +22,10 @@ export class User {
     username: string;
 
     @Field()
+    @Column({ default: false }) // optional field
+    isAdmin: boolean;
+
+    @Field()
     @Column({ unique: true }) // unique constraint for email
     email: string;
 

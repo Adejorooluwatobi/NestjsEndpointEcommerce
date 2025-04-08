@@ -51,5 +51,5 @@ export class Category {
 
     @Field(() => [ProductCategory])
     @OneToMany(() => ProductCategory, (productCategory) => productCategory.category)
-    product_categories: ProductCategory[];
+    productCategory: ProductCategory[];
 }

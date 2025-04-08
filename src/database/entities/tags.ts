@@ -35,5 +35,5 @@ export class Tag {
 
     @Field(() => [ProductTag])
     @OneToMany(() => ProductTag, (productTag) => productTag.tag)
-    product_tags: ProductTag[];
+    productTags: ProductTag[];
 }

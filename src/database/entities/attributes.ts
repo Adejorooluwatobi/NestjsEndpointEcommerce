@@ -30,6 +30,6 @@ export class Attribute {
     updated_by: string;
 
     @Field(() => [ProductAttribute])
-    @OneToMany(() => ProductAttribute, (productAttribute) => productAttribute.attribute)
-    product_attributes: ProductAttribute[];
+    @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.attribute)
+    productAttributes: ProductAttribute[];
 }

@@ -35,6 +35,6 @@ export class Variant {
     product: Product;
 
     @Field(() => [VariantAttributeValue])
-    @OneToMany(() => VariantAttributeValue, (variantAttributeValue) => variantAttributeValue.variant)
-    variant_attribute_values: VariantAttributeValue[];
+    @OneToMany(() => VariantAttributeValue, (variantAttributeValues) => variantAttributeValues.variant)
+    variantAttributeValues: VariantAttributeValue[];
 }

@@ -1,10 +1,10 @@
-export type CreateAdminParams = {
+export type CreateCustomerParams = {
     username: string;
     email: string;
     password: string;
 };
 
-export type UpdateAdminParams = {
+export type UpdateCustomerParams = {
     username: string;
     email: string;
     password: string;
@@ -14,6 +14,7 @@ export type CreateUserParams = {
     lastname: string;
     username: string;
     email: string;
+    isAdmin: boolean;
     password: string;
 };
 
@@ -22,6 +23,7 @@ export type UpdateUserParams = {
     lastname: string;
     username: string;
     email: string;
+    isAdmin: boolean;
     password: string;
 };
 

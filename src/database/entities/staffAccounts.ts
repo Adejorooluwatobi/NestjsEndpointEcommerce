@@ -54,6 +54,6 @@ export class StaffAccount {
     updated_by: string;
 
     @Field(() => StaffRole)
-    @ManyToOne(() => StaffRole, (staffRole) => staffRole.staff_accounts)
-    staff_role: StaffRole;
+    @ManyToOne(() => StaffRole, (staffRole) => staffRole.staffAccounts)
+    staffRole: StaffRole;
 }

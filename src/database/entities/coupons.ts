@@ -59,8 +59,8 @@ export class Coupon {
     updated_by: string;
 
     @Field(() => [ProductCoupon])
-    @OneToMany(() => ProductCoupon, (productCoupon) => productCoupon.coupon)
-    product_coupons: ProductCoupon[];
+    @OneToMany(() => ProductCoupon, (productCoupons) => productCoupons.coupon)
+    productCoupons: ProductCoupon[];
 
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.coupon)

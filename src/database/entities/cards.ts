@@ -19,6 +19,6 @@ export class Card {
     customer: Customer;
 
     @Field(() => [CardItem])
-    @OneToMany(() => CardItem, (cardItem) => cardItem.card)
-    card_items: CardItem[];
+    @OneToMany(() => CardItem, (cardItems) => cardItems.card)
+    cardItems: CardItem[];
 }

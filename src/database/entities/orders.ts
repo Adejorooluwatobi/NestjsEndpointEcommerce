@@ -61,10 +61,10 @@ export class Order {
     coupon: Coupon;
 
     @Field(() => [OrderItem])
-    @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
-    order_items: OrderItem[];
+    @OneToMany(() => OrderItem, (orderItems) => orderItems.order)
+    orderItems: OrderItem[];
 
     @Field(() => OrderStatus)
     @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.orders)
-    order_status: OrderStatus;
+    orderStatus: OrderStatus;
 }

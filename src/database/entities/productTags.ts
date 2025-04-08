@@ -15,10 +15,10 @@ export class ProductTag {
     product_id: string;
 
     @Field(() => Tag)
-    @ManyToOne(() => Tag, (tag) => tag.product_tags)
+    @ManyToOne(() => Tag, (tag) => tag.productTags)
     tag: Tag;
 
     @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.product_tags)
+    @ManyToOne(() => Product, (product) => product.productTags)
     product: Product;
 }

@@ -19,10 +19,10 @@ export class ProductCategory {
     product_id: string;
 
     @Field(() => Category)
-    @ManyToOne(() => Category, (category) => category.product_categories)
+    @ManyToOne(() => Category, (category) => category.productCategory)
     category: Category;
 
     @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.product_categories)
+    @ManyToOne(() => Product, (product) => product.productCategory)
     product: Product;
 }

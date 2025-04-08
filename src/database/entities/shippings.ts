@@ -38,6 +38,6 @@ export class Shipping {
     updated_by: string;
 
     @Field(() => [ProductShipping])
-    @OneToMany(() => ProductShipping, (productShipping) => productShipping.shipping)
-    product_shippings: ProductShipping[];
+    @OneToMany(() => ProductShipping, (productShippings) => productShippings.shipping)
+    productShippings: ProductShipping[];
 }

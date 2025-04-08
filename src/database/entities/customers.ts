@@ -28,7 +28,7 @@ export class Customer {
 
     @Field()
     @Column('text')
-    password_hash: string;
+    password: string;
 
     @Field()
     @Column('boolean')
@@ -41,6 +41,10 @@ export class Customer {
     @Field()
     @Column('timestamp')
     created_at: Date;
+
+    @Field()
+    @Column('timestamp')
+    updated_at: Date;
 
     @Field()
     @Column('uuid')

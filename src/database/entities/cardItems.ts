@@ -23,10 +23,10 @@ export class CardItem {
     quantity: number;
 
     @Field(() => Card)
-    @ManyToOne(() => Card, (card) => card.card_items)
+    @ManyToOne(() => Card, (card) => card.cardItems)
     card: Card;
 
     @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.card_items)
+    @ManyToOne(() => Product, (product) => product.cardItems)
     product: Product;
 }

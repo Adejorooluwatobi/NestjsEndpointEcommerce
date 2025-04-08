@@ -51,7 +51,8 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        name: user.username
+        name: user.username,
+        isAdmin: user.isAdmin,
       }
     };
   }
@@ -67,7 +68,8 @@ export class AuthService {
       password: hashedPassword,
       username: '',
       firstname: '',
-      lastname: ''
+      lastname: '',
+      isAdmin: false,
     });
   }
 }

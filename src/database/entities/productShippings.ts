@@ -31,10 +31,10 @@ export class ProductShipping {
     @Column('boolean')
     free: boolean;
 
-    @ManyToOne(() => Product, (product) => product.product_shippings)
+    @ManyToOne(() => Product, (product) => product.productShippings)
     product: Product;
 
-    @ManyToOne(() => Shipping, (shipping) => shipping.product_shippings)
+    @ManyToOne(() => Shipping, (shipping) => shipping.productShippings)
     shipping: Shipping;
 
     @Field()
