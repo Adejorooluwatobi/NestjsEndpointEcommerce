@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { UsersController } from './controllers/users/users.controller';
 import { UsersService } from './services/users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from '../database/entities/User'; // Adjust the import path as necessary
-import { Profile } from 'src/database/entities/Profile';
-import { Post } from 'src/database/entities/Post';
+import { User } from '../database/entities/User.entity'; // Adjust the import path as necessary
+import { Profile } from 'src/database/entities/Profile.entity';
+import { Post } from 'src/database/entities/Post.entity';
 import { UsersResolver } from './users.resolver';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';

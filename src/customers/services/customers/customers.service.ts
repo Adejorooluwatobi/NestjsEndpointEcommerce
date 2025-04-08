@@ -2,11 +2,11 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCustomerParams, UpdateCustomerParams } from 'src/utils/types';
-import { Profile } from 'src/database/entities/Profile';
-import { Post } from 'src/database/entities/Post';
+import { Profile } from 'src/database/entities/Profile.entity';
+import { Post } from 'src/database/entities/Post.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Customer } from 'src/database/entities/customers';
+import { Customer } from 'src/database/entities/customers.entity';
 
 @Injectable()
 export class CustomersService {

@@ -1,14 +1,14 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { ProductCategory } from './productCategories';
-import { Variant } from './variants';
-import { ProductAttribute } from './productAttributes';
-import { Gallery } from './galleries';
-import { ProductTag } from './productTags';
-import { OrderItem } from './orderItems';
-import { ProductShipping } from './productShippings';
-import { CardItem } from './cardItems';
-import { ProductCoupon } from './productCoupons';
+import { ProductCategory } from './productCategories.entity';
+import { Variant } from './variants.entity';
+import { ProductAttribute } from './productAttributes.entity';
+import { Gallery } from './galleries.entity';
+import { ProductTag } from './productTags.entity';
+import { OrderItem } from './orderItems.entity';
+import { ProductShipping } from './productShippings.entity';
+import { CardItem } from './cardItems.entity';
+import { ProductCoupon } from './productCoupons.entity';
 
 @ObjectType()
 @Entity({ name: 'products' })

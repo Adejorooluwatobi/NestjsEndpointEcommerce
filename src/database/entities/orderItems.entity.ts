@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Order } from './orders';
-import { Product } from './products';
+import { Order } from './orders.entity';
+import { Product } from './products.entity';
 
 @ObjectType()
 @Entity({ name: 'order_items' })

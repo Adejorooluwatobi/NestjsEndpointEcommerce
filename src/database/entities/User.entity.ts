@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Profile } from "./Profile";
-import { Post } from "./Post";
+import { Profile } from "./Profile.entity";
+import { Post } from "./Post.entity";
 
 @ObjectType()
 @Entity({ name: "users" })

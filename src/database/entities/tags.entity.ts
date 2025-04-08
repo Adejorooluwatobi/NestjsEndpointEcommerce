@@ -1,25 +1,21 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { Order } from './orders';
+import { ProductTag } from './productTags.entity';
 
 @ObjectType()
-@Entity({ name: 'order_statuses' })
-export class OrderStatus {
+@Entity({ name: 'tags' })
+export class Tag {
     @Field()
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
 
     @Field()
-    @Column({ length: 50 })
-    status_name: string;
+    @Column({ length: 100 })
+    tag_name: string;
 
     @Field()
-    @Column({ length: 50 })
-    color: string;
-
-    @Field()
-    @Column({ length: 50 })
-    privacy: string;
+    @Column('text')
+    icon: string;
 
     @Field()
     @CreateDateColumn()
@@ -37,7 +33,7 @@ export class OrderStatus {
     @Column('uuid')
     updated_by: string;
 
-    @Field(() => [Order])
-    @OneToMany(() => Order, (order) => order.orderStatus)
-    orders: Order[];
+    @Field(() => [ProductTag])
+    @OneToMany(() => ProductTag, (productTag) => productTag.tag)
+    productTags: ProductTag[];
 }

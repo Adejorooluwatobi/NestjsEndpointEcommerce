@@ -1,11 +1,11 @@
 //import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../../../database/entities/User'; // Adjust the import path as necessary
+import { User } from '../../../database/entities/User.entity'; // Adjust the import path as necessary
 //import { CreateUserParams, CreateUserProfileParams, UpdateUserParams, CreateUserPostParams } from 'src/utils/types';
 import { CreateUserParams, UpdateUserParams } from 'src/utils/types';
-import { Profile } from 'src/database/entities/Profile';
-import { Post } from 'src/database/entities/Post';
+import { Profile } from 'src/database/entities/Profile.entity';
+import { Post } from 'src/database/entities/Post.entity';
 import { ConflictException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 

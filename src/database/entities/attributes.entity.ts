@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { ProductAttribute } from './productAttributes';
+import { ProductAttribute } from './productAttributes.entity';
 
 @ObjectType()
 @Entity({ name: 'attributes' })

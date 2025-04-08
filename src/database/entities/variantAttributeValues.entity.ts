@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Variant } from './variants';
-import { AttributeValue } from './attributeValues';
+import { Variant } from './variants.entity';
+import { AttributeValue } from './attributeValues.entity';
 
 @ObjectType()
 @Entity({ name: 'variant_attribute_values' })
