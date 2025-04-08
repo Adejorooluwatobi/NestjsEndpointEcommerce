@@ -4,12 +4,12 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './database/entities/User';
-import { Profile } from './database/entities/Profile';
+// import { User } from './database/entities/User';
+// import { Profile } from './database/entities/Profile';
 import { UsersModule } from './users/users.module';
 import { UserProfileModule } from './user-profile/user-profile.module';
 import { UserPostModule } from './user-post/user-post.module';
-import { Post } from './database/entities/Post';
+//import { Post } from './database/entities/Post';
 //import { UserProfileService } from './user-profile/services/user-profile/user-profile.service';
 //import { UserProfileController } from './user-profile/controllers/user-profile/user-profile.controller';
 //import { UserPostController } from './user-post/controllers/user-post/user-post.controller';
@@ -22,23 +22,24 @@ import { AuthModule } from './security/auth/auth.module';
 //import { CustomersController } from './customers/controllers/customers/customers.controller';
 //import { CustomersService } from './customers/services/customers/customers.service';
 import { CustomersModule } from './customers/customers.module';
-import { Customer } from './database/entities/customers';
-import { Order } from './database/entities/orders';
-import { Coupon } from './database/entities/coupons';
-import { ProductCoupon } from './database/entities/productCoupons';
-import { Product } from './database/entities/products';
-import { ProductCategory } from './database/entities/productCategories';
-import { Category } from './database/entities/categories';
-import { Variant } from './database/entities/variants';
-import { VariantAttributeValue } from './database/entities/variantAttributeValues';
-import { ProductAttribute } from './database/entities/productAttributes';
-import { Gallery } from './database/entities/galleries';
-import { ProductTag } from './database/entities/productTags';
-import { OrderItem } from './database/entities/orderItems';
-import { ProductShipping } from './database/entities/productShippings';
-import { CardItem } from './database/entities/cardItems';
-import { AttributeValue } from './database/entities/attributeValues';
-import { Attribute } from './database/entities/attributes';
+// import { Customer } from './database/entities/customers';
+// import { Order } from './database/entities/orders';
+// import { Coupon } from './database/entities/coupons';
+// import { ProductCoupon } from './database/entities/productCoupons';
+// import { Product } from './database/entities/products';
+// import { ProductCategory } from './database/entities/productCategories';
+// import { Category } from './database/entities/categories';
+// import { Variant } from './database/entities/variants';
+// import { VariantAttributeValue } from './database/entities/variantAttributeValues';
+// import { ProductAttribute } from './database/entities/productAttributes';
+// import { Gallery } from './database/entities/galleries';
+// import { ProductTag } from './database/entities/productTags';
+// import { OrderItem } from './database/entities/orderItems';
+// import { ProductShipping } from './database/entities/productShippings';
+// import { CardItem } from './database/entities/cardItems';
+// import { AttributeValue } from './database/entities/attributeValues';
+// import { Attribute } from './database/entities/attributes';
+// import { Tag } from './database/entities/tags';
 
 @Module({
   imports: [
@@ -54,7 +55,8 @@ import { Attribute } from './database/entities/attributes';
     username: 'postgres',
     password: 'Password',
     database: 'nestjsproject_db',
-    entities: [User, Profile, Post, Customer, Order, Coupon, ProductCoupon, Product, ProductCategory, Category, Variant, VariantAttributeValue, ProductAttribute, Attribute, AttributeValue, Gallery, ProductTag, OrderItem, ProductShipping, CardItem],
+    entities: [__dirname + '/../database/entities/*.ts'],
+    //entities: [User, Profile, Post, Customer, Order, Coupon, ProductCoupon, Product, ProductCategory, Category, Variant, VariantAttributeValue, ProductAttribute, Attribute, AttributeValue, Gallery, ProductTag, OrderItem, ProductShipping, CardItem, Tag],
     synchronize: true,
     autoLoadEntities: true,
     logging: true,
