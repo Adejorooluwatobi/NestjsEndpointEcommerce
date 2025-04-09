@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'variant_attribute_values' })
-export class VariantAttributeValue {
+export class VariantValue {
     @Field()
     @PrimaryGeneratedColumn('uuid')
     id: string;

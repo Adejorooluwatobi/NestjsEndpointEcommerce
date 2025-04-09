@@ -2,6 +2,21 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Customer {
+  active: Boolean!
+  created_at: DateTime!
+  created_by: String!
+  email: String!
+  first_name: String!
+  id: String!
+  last_name: String!
+  password: String!
+  phone_number: String!
+  registered_at: DateTime!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -31,6 +46,7 @@ type Profile {
 }
 
 type Query {
+  customers: [Customer!]!
   users: [User!]!
 }
 
@@ -38,6 +54,7 @@ type User {
   createdAt: DateTime!
   email: String!
   firstname: String!
+  isAdmin: Boolean!
   lastname: String!
   password: String!
   posts: [Post!]!

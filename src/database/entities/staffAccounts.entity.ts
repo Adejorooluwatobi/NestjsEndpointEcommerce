@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
-import { StaffRole } from './staffRoles';
+import { StaffRole } from './staffRoles.entity';
 
 @ObjectType()
 @Entity({ name: 'staff_accounts' })

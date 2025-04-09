@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { Customer } from './customers.entity';
 import { Coupon } from './coupons.entity';
 import { OrderItem } from './orderItems.entity';
-import { OrderStatus } from './orderStatuses';
+import { OrderStatus } from './orderStatuses.entity';
 
 @ObjectType()
 @Entity({ name: 'orders' })
