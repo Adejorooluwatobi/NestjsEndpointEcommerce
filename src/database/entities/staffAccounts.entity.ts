@@ -11,15 +11,15 @@ export class StaffAccount {
 
     @Field()
     @Column({ length: 100 })
-    first_name: string;
+    firstName: string;
 
     @Field()
     @Column({ length: 100 })
-    last_name: string;
+    lastName: string;
 
     @Field()
     @Column({ length: 100 })
-    phone_number: string;
+    phoneNumber: string;
 
     @Field()
     @Column({ length: 255 })
@@ -27,7 +27,7 @@ export class StaffAccount {
 
     @Field()
     @Column('text')
-    password_hash: string;
+    passwordHash: string;
 
     @Field()
     @Column('boolean')
@@ -35,23 +35,23 @@ export class StaffAccount {
 
     @Field()
     @Column('text')
-    profile_img: string;
+    profileImg: string;
 
     @Field()
     @CreateDateColumn()
-    registered_at: Date;
+    registeredAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => StaffRole)
     @ManyToOne(() => StaffRole, (staffRole) => staffRole.staffAccounts)

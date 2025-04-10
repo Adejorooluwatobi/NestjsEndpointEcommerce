@@ -6,7 +6,7 @@ import { CreateCardItemDto } from '../../card-items/dtos/CreateCardItems.dto';
 export class CreateCardDto {
   @IsNotEmpty()
   @IsUUID()
-  customer_id: string;
+  customerId: string;
 
   @IsOptional()
   @IsArray()

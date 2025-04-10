@@ -11,7 +11,7 @@ export class Sells {
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field()
     @Column('numeric')

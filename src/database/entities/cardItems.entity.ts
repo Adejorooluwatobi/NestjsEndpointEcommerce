@@ -12,11 +12,11 @@ export class CardItem {
 
     @Field()
     @Column('uuid')
-    card_id: string;
+    cardId: string;
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field()
     @Column('smallint')

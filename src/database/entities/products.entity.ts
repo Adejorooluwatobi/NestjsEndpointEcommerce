@@ -19,7 +19,7 @@ export class Product {
 
     @Field()
     @Column({ length: 255 })
-    product_name: string;
+    productName: string;
 
     @Field()
     @Column({ length: 50 })
@@ -27,11 +27,11 @@ export class Product {
 
     @Field()
     @Column('numeric')
-    regular_price: number;
+    regularPrice: number;
 
     @Field()
     @Column('numeric')
-    discount_price: number;
+    discountPrice: number;
 
     @Field()
     @Column('integer')
@@ -39,11 +39,11 @@ export class Product {
 
     @Field()
     @Column({ length: 100 })
-    short_description: string;
+    shortDescription: string;
 
     @Field()
     @Column('text')
-    product_description: string;
+    productDescription: string;
 
     @Field(() => [ProductCoupon])
     @OneToMany(() => ProductCoupon, (productCoupon) => productCoupon.product)
@@ -51,11 +51,11 @@ export class Product {
 
     @Field()
     @Column('numeric')
-    product_weight: number;
+    productWeight: number;
 
     @Field()
     @Column({ length: 50 })
-    product_code: string;
+    productCode: string;
 
     @Field()
     @Column('boolean')
@@ -63,19 +63,19 @@ export class Product {
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [ProductCategory])
     @OneToMany(() => ProductCategory, (productCategory) => productCategory.product)

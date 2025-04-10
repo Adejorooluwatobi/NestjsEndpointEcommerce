@@ -11,15 +11,15 @@ export class Category {
 
     @Field()
     @Column('uuid')
-    parent_id: string;
+    parentId: string;
 
     @Field()
     @Column({ length: 200 })
-    category_name: string;
+    categoryName: string;
 
     @Field()
     @Column('text')
-    category_description: string;
+    categoryDescription: string;
 
     @Field()
     @Column('text')
@@ -27,7 +27,7 @@ export class Category {
 
     @Field()
     @Column('text')
-    image_path: string;
+    imagePath: string;
 
     @Field()
     @Column('boolean')
@@ -35,19 +35,19 @@ export class Category {
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [ProductCategory])
     @OneToMany(() => ProductCategory, (productCategory) => productCategory.category)

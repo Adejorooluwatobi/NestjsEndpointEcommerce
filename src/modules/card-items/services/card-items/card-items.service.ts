@@ -34,14 +34,14 @@ export class CardItemsService {
         }
         
         return this.cardItemRepository.find({
-            where: { card_id: cardId },
+            where: { cardId: cardId },
             relations: ['product']
         });
     }
 
     async createCardItem(cardItemDetails: CreateCardItemParams) {
         // Verify card exists first
-        const card = await this.cardsService.findCardById(cardItemDetails.card_id);
+        const card = await this.cardsService.findCardById(cardItemDetails.cardId);
         if (!card) {
             throw new NotFoundException('Card not found');
         }

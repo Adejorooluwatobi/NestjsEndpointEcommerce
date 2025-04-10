@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { VariantAttributeValue } from './variantAttributeValues.entity';
 
 @ObjectType()
-@Entity({ name: 'attribute_values' })
+@Entity({ name: 'attributeValues' })
 export class AttributeValue {
     @Field()
     @PrimaryGeneratedColumn('uuid')
@@ -11,11 +11,11 @@ export class AttributeValue {
 
     @Field()
     @Column('uuid')
-    attribute_id: string;
+    attributeId: string;
 
     @Field()
     @Column({ length: 255 })
-    attribute_value: string;
+    attributeValue: string;
 
     @Field()
     @Column({ length: 50 })

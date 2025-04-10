@@ -26,8 +26,8 @@ export class OrderStatusesService {
     async createOrderStatus(orderStatusDetails: CreateOrderStatusParams) {
         const newOrderStatus = this.orderStatusRepository.create({
             ...orderStatusDetails,
-            created_at: new Date(),
-            updated_at: new Date()
+            createdAt: new Date(),
+            updatedAt: new Date()
         });
         
         return this.orderStatusRepository.save(newOrderStatus);
@@ -41,7 +41,7 @@ export class OrderStatusesService {
         
         await this.orderStatusRepository.update(id, {
             ...updateOrderStatusDetails,
-            updated_at: new Date()
+            updatedAt: new Date()
         });
         
         return this.findOrderStatusById(id);

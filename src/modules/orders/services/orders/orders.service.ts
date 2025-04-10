@@ -35,14 +35,14 @@ export class OrdersService {
         }
         
         return this.orderRepository.find({
-            where: { customer_id: customerId },
+            where: { customerId: customerId },
             relations: ['orderItems', 'orderStatus', 'coupon']
         });
     }
 
     async createOrder(orderDetails: CreateOrderParams) {
         // Verify customer exists first
-        const customer = await this.customersService.findCustomerById(orderDetails.customer_id);
+        const customer = await this.customersService.findCustomerById(orderDetails.customerId);
         if (!customer) {
             throw new NotFoundException('Customer not found');
         }
@@ -53,11 +53,11 @@ export class OrdersService {
         // Create and save the order
         const newOrder = this.orderRepository.create({
             ...orderDetails,
-            order_no: orderNo,
-            created_at: new Date(),
-            updated_at: new Date(),
-            created_by: orderDetails.customer_id, // Using customer_id as created_by
-            updated_by: orderDetails.customer_id  // Using customer_id as updated_by
+            orderNo: orderNo,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            createdBy: orderDetails.customerId, // Using customerId as createdBy
+            updatedBy: orderDetails.customerId  // Using customerId as updatedBy
         });
         
         const savedOrder = await this.orderRepository.save(newOrder);
@@ -67,7 +67,7 @@ export class OrdersService {
             const orderItems = orderDetails.orderItems.map(item => {
                 return this.orderItemRepository.create({
                     ...item,
-                    order_id: savedOrder.id
+                    orderId: savedOrder.id
                 });
             });
             await this.orderItemRepository.save(orderItems);
@@ -84,8 +84,8 @@ export class OrdersService {
         
         await this.orderRepository.update(id, {
             ...updateOrderDetails,
-            updated_at: new Date(),
-            updated_by: updateOrderDetails.updated_by || order.updated_by
+            updatedAt: new Date(),
+            updatedBy: updateOrderDetails.updatedBy || order.updatedBy
         });
         
         return this.findOrderById(id);
@@ -98,7 +98,7 @@ export class OrdersService {
         }
         
         // Delete associated order items first
-        await this.orderItemRepository.delete({ order_id: id });
+        await this.orderItemRepository.delete({ orderId: id });
         
         // Then delete the order
         return this.orderRepository.delete(id);

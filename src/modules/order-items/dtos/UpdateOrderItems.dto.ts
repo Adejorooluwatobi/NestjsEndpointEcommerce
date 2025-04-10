@@ -7,11 +7,11 @@ import { Field, InputType } from '@nestjs/graphql';
 export class UpdateOrderItemDto extends PartialType(CreateOrderItemDto) {
       @IsUUID()
       @Field()
-      order_id: string;
+      orderId: string;
     
       @IsUUID()
       @Field()
-      product_id: string;
+      productId: string;
     
       @IsNumber()
       @Field()

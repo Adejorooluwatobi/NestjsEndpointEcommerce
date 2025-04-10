@@ -10,7 +10,7 @@ export class Notification {
 
     @Field()
     @Column('uuid')
-    account_id: string;
+    accountId: string;
 
     @Field()
     @Column({ length: 100 })
@@ -26,7 +26,7 @@ export class Notification {
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @Column('timestamp')
@@ -34,5 +34,5 @@ export class Notification {
 
     @Field()
     @Column('date')
-    notification_expiry_date: Date;
+    notification_expiryDate: Date;
 }

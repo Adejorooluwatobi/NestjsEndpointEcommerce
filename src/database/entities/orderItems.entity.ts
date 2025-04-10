@@ -12,11 +12,11 @@ export class OrderItem {
 
     @Field()
     @Column('uuid')
-    order_id: string;
+    orderId: string;
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field()
     @Column('numeric')

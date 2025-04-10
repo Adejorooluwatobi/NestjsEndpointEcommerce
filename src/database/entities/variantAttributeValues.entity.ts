@@ -4,7 +4,7 @@ import { Variant } from './variants.entity';
 import { AttributeValue } from './attributeValues.entity';
 
 @ObjectType()
-@Entity({ name: 'variant_attribute_values' })
+@Entity({ name: 'variantAttributeValues' })
 export class VariantAttributeValue {
     @Field()
     @PrimaryGeneratedColumn('uuid')
@@ -12,11 +12,11 @@ export class VariantAttributeValue {
 
     @Field()
     @Column('uuid')
-    variant_attribute_value_id: string;
+    variantAttributeValueId: string;
 
     @Field()
     @Column('uuid')
-    variant_value_id: string;
+    variantValueId: string;
 
     @Field(() => Variant)
     @ManyToOne(() => Variant, (variant) => variant.variantAttributeValues)

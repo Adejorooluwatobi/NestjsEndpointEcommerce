@@ -12,11 +12,11 @@ export class ProductCategory {
 
     @Field()
     @Column('uuid')
-    category_id: string;
+    categoryId: string;
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field(() => Category)
     @ManyToOne(() => Category, (category) => category.productCategory)

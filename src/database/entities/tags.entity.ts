@@ -11,7 +11,7 @@ export class Tag {
 
     @Field()
     @Column({ length: 100 })
-    tag_name: string;
+    tagName: string;
 
     @Field()
     @Column('text')
@@ -19,19 +19,19 @@ export class Tag {
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [ProductTag])
     @OneToMany(() => ProductTag, (productTag) => productTag.tag)

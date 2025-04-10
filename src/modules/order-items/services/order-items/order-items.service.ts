@@ -33,14 +33,14 @@ export class OrderItemsService {
         }
         
         return this.orderItemRepository.find({
-            where: { order_id: orderId },
+            where: { orderId: orderId },
             relations: ['product']
         });
     }
 
     async createOrderItem(orderItemDetails: CreateOrderItemParams) {
         // Verify order exists first
-        const order = await this.ordersService.findOrderById(orderItemDetails.order_id);
+        const order = await this.ordersService.findOrderById(orderItemDetails.orderId);
         if (!order) {
             throw new NotFoundException('Order not found');
         }

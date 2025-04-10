@@ -6,12 +6,12 @@ export class CreateOrderItemDto {
   @IsNotEmpty()
   @IsUUID()
   @Field()
-  order_id: string;
+  orderId: string;
 
   @IsNotEmpty()
   @IsUUID()
   @Field()
-  product_id: string;
+  productId: string;
 
   @IsNotEmpty()
   @IsNumber()

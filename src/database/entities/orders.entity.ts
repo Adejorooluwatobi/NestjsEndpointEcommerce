@@ -14,43 +14,43 @@ export class Order {
 
     @Field()
     @Column({ length: 100 })
-    order_no: string;
+    orderNo: string;
 
     @Field()
     @Column('uuid')
-    customer_id: string;
+    customerId: string;
 
     @Field()
     @Column('uuid')
-    coupon_id: string;
+    couponId: string;
 
     @Field()
     @Column('integer')
-    order_status_id: number;
+    orderStatusId: number;
 
     @Field()
     @Column('timestamp')
-    order_delivered_carrier_date: Date;
+    orderDeliveredCarrierDate: Date;
 
     @Field()
     @Column('timestamp')
-    order_delivered_customer_date: Date;
+    orderDeliveredCustomerDate: Date;
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => Customer)
     @ManyToOne(() => Customer, (customer) => customer.orders)

@@ -5,7 +5,7 @@ import { Field, InputType } from '@nestjs/graphql';
 @InputType()
 export class UpdateOrderStatusDto extends PartialType(CreateOrderStatusDto) {
       @Field()
-      status_name: string;
+      statusName: string;
     
       @Field()
       color: string;
@@ -14,8 +14,8 @@ export class UpdateOrderStatusDto extends PartialType(CreateOrderStatusDto) {
       privacy: string;
     
       @Field()
-      created_by: string;
+      createdBy: string;
 
       @Field()
-      updated_by: string;
+      updatedBy: string;
 }

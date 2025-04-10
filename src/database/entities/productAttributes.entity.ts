@@ -5,7 +5,7 @@ import { Attribute } from './attributes.entity';
 
 
 @ObjectType()
-@Entity({ name: 'product_attributes' })
+@Entity({ name: 'productAttributes' })
 export class ProductAttribute {
     @Field()
     @PrimaryGeneratedColumn('uuid')
@@ -13,11 +13,11 @@ export class ProductAttribute {
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field()
     @Column('uuid')
-    attribute_id: string;
+    attributeId: string;
 
     @Field(() => Product)
     @ManyToOne(() => Product, (product) => product.productAttributes)

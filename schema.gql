@@ -3,18 +3,18 @@
 # ------------------------------------------------------
 
 type Attribute {
-  attribute_name: String!
-  created_at: DateTime!
-  created_by: String!
+  attributeName: String!
+  createdAt: DateTime!
+  createdBy: String!
   id: String!
   productAttributes: [ProductAttribute!]!
-  updated_at: DateTime!
-  updated_by: String!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type AttributeValue {
-  attribute_id: String!
-  attribute_value: String!
+  attributeId: String!
+  attributeValue: String!
   color: String!
   id: String!
   variantAttributeValues: [VariantAttributeValue!]!
@@ -23,86 +23,86 @@ type AttributeValue {
 type Card {
   cardItems: [CardItem!]!
   customer: Customer!
-  customer_id: String!
+  customerId: String!
   id: String!
 }
 
 type CardItem {
   card: Card!
-  card_id: String!
+  cardId: String!
   id: String!
-  product_id: String!
+  productId: String!
   quantity: Float!
 }
 
 type Category {
   active: Boolean!
-  category_description: String!
-  category_name: String!
-  created_at: DateTime!
-  created_by: String!
+  categoryDescription: String!
+  categoryName: String!
+  createdAt: DateTime!
+  createdBy: String!
   icon: String!
   id: String!
-  image_path: String!
-  parent_id: String!
+  imagePath: String!
+  parentId: String!
   productCategory: [ProductCategory!]!
-  updated_at: DateTime!
-  updated_by: String!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type Coupon {
   code: String!
-  coupon_description: String!
-  coupon_end_date: DateTime!
-  coupon_start_date: DateTime!
-  created_at: DateTime!
-  created_by: String!
-  discount_type: String!
-  discount_value: Float!
+  couponDescription: String!
+  couponEndDate: DateTime!
+  couponStartDate: DateTime!
+  createdAt: DateTime!
+  createdBy: String!
+  discountType: String!
+  discountValue: Float!
   id: String!
-  max_usage: Float!
+  maxUsage: Float!
   orders: [Order!]!
-  times_used: Boolean!
-  updated_at: DateTime!
-  updated_by: String!
+  timesUsed: Boolean!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 input CreateCardItemDto {
-  card_id: String!
-  item_details: String!
-  product_id: String!
+  cardId: String!
+  itemDetails: String!
+  productId: String!
 }
 
 input CreateOrderItemDto {
-  order_id: String!
+  orderId: String!
   price: Float!
-  product_id: String!
+  productId: String!
   quantity: Float!
 }
 
 input CreateOrderStatusDto {
   color: String!
-  created_by: String!
+  createdBy: String!
   privacy: String!
-  status_name: String!
-  updated_by: String!
+  statusName: String!
+  updatedBy: String!
 }
 
 type Customer {
   active: Boolean!
   cards: [Card!]!
-  created_at: DateTime!
-  created_by: String!
+  createdAt: DateTime!
+  createdBy: String!
   email: String!
-  first_name: String!
+  firstName: String!
   id: String!
-  last_name: String!
+  lastName: String!
   orders: [Order!]!
   password: String!
-  phone_number: String!
-  registered_at: DateTime!
-  updated_at: DateTime!
-  updated_by: String!
+  phoneNumber: String!
+  registeredAt: DateTime!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 """
@@ -111,16 +111,16 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Gallery {
-  created_at: DateTime!
-  created_by: String!
-  display_order: Boolean!
+  createdAt: DateTime!
+  createdBy: String!
+  displayOrder: Boolean!
   id: String!
-  image_path: String!
+  imagePath: String!
   product: Product!
-  product_id: String!
+  productId: String!
   thumbnail: String!
-  updated_at: DateTime!
-  updated_by: String!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type Mutation {
@@ -137,41 +137,41 @@ type Mutation {
 
 type Order {
   coupon: Coupon!
-  coupon_id: String!
-  created_at: DateTime!
-  created_by: String!
+  couponId: String!
+  createdAt: DateTime!
+  createdBy: String!
   customer: Customer!
-  customer_id: String!
+  customerId: String!
   id: String!
+  orderDeliveredCarrierDate: DateTime!
+  orderDeliveredCustomerDate: DateTime!
   orderItems: [OrderItem!]!
+  orderNo: String!
   orderStatus: OrderStatus!
-  order_delivered_carrier_date: DateTime!
-  order_delivered_customer_date: DateTime!
-  order_no: String!
-  order_status_id: Float!
-  updated_at: DateTime!
-  updated_by: String!
+  orderStatusId: Float!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type OrderItem {
   id: String!
   order: Order!
-  order_id: String!
+  orderId: String!
   price: Float!
-  product_id: String!
+  productId: String!
   quantity: Float!
 }
 
 type OrderStatus {
   color: String!
-  created_at: DateTime!
-  created_by: String!
+  createdAt: DateTime!
+  createdBy: String!
   id: Float!
   orders: [Order!]!
   privacy: String!
-  status_name: String!
-  updated_at: DateTime!
-  updated_by: String!
+  statusName: String!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type Post {
@@ -185,67 +185,67 @@ type Post {
 }
 
 type Product {
-  created_at: DateTime!
-  created_by: String!
-  discount_price: Float!
+  createdAt: DateTime!
+  createdBy: String!
+  discountPrice: Float!
   galleries: [Gallery!]!
   id: String!
   productAttributes: [ProductAttribute!]!
   productCategory: [ProductCategory!]!
+  productCode: String!
   productCoupons: [ProductCoupon!]!
+  productDescription: String!
+  productName: String!
   productShippings: [ProductShipping!]!
   productTags: [ProductTag!]!
-  product_code: String!
-  product_description: String!
-  product_name: String!
-  product_weight: Float!
+  productWeight: Float!
   published: Boolean!
   quantity: Float!
-  regular_price: Float!
-  short_description: String!
+  regularPrice: Float!
+  shortDescription: String!
   sku: String!
-  updated_at: DateTime!
-  updated_by: String!
+  updatedAt: DateTime!
+  updatedBy: String!
   variants: [Variant!]!
 }
 
 type ProductAttribute {
   attribute: Attribute!
-  attribute_id: String!
+  attributeId: String!
   id: String!
   product: Product!
-  product_id: String!
+  productId: String!
 }
 
 type ProductCategory {
   category: Category!
-  category_id: String!
+  categoryId: String!
   id: String!
   product: Product!
-  product_id: String!
+  productId: String!
 }
 
 type ProductCoupon {
-  coupon_id: String!
+  couponId: String!
   id: String!
   product: Product!
-  product_id: String!
+  productId: String!
 }
 
 type ProductShipping {
-  estimated_days: Float!
+  estimatedDays: Float!
   free: Boolean!
   id: String!
-  product_id: String!
-  ship_charge: Float!
-  shipping_id: String!
-  shipping_id_integer: Float!
+  productId: String!
+  shipCharge: Float!
+  shippingId: String!
+  shippingIdInteger: Float!
 }
 
 type ProductTag {
   id: String!
   product: Product!
-  product_id: String!
+  productId: String!
   tag: Tag!
 }
 
@@ -277,57 +277,57 @@ type Query {
 
 type StaffAccount {
   active: Boolean!
-  created_by: String!
+  createdBy: String!
   email: String!
-  first_name: String!
+  firstName: String!
   id: String!
-  last_name: String!
-  password_hash: String!
-  phone_number: String!
-  profile_img: String!
-  registered_at: DateTime!
+  lastName: String!
+  passwordHash: String!
+  phoneNumber: String!
+  profileImg: String!
+  registeredAt: DateTime!
   staffRole: StaffRole!
-  updated_at: DateTime!
-  updated_by: String!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type StaffRole {
   id: String!
-  role_id: Float!
+  roleId: Float!
   staffAccounts: [StaffAccount!]!
-  staff_id: String!
+  staffId: String!
 }
 
 type Tag {
-  created_at: DateTime!
-  created_by: String!
+  createdAt: DateTime!
+  createdBy: String!
   icon: String!
   id: String!
   productTags: [ProductTag!]!
-  tag_name: String!
-  updated_at: DateTime!
-  updated_by: String!
+  tagName: String!
+  updatedAt: DateTime!
+  updatedBy: String!
 }
 
 input UpdateCardItemDto {
-  card_id: String!
-  item_details: String!
-  product_id: String!
+  cardId: String!
+  itemDetails: String!
+  productId: String!
 }
 
 input UpdateOrderItemDto {
-  order_id: String!
+  orderId: String!
   price: Float!
-  product_id: String!
+  productId: String!
   quantity: Float!
 }
 
 input UpdateOrderStatusDto {
   color: String!
-  created_by: String!
+  createdBy: String!
   privacy: String!
-  status_name: String!
-  updated_by: String!
+  statusName: String!
+  updatedBy: String!
 }
 
 type User {
@@ -347,17 +347,17 @@ type Variant {
   id: String!
   price: Float!
   product: Product!
-  product_id: String!
+  productId: String!
   quantity: Float!
+  variantAttributeValueId: String!
   variantAttributeValues: [VariantAttributeValue!]!
-  variant_attribute_value_id: String!
-  variant_id: String!
+  variantId: String!
 }
 
 type VariantAttributeValue {
   attributeValues: AttributeValue!
   id: String!
   variant: Variant!
-  variant_attribute_value_id: String!
-  variant_value_id: String!
+  variantAttributeValueId: String!
+  variantValueId: String!
 }

@@ -6,7 +6,7 @@ export class CreateOrderStatusDto {
   @IsNotEmpty()
   @IsString()
   @Field()
-  status_name: string;
+  statusName: string;
 
   @IsNotEmpty()
   @IsString()
@@ -21,10 +21,10 @@ export class CreateOrderStatusDto {
   @IsNotEmpty()
   @IsUUID()
   @Field()
-  created_by: string;
+  createdBy: string;
 
   @IsNotEmpty()
   @IsUUID()
   @Field()
-  updated_by: string;
+  updatedBy: string;
 }

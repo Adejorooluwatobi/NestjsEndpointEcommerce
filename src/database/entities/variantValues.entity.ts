@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
-@Entity({ name: 'variant_attribute_values' })
+@Entity({ name: 'variantAttributeValues' })
 export class VariantValue {
     @Field()
     @PrimaryGeneratedColumn('uuid')
@@ -11,7 +11,7 @@ export class VariantValue {
 
     @Field()
     @Column('uuid')
-    variant_id: string;
+    variantId: string;
 
     @Field()
     @Column('numeric')

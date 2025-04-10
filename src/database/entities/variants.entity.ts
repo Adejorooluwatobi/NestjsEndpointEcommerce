@@ -12,7 +12,7 @@ export class Variant {
 
     @Field()
     @Column('uuid')
-    variant_id: string;
+    variantId: string;
 
     @Field()
     @Column('numeric')
@@ -24,11 +24,11 @@ export class Variant {
 
     @Field()
     @Column('uuid')
-    variant_attribute_value_id: string;
+    variantAttributeValueId: string;
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field(() => Product)
     @ManyToOne(() => Product, (product) => product.variants)

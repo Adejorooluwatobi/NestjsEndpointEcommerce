@@ -12,11 +12,11 @@ export class ProductCoupon {
 
     @Field()
     @Column('uuid')
-    coupon_id: string;
+    couponId: string;
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     // @Field(() => Coupon)
     // @ManyToOne(() => Coupon, (coupon) => coupon.productCoupons)

@@ -16,47 +16,47 @@ export class Coupon {
 
     @Field()
     @Column('text')
-    coupon_description: string;
+    couponDescription: string;
 
     @Field()
     @Column('numeric')
-    discount_value: number;
+    discountValue: number;
 
     @Field()
     @Column({ length: 50 })
-    discount_type: string;
+    discountType: string;
 
     @Field()
     @Column('boolean')
-    times_used: boolean;
+    timesUsed: boolean;
 
     @Field()
     @Column('integer')
-    max_usage: number;
+    maxUsage: number;
 
     @Field()
     @Column('timestamp')
-    coupon_start_date: Date;
+    couponStartDate: Date;
 
     @Field()
     @Column('timestamp')
-    coupon_end_date: Date;
+    couponEndDate: Date;
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     // @Field(() => [ProductCoupon])
     // @OneToMany(() => ProductCoupon, (productCoupons) => productCoupons.coupon)

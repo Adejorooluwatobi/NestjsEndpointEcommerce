@@ -10,7 +10,7 @@ export class CustomerAddress {
 
     @Field()
     @Column('uuid')
-    customer_id: string;
+    customerId: string;
 
     @Field()
     @Column('text')
@@ -22,7 +22,7 @@ export class CustomerAddress {
 
     @Field()
     @Column({ length: 100 })
-    postal_code: string;
+    postalCode: string;
 
     @Field()
     @Column({ length: 200 })
@@ -34,5 +34,5 @@ export class CustomerAddress {
 
     @Field()
     @Column({ length: 200 })
-    phone_number: string;
+    phoneNumber: string;
 }

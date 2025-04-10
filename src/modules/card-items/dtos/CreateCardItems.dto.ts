@@ -6,13 +6,13 @@ export class CreateCardItemDto {
     // Define the properties and validations for CreateCardItemDto
     @IsNotEmpty()
     @Field()
-    product_id: string;
+    productId: string;
     
     @IsNotEmpty()
     @Field()
-    card_id: string;
+    cardId: string;
   
     @IsNotEmpty()
     @Field()
-    item_details: string;
+    itemDetails: string;
   }

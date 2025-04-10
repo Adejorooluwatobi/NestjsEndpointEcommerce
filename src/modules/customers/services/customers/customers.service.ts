@@ -34,7 +34,7 @@ export class CustomersService {
     }
         // Logic to create a new customer
         const hashedPassword = await bcrypt.hash(customerDetails.password, 10); // Hash the password
-        const newCustomer = this.customerRepository.create({ ...customerDetails, password: hashedPassword, created_at: new Date(), updated_at: new Date() });
+        const newCustomer = this.customerRepository.create({ ...customerDetails, password: hashedPassword, createdAt: new Date(), updatedAt: new Date() });
         return this.customerRepository.save(newCustomer);
     }
 
@@ -42,7 +42,7 @@ export class CustomersService {
 
         updateCustomerDetails.password = await bcrypt.hash(updateCustomerDetails.password, 10);
         // Logic to update an customer
-        return this.customerRepository.update(id, { ...updateCustomerDetails, updated_at: new Date() });
+        return this.customerRepository.update(id, { ...updateCustomerDetails, updatedAt: new Date() });
     }
 
     deleteCustomer(id: string) {

@@ -11,7 +11,7 @@ export class OrderStatus {
 
     @Field()
     @Column({ length: 50 })
-    status_name: string;
+    statusName: string;
 
     @Field()
     @Column({ length: 50 })
@@ -23,19 +23,19 @@ export class OrderStatus {
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.orderStatus)

@@ -12,7 +12,7 @@ export class Card {
 
     @Field()
     @Column('uuid')
-    customer_id: string;
+    customerId: string;
 
     @Field(() => Customer)
     @ManyToOne(() => Customer, (customer) => customer.cards)

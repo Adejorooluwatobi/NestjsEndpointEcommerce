@@ -13,19 +13,19 @@ export class ProductShipping {
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field()
     @Column('uuid')
-    shipping_id: string;
+    shippingId: string;
 
     @Field()
     @Column('integer')
-    shipping_id_integer: number;
+    shippingIdInteger: number;
 
     @Field()
     @Column('numeric')
-    ship_charge: number;
+    shipCharge: number;
 
     @Field()
     @Column('boolean')
@@ -39,6 +39,6 @@ export class ProductShipping {
 
     @Field()
     @Column('numeric')
-    estimated_days: number;
+    estimatedDays: number;
 
 }

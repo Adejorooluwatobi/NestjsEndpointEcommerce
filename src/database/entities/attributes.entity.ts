@@ -11,23 +11,23 @@ export class Attribute {
 
     @Field()
     @Column({ length: 255 })
-    attribute_name: string;
+    attributeName: string;
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [ProductAttribute])
     @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.attribute)

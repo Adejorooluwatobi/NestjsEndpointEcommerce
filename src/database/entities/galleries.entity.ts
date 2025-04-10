@@ -11,11 +11,11 @@ export class Gallery {
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field()
     @Column('text')
-    image_path: string;
+    imagePath: string;
 
     @Field()
     @Column('text')
@@ -23,23 +23,23 @@ export class Gallery {
 
     @Field()
     @Column('boolean')
-    display_order: boolean;
+    displayOrder: boolean;
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => Product)
     @ManyToOne(() => Product, (product) => product.galleries)

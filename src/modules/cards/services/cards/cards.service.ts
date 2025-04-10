@@ -35,14 +35,14 @@ export class CardsService {
         }
         
         return this.cardRepository.find({
-            where: { customer_id: customerId },
+            where: { customerId: customerId },
             relations: ['cardItems']
         });
     }
 
     async createCard(cardDetails: CreateCardParams) {
         // Verify customer exists first
-        const customer = await this.customersService.findCustomerById(cardDetails.customer_id);
+        const customer = await this.customersService.findCustomerById(cardDetails.customerId);
         if (!customer) {
             throw new NotFoundException('Customer not found');
         }
@@ -59,7 +59,7 @@ export class CardsService {
             const cardItems = cardDetails.cardItems.map(item => {
                 return this.cardItemRepository.create({
                     ...item,
-                    card_id: savedCard.id
+                    cardId: savedCard.id
                 });
             });
             await this.cardItemRepository.save(cardItems);
@@ -88,7 +88,7 @@ export class CardsService {
         }
         
         // Delete associated card items first
-        await this.cardItemRepository.delete({ card_id: id });
+        await this.cardItemRepository.delete({ cardId: id });
         
         // Then delete the card
         return this.cardRepository.delete(id);

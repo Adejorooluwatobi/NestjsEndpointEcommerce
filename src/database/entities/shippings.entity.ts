@@ -19,23 +19,23 @@ export class Shipping {
 
     @Field()
     @Column('text')
-    icon_path: string;
+    iconPath: string;
 
     @Field()
     @CreateDateColumn()
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [ProductShipping])
     @OneToMany(() => ProductShipping, (productShippings) => productShippings.shipping)

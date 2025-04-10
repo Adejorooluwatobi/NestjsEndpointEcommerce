@@ -12,15 +12,15 @@ export class Customer {
 
     @Field()
     @Column({ length: 100 })
-    first_name: string;
+    firstName: string;
 
     @Field()
     @Column({ length: 100 })
-    last_name: string;
+    lastName: string;
 
     @Field()
     @Column({ length: 255 })
-    phone_number: string;
+    phoneNumber: string;
 
     @Field()
     @Column({ length: 255 })
@@ -36,23 +36,23 @@ export class Customer {
 
     @Field()
     @CreateDateColumn()
-    registered_at: Date;
+    registeredAt: Date;
 
     @Field()
     @Column('timestamp')
-    created_at: Date;
+    createdAt: Date;
 
     @Field()
     @Column('timestamp')
-    updated_at: Date;
+    updatedAt: Date;
 
     @Field()
     @Column('uuid')
-    created_by: string;
+    createdBy: string;
 
     @Field()
     @Column('uuid')
-    updated_by: string;
+    updatedBy: string;
 
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.customer)

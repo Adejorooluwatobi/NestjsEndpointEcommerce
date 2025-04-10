@@ -12,7 +12,7 @@ export class ProductTag {
 
     @Field()
     @Column('uuid')
-    product_id: string;
+    productId: string;
 
     @Field(() => Tag)
     @ManyToOne(() => Tag, (tag) => tag.productTags)

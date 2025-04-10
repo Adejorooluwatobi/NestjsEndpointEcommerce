@@ -6,7 +6,7 @@ import { CreateOrderItemDto } from 'src/modules/order-items/dtos/CreateOrderItem
 // class CreateOrderItemDto {
 //   @IsNotEmpty()
 //   @IsUUID()
-//   product_id: string;
+//   productId: string;
 
 //   @IsNotEmpty()
 //   @IsNumber()
@@ -14,27 +14,27 @@ import { CreateOrderItemDto } from 'src/modules/order-items/dtos/CreateOrderItem
 
 //   @IsNotEmpty()
 //   @IsNumber()
-//   unit_price: number;
+//   unitPrice: number;
 // }
 
 export class CreateOrderDto {
   @IsNotEmpty()
   @IsUUID()
-  customer_id: string;
+  customerId: string;
 
   @IsOptional()
   @IsUUID()
-  coupon_id?: string;
+  couponId?: string;
 
   @IsNotEmpty()
   @IsNumber()
-  order_status_id: number;
+  orderStatusId: number;
 
   @IsOptional()
-  order_delivered_carrier_date?: Date;
+  orderDeliveredCarrierDate?: Date;
 
   @IsOptional()
-  order_delivered_customer_date?: Date;
+  orderDeliveredCustomerDate?: Date;
 
   @IsOptional()
   @IsArray()

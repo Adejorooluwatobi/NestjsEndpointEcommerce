@@ -6,13 +6,13 @@ export class UpdateCardItemDto {
 
   @IsNotEmpty()
   @Field()
-  product_id: string;
+  productId: string;
   
   @IsNotEmpty()
   @Field()
-  card_id: string;
+  cardId: string;
 
   @IsNotEmpty()
   @Field()
-  item_details: string;
+  itemDetails: string;
   }
