@@ -2,14 +2,102 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Attribute {
+  attribute_name: String!
+  created_at: DateTime!
+  created_by: String!
+  id: String!
+  productAttributes: [ProductAttribute!]!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+type AttributeValue {
+  attribute_id: String!
+  attribute_value: String!
+  color: String!
+  id: String!
+  variantAttributeValues: [VariantAttributeValue!]!
+}
+
+type Card {
+  cardItems: [CardItem!]!
+  customer: Customer!
+  customer_id: String!
+  id: String!
+}
+
+type CardItem {
+  card: Card!
+  card_id: String!
+  id: String!
+  product_id: String!
+  quantity: Float!
+}
+
+type Category {
+  active: Boolean!
+  category_description: String!
+  category_name: String!
+  created_at: DateTime!
+  created_by: String!
+  icon: String!
+  id: String!
+  image_path: String!
+  parent_id: String!
+  productCategory: [ProductCategory!]!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+type Coupon {
+  code: String!
+  coupon_description: String!
+  coupon_end_date: DateTime!
+  coupon_start_date: DateTime!
+  created_at: DateTime!
+  created_by: String!
+  discount_type: String!
+  discount_value: Float!
+  id: String!
+  max_usage: Float!
+  orders: [Order!]!
+  times_used: Boolean!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+input CreateCardItemDto {
+  card_id: String!
+  item_details: String!
+  product_id: String!
+}
+
+input CreateOrderItemDto {
+  order_id: String!
+  price: Float!
+  product_id: String!
+  quantity: Float!
+}
+
+input CreateOrderStatusDto {
+  color: String!
+  created_by: String!
+  privacy: String!
+  status_name: String!
+  updated_by: String!
+}
+
 type Customer {
   active: Boolean!
+  cards: [Card!]!
   created_at: DateTime!
   created_by: String!
   email: String!
   first_name: String!
   id: String!
   last_name: String!
+  orders: [Order!]!
   password: String!
   phone_number: String!
   registered_at: DateTime!
@@ -22,6 +110,70 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Gallery {
+  created_at: DateTime!
+  created_by: String!
+  display_order: Boolean!
+  id: String!
+  image_path: String!
+  product: Product!
+  product_id: String!
+  thumbnail: String!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+type Mutation {
+  createCardItem(createCardItemInput: CreateCardItemDto!): CardItem!
+  createOrderItem(createOrderItemInput: CreateOrderItemDto!): OrderItem!
+  createOrderStatus(createOrderStatusInput: CreateOrderStatusDto!): OrderStatus!
+  deleteCardItem(id: String!): Boolean!
+  deleteOrderItem(id: String!): Boolean!
+  deleteOrderStatus(id: Float!): Boolean!
+  updateCardItem(id: String!, updateCardItemInput: UpdateCardItemDto!): CardItem!
+  updateOrderItem(id: String!, updateOrderItemInput: UpdateOrderItemDto!): OrderItem!
+  updateOrderStatus(id: Float!, updateOrderStatusInput: UpdateOrderStatusDto!): OrderStatus!
+}
+
+type Order {
+  coupon: Coupon!
+  coupon_id: String!
+  created_at: DateTime!
+  created_by: String!
+  customer: Customer!
+  customer_id: String!
+  id: String!
+  orderItems: [OrderItem!]!
+  orderStatus: OrderStatus!
+  order_delivered_carrier_date: DateTime!
+  order_delivered_customer_date: DateTime!
+  order_no: String!
+  order_status_id: Float!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+type OrderItem {
+  id: String!
+  order: Order!
+  order_id: String!
+  price: Float!
+  product_id: String!
+  quantity: Float!
+}
+
+type OrderStatus {
+  color: String!
+  created_at: DateTime!
+  created_by: String!
+  id: Float!
+  orders: [Order!]!
+  privacy: String!
+  status_name: String!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
 type Post {
   createdAt: DateTime!
   description: String!
@@ -30,6 +182,71 @@ type Post {
   title: String!
   updatedAt: DateTime!
   user: User!
+}
+
+type Product {
+  created_at: DateTime!
+  created_by: String!
+  discount_price: Float!
+  galleries: [Gallery!]!
+  id: String!
+  productAttributes: [ProductAttribute!]!
+  productCategory: [ProductCategory!]!
+  productCoupons: [ProductCoupon!]!
+  productShippings: [ProductShipping!]!
+  productTags: [ProductTag!]!
+  product_code: String!
+  product_description: String!
+  product_name: String!
+  product_weight: Float!
+  published: Boolean!
+  quantity: Float!
+  regular_price: Float!
+  short_description: String!
+  sku: String!
+  updated_at: DateTime!
+  updated_by: String!
+  variants: [Variant!]!
+}
+
+type ProductAttribute {
+  attribute: Attribute!
+  attribute_id: String!
+  id: String!
+  product: Product!
+  product_id: String!
+}
+
+type ProductCategory {
+  category: Category!
+  category_id: String!
+  id: String!
+  product: Product!
+  product_id: String!
+}
+
+type ProductCoupon {
+  coupon_id: String!
+  id: String!
+  product: Product!
+  product_id: String!
+}
+
+type ProductShipping {
+  estimated_days: Float!
+  free: Boolean!
+  id: String!
+  product_id: String!
+  ship_charge: Float!
+  shipping_id: String!
+  shipping_id_integer: Float!
+}
+
+type ProductTag {
+  id: String!
+  product: Product!
+  product_id: String!
+  tag: Tag!
 }
 
 type Profile {
@@ -46,8 +263,71 @@ type Profile {
 }
 
 type Query {
+  cardItem(id: String!): CardItem!
+  cardItems: [CardItem!]!
+  cardItemsByCardId(cardId: String!): [CardItem!]!
   customers: [Customer!]!
+  orderItem(id: String!): OrderItem!
+  orderItems: [OrderItem!]!
+  orderItemsByOrderId(orderId: String!): [OrderItem!]!
+  orderStatus(id: Float!): OrderStatus!
+  orderStatuses: [OrderStatus!]!
   users: [User!]!
+}
+
+type StaffAccount {
+  active: Boolean!
+  created_by: String!
+  email: String!
+  first_name: String!
+  id: String!
+  last_name: String!
+  password_hash: String!
+  phone_number: String!
+  profile_img: String!
+  registered_at: DateTime!
+  staffRole: StaffRole!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+type StaffRole {
+  id: String!
+  role_id: Float!
+  staffAccounts: [StaffAccount!]!
+  staff_id: String!
+}
+
+type Tag {
+  created_at: DateTime!
+  created_by: String!
+  icon: String!
+  id: String!
+  productTags: [ProductTag!]!
+  tag_name: String!
+  updated_at: DateTime!
+  updated_by: String!
+}
+
+input UpdateCardItemDto {
+  card_id: String!
+  item_details: String!
+  product_id: String!
+}
+
+input UpdateOrderItemDto {
+  order_id: String!
+  price: Float!
+  product_id: String!
+  quantity: Float!
+}
+
+input UpdateOrderStatusDto {
+  color: String!
+  created_by: String!
+  privacy: String!
+  status_name: String!
+  updated_by: String!
 }
 
 type User {
@@ -61,4 +341,23 @@ type User {
   profile: Profile
   updatedAt: DateTime!
   username: String!
+}
+
+type Variant {
+  id: String!
+  price: Float!
+  product: Product!
+  product_id: String!
+  quantity: Float!
+  variantAttributeValues: [VariantAttributeValue!]!
+  variant_attribute_value_id: String!
+  variant_id: String!
+}
+
+type VariantAttributeValue {
+  attributeValues: AttributeValue!
+  id: String!
+  variant: Variant!
+  variant_attribute_value_id: String!
+  variant_value_id: String!
 }

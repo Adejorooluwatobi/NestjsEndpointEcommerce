@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from '../auth/dto/login.dto'; // Assuming you have a LoginDto defined
 import { RegisterDto } from '../auth/dto/register.dto'; // Assuming you have a RegisterDto defined
@@ -21,6 +21,24 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async userLogin(@Body() loginDto: LoginDto): Promise<AccessTokenDto> {
     const token = await this.authService.loginUser(loginDto.email, loginDto.password);
+    return { accessToken: token.access_token, isAdmin: token.user.isAdmin };
+  }
+
+  @Post('customer/register')
+  async registerCustomer(@Body() registerDto: RegisterDto): Promise<string> {
+    const hashedPassword = await this.authService.hashPassword(registerDto.password);
+    await this.authService.registerCustomer(registerDto.email, hashedPassword); // Save user to the database
+    return 'User registered successfully';
+  }
+
+
+  @Post('customer/login')
+  @HttpCode(HttpStatus.OK)
+  async customerLogin(@Body() loginDto: LoginDto): Promise<AccessTokenDto> {
+    const token = await this.authService.loginCustomer(loginDto.email, loginDto.password);
+    if (!token) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
     return { accessToken: token.access_token, isAdmin: token.user.isAdmin };
   }
 }

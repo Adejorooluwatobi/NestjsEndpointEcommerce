@@ -5,9 +5,9 @@ import { Variant } from './variants.entity';
 import { ProductAttribute } from './productAttributes.entity';
 import { Gallery } from './galleries.entity';
 import { ProductTag } from './productTags.entity';
-import { OrderItem } from './orderItems.entity';
+// import { OrderItem } from './orderItems.entity';
 import { ProductShipping } from './productShippings.entity';
-import { CardItem } from './cardItems.entity';
+// import { CardItem } from './cardItems.entity';
 import { ProductCoupon } from './productCoupons.entity';
 
 @ObjectType()
@@ -97,15 +97,15 @@ export class Product {
     @OneToMany(() => ProductTag, (productTags) => productTags.product)
     productTags: ProductTag[];
 
-    @Field(() => [OrderItem])
-    @OneToMany(() => OrderItem, (orderItems) => orderItems.product)
-    orderItems: OrderItem[];
+    // @Field(() => [OrderItem])
+    // @OneToMany(() => OrderItem, (orderItems) => orderItems.product)
+    // orderItems: OrderItem[];
 
     @Field(() => [ProductShipping])
     @OneToMany(() => ProductShipping, (productShippings) => productShippings.product)
     productShippings: ProductShipping[];
 
-    @Field(() => [CardItem])
-    @OneToMany(() => CardItem, (cardItems) => cardItems.product)
-    cardItems: CardItem[];
+    // @Field(() => [CardItem])
+    // @OneToMany(() => CardItem, (cardItems) => cardItems.product)
+    // cardItems: CardItem[];
 }

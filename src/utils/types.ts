@@ -1,10 +1,14 @@
 export type CreateCustomerParams = {
+    firstname: string;
+    lastname: string;
     username: string;
     email: string;
     password: string;
 };
 
 export type UpdateCustomerParams = {
+    firstname: string;
+    lastname: string;
     username: string;
     email: string;
     password: string;
