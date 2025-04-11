@@ -15,7 +15,7 @@ export class Shipping {
 
     @Field()
     @Column('boolean')
-    active: boolean;
+    isActive: boolean;;
 
     @Field()
     @Column('text')

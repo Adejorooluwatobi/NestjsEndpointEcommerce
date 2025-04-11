@@ -31,7 +31,7 @@ export class Category {
 
     @Field()
     @Column('boolean')
-    active: boolean;
+    isActive: boolean;;
 
     @Field()
     @CreateDateColumn()

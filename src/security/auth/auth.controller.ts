@@ -2,7 +2,7 @@ import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException } f
 import { AuthService } from './auth.service';
 import { LoginDto } from '../auth/dto/login.dto'; // Assuming you have a LoginDto defined
 import { RegisterDto } from '../auth/dto/register.dto'; // Assuming you have a RegisterDto defined
-import { AccessTokenDto } from '../auth/dto/access-token.dto'; // Assuming you have an AccessTokenDto defined
+import { CustomerAccessTokenDto, UserAccessTokenDto } from '../auth/dto/access-token.dto'; // Assuming you have an AccessTokenDto defined
 
 
 @Controller('auth')
@@ -19,26 +19,26 @@ export class AuthController {
 
   @Post('user/login')
   @HttpCode(HttpStatus.OK)
-  async userLogin(@Body() loginDto: LoginDto): Promise<AccessTokenDto> {
+  async userLogin(@Body() loginDto: LoginDto): Promise<UserAccessTokenDto> {
     const token = await this.authService.loginUser(loginDto.email, loginDto.password);
-    return { accessToken: token.access_token, isAdmin: token.user.isAdmin };
+    return { accessToken: token.access_token, isAdmin: token.user.isAdmin, isActive: token.user.isActive };
   }
 
   @Post('customer/register')
   async registerCustomer(@Body() registerDto: RegisterDto): Promise<string> {
     const hashedPassword = await this.authService.hashPassword(registerDto.password);
     await this.authService.registerCustomer(registerDto.email, hashedPassword); // Save user to the database
-    return 'User registered successfully';
+    return 'customer registered successfully';
   }
 
 
   @Post('customer/login')
   @HttpCode(HttpStatus.OK)
-  async customerLogin(@Body() loginDto: LoginDto): Promise<AccessTokenDto> {
+  async customerLogin(@Body() loginDto: LoginDto): Promise<CustomerAccessTokenDto> {
     const token = await this.authService.loginCustomer(loginDto.email, loginDto.password);
     if (!token) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    return { accessToken: token.access_token, isAdmin: token.user.isAdmin };
+    return { accessToken: token.access_token, isActive: token.customer.isActive }
   }
 }

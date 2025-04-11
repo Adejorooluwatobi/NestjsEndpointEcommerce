@@ -55,6 +55,7 @@ export class AuthService {
         email: user.email,
         name: user.username,
         isAdmin: user.isAdmin,
+        isActive: user.isActive
       }
     };
   }
@@ -68,10 +69,11 @@ export class AuthService {
     await this.usersService.createUser({
       email : '',
       password: hashedPassword,
-      username: '',
-      firstname: '',
-      lastname: '',
+      userName: '',
+      firstName: '',
+      lastName: '',
       isAdmin: false,
+      isActive: false,
     });
   }
 
@@ -100,11 +102,12 @@ export class AuthService {
     
     return {
       access_token: this.jwtService.sign(payload),
-      user: {
+      customer: {
         id: customer.id,
         email: customer.email,
         name: customer.username,
-        isAdmin: customer.isAdmin,
+        isActive: customer.isActive,
+        isAdmin: customer.isAdmin
       }
     };
   }
@@ -118,9 +121,11 @@ export class AuthService {
     await this.customersService.createCustomer({
       email : '',
       password: hashedPassword,
-      username: '',
-      firstname: '',
-      lastname: '',
+      userName: '',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      isActive: false,
     });
   }
 }

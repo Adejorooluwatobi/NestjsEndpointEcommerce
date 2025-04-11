@@ -19,6 +19,10 @@ export class Customer {
     lastName: string;
 
     @Field()
+    @Column({ length: 100 })
+    userName: string;
+
+    @Field()
     @Column({ length: 255 })
     phoneNumber: string;
 
@@ -31,8 +35,8 @@ export class Customer {
     password: string;
 
     @Field()
-    @Column('boolean')
-    active: boolean;
+    @Column({ default: false })
+    isActive: boolean;
 
     @Field()
     @CreateDateColumn()
@@ -45,14 +49,6 @@ export class Customer {
     @Field()
     @Column('timestamp')
     updatedAt: Date;
-
-    @Field()
-    @Column('uuid')
-    createdBy: string;
-
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
 
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.customer)

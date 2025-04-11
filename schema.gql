@@ -36,7 +36,6 @@ type CardItem {
 }
 
 type Category {
-  active: Boolean!
   categoryDescription: String!
   categoryName: String!
   createdAt: DateTime!
@@ -44,6 +43,7 @@ type Category {
   icon: String!
   id: String!
   imagePath: String!
+  isActive: Boolean!
   parentId: String!
   productCategory: [ProductCategory!]!
   updatedAt: DateTime!
@@ -89,20 +89,19 @@ input CreateOrderStatusDto {
 }
 
 type Customer {
-  active: Boolean!
   cards: [Card!]!
   createdAt: DateTime!
-  createdBy: String!
   email: String!
   firstName: String!
   id: String!
+  isActive: Boolean!
   lastName: String!
   orders: [Order!]!
   password: String!
   phoneNumber: String!
   registeredAt: DateTime!
   updatedAt: DateTime!
-  updatedBy: String!
+  userName: String!
 }
 
 """
@@ -276,11 +275,11 @@ type Query {
 }
 
 type StaffAccount {
-  active: Boolean!
   createdBy: String!
   email: String!
   firstName: String!
   id: String!
+  isActive: Boolean!
   lastName: String!
   passwordHash: String!
   phoneNumber: String!
@@ -333,9 +332,10 @@ input UpdateOrderStatusDto {
 type User {
   createdAt: DateTime!
   email: String!
-  firstname: String!
+  firstName: String!
+  isActive: Boolean!
   isAdmin: Boolean!
-  lastname: String!
+  lastName: String!
   password: String!
   posts: [Post!]!
   profile: Profile

@@ -28,14 +28,27 @@ export class UsersService {
     }
 
     async createUser(userDetails: CreateUserParams) {
+    // try {    
+    if (!userDetails.email) {
+        throw new Error('Email is required');
+    }
         const existingUser = await this.userRepository.findOneBy({ email: userDetails.email });
     if (existingUser) {
-        throw new ConflictException('Admin with this email already exists');
+        throw new ConflictException(`User with email ${userDetails.email} already exists`);
     }
         // Logic to create a new user
         const hashedPassword = await bcrypt.hash(userDetails.password, 10); // Hash the password
         const newUser = this.userRepository.create({ ...userDetails, password: hashedPassword, createdAt: new Date(), updatedAt: new Date() });
-        return this.userRepository.save(newUser);
+        const savedUser = await this.userRepository.save(newUser);
+        console.log(`User created successfully with ID: ${savedUser.id}`);
+        return savedUser;
+    // } catch (error) {
+    //     console.error('Error creating user:', error);
+    //     if (error.code === '23505') { // PostgreSQL unique constraint violation
+    //         throw new ConflictException(`User with this email already exists`);
+    //     }
+    //     throw error;
+    // }
     }
 
     async updateUser( id: string, updateUserDetails: UpdateUserParams) {

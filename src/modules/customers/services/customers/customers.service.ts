@@ -28,14 +28,19 @@ export class CustomersService {
     }
 
     async createCustomer(customerDetails: CreateCustomerParams) {
+        if (!customerDetails.email) {
+            throw new Error('Email is required');
+        }
         const existingCustomer = await this.customerRepository.findOneBy({ email: customerDetails.email });
     if (existingCustomer) {
-        throw new ConflictException('Customer with this email already exists');
+        throw new ConflictException(`Customer with this ${customerDetails.email} already exists`);
     }
         // Logic to create a new customer
         const hashedPassword = await bcrypt.hash(customerDetails.password, 10); // Hash the password
         const newCustomer = this.customerRepository.create({ ...customerDetails, password: hashedPassword, createdAt: new Date(), updatedAt: new Date() });
-        return this.customerRepository.save(newCustomer);
+        const savedCustomer = await this.customerRepository.save(newCustomer);
+        console.log(`Customer created successfully with ID: ${savedCustomer.id}`);
+        return savedCustomer;
     }
 
     async updateCustomer( id: string, updateCustomerDetails: UpdateCustomerParams) {

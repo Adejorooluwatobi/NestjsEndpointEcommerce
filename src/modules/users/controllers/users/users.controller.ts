@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
 import { UsersService } from '../../services/users/users.service';
 import { CreateUserDto } from '../../dtos/CreateUser.dto'; // Adjust the import path as necessary
 import { UpdateUserDto } from '../../../users/dtos/UpdateUser.dto';
@@ -28,7 +28,7 @@ export class UsersController {
     }
 
     @Post()
-    createUser(@Body() createUserDto: CreateUserDto) {
+    createUser(@Body(new ValidationPipe()) createUserDto: CreateUserDto) {
         // Logic to create a new user
         return this.usersService.createUser(createUserDto);
     }

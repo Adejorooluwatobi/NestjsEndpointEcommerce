@@ -11,11 +11,11 @@ export class User {
 
     @Field()
     @Column()
-    firstname: string;
+    firstName: string;
 
     @Field()
     @Column()
-    lastname: string;
+    lastName: string;
 
     @Field()
     @Column({ nullable: true }) // optional field
@@ -24,6 +24,10 @@ export class User {
     @Field()
     @Column({ default: false }) // optional field
     isAdmin: boolean;
+
+    @Field()
+    @Column({ default: false })
+    isActive: boolean;
 
     @Field()
     @Column({ unique: true }) // unique constraint for email

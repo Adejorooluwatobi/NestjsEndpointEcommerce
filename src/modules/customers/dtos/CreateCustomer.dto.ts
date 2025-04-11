@@ -1,7 +1,31 @@
+import { IsBoolean, IsEmail, IsNotEmpty, IsString } from "class-validator";
+
 export class CreateCustomerDto {
-    firstname: string;
-    lastname: string;
-    username: string;
+    @IsString()
+    @IsNotEmpty()
+    firstName: string;
+
+    @IsString()
+    @IsNotEmpty()
+    lastName: string;
+
+    @IsString()
+    @IsNotEmpty()
+    userName: string;
+
+    @IsString()
+    @IsNotEmpty()
+    phoneNumber: string;
+
+    @IsEmail()
+    @IsNotEmpty()
     email: string;
+
+    @IsString()
+    @IsNotEmpty()
     password: string;
+
+    @IsBoolean()
+    @IsNotEmpty()
+    isActive: boolean;
 }

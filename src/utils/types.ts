@@ -1,33 +1,39 @@
 export type CreateCustomerParams = {
-    firstname: string;
-    lastname: string;
-    username: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    userName: string;
     email: string;
     password: string;
+    isActive: boolean;
 };
 
 export type UpdateCustomerParams = {
-    firstname: string;
-    lastname: string;
-    username: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    userName: string;
     email: string;
     password: string;
+    isActive: boolean;
 };
 export type CreateUserParams = {
-    firstname: string;
-    lastname: string;
-    username: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
     email: string;
     isAdmin: boolean;
+    isActive: boolean
     password: string;
 };
 
 export type UpdateUserParams = {
-    firstname: string;
-    lastname: string;
-    username: string;
+    firstName: string;
+    lastName: string;
+    userName: string;
     email: string;
     isAdmin: boolean;
+    isActive: boolean;
     password: string;
 };
 
@@ -56,7 +62,7 @@ export type CreateUserProfileParams = {
 //     phoneNumber: string;
 //     email: string;
 //     password: string;
-//     active: boolean;
+//     isActive: boolean;;
 //     createdBy: string;
 //     updatedBy: string;
 // };

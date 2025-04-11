@@ -31,7 +31,7 @@ export class StaffAccount {
 
     @Field()
     @Column('boolean')
-    active: boolean;
+    isActive: boolean;;
 
     @Field()
     @Column('text')
