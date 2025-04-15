@@ -18,8 +18,8 @@ export class User {
     lastName: string;
 
     @Field()
-    @Column({ nullable: true }) // optional field
-    username: string;
+    @Column() // optional field
+    userName: string;
 
     @Field()
     @Column({ default: false }) // optional field

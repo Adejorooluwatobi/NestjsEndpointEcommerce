@@ -10,8 +10,8 @@ import { LoggingMiddleware } from './middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './security/auth/auth.module';
 import { CustomersModule } from './modules/customers/customers.module';
-import { UserProfileModule } from './modules/user-profile/user-profile.module';
-import { UserPostModule } from './modules/user-post/user-post.module';
+import { ProfileModule } from './modules/profile/profile.module';
+import { PostModule } from './modules/post/post.module';
 import { UsersModule } from './modules/users/users.module';
 import { OrdersController } from './modules/orders/controllers/orders/orders.controller';
 import { CardsModule } from './modules/cards/cards.module';
@@ -53,7 +53,7 @@ import { RolesModule } from './modules/roles/roles.module';
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  UserProfileModule, UserPostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule],
+  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule],
   controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController],
   providers: [AppService, AppGateway, AuthService],
 })

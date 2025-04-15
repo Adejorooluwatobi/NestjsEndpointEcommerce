@@ -3,17 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/User.entity';
 import { Post } from 'src/database/entities/Post.entity';
-import { CreateUserPostDto } from '../../dtos/CreateUserPost.dto';
+import { CreatePostDto } from '../../dtos/CreatePost.dto';
 
 
 @Injectable()
-export class UserPostService {
+export class PostService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Post) private postRepository: Repository<Post>,
   ) {}
 
-  async createUserPost(id: string, createUserPostDetails: CreateUserPostDto) {
+  async createPost(id: string, createPostDetails: CreatePostDto) {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new HttpException(
@@ -23,13 +23,13 @@ export class UserPostService {
     }
 
     const newPost = this.postRepository.create({
-      ...createUserPostDetails,
+      ...createPostDetails,
       user,
     });
     return this.postRepository.save(newPost);
   }
 
-  async getUserPosts(id: string) {
+  async getPosts(id: string) {
     const user = await this.userRepository.findOne({
       where: { id },
       relations: ['posts'],

@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { StaffAccountsService } from '../../services/staff-accounts/staff-accounts.service';
 import { CreateStaffAccountDto } from '../../dtos/CreateStaffAccount.dto';
 import { UpdateStaffAccountDto } from '../../dtos/UpdateStaffAccount.dto';
+import { UserGuard } from 'src/security/auth/guards/user.guard';
 
 
 // import { StaffAccountGuard } from 'src/security/auth/guards/staffAccount.guard';
@@ -10,24 +11,24 @@ import { UpdateStaffAccountDto } from '../../dtos/UpdateStaffAccount.dto';
 export class StaffAccountsController {
     constructor(private staffsService: StaffAccountsService) {}
 
-    // @UseGuards(StaffAccountGuard)
+    @UseGuards(UserGuard)
     @Get()
     async getStaffs() {
         return this.staffsService.findStaffAccount();
     }
 
-    // @UseGuards(StaffAccountGuard)
+    
     @Get(':id')
     async getStaffById(@Param('id', ParseUUIDPipe) id: string) {
         return this.staffsService.findStaffAccountById(id);
     }
 
+    @UseGuards(UserGuard)
     @Post()
     createStaff(@Body() createStaffDto: CreateStaffAccountDto) {
         return this.staffsService.createStaffAccount(createStaffDto);
     }
 
-    // @UseGuards(StaffAccountGuard)
     @Put(':id')
     async updateStaffById(
         @Param('id', ParseUUIDPipe) id: string, 
@@ -36,7 +37,7 @@ export class StaffAccountsController {
     }
 
     
-    // @UseGuards(StaffAccountGuard)
+    @UseGuards(UserGuard)
     @Delete(':id')
     async deleteStaffById(
         @Param('id', ParseUUIDPipe) id: string) {

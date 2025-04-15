@@ -3,7 +3,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @ObjectType()
-@Entity({ name: "user_profile" })
+@Entity({ name: "profile" })
 export class Profile {
     @Field() 
     @PrimaryGeneratedColumn('uuid')
@@ -11,7 +11,7 @@ export class Profile {
 
     @Field() 
     @Column()
-    phoneNumber: string;
+    altPhoneNumber: string;
 
     @Field() 
     @Column()

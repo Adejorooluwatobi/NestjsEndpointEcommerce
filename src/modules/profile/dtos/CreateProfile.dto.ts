@@ -1,5 +1,5 @@
-export class CreateUserProfileDto {
-  phoneNumber: string;
+export class CreateProfileDto {
+  altPhoneNumber: string;
   address: string;
   city: string;
   state: string;

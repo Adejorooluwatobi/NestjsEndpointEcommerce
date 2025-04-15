@@ -71,9 +71,9 @@ export class UsersService {
         });
       }
 
-    // async createUserProfile(
+    // async createProfile(
     //     id: string, // Changed type from number to string to match the User entity
-    //     createUserProfileDetails: CreateUserProfileParams,
+    //     createProfileDetails: CreateProfileParams,
     // ) {
     //     // Logic to create a user profile
     //     const user = await this.userRepository.findOneBy({ id });
@@ -81,15 +81,15 @@ export class UsersService {
     //         throw new HttpException('User not found, Cannot create profile', HttpStatus.BAD_REQUEST);
     //     }
 
-    //     const newProfile = this.profileRepository.create(createUserProfileDetails);
+    //     const newProfile = this.profileRepository.create(createProfileDetails);
     //     const savedProfile = await this.profileRepository.save(newProfile);
     //     user.profile = savedProfile; // Associate the profile with the user
     //     return this.userRepository.save(user); // Save the updated user
     // }
 
-    // async createUserPost(
+    // async createPost(
     //     id: string, // Changed type from number to string to match the User entity
-    //     createUserPostDetails: CreateUserPostParams,
+    //     createPostDetails: CreatePostParams,
     // ) {
     //     // Logic to create a user profile
     //     const user = await this.userRepository.findOneBy({ id });
@@ -98,7 +98,7 @@ export class UsersService {
     //     }
 
     //     const newPost = this.postRepository.create({
-    //         ...createUserPostDetails,
+    //         ...createPostDetails,
     //         user, 
     //     });
     //     return this.postRepository.save(newPost); // Save the new post

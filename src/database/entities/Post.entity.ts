@@ -3,7 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { User } from './User.entity';
 
 @ObjectType()
-@Entity({ name: 'user_posts' })
+@Entity({ name: 'posts' })
 export class Post {
     @Field() 
     @PrimaryGeneratedColumn('uuid')

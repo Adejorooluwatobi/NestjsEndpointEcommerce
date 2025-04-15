@@ -3,11 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/User.entity';
 import { Profile } from 'src/database/entities/Profile.entity';
-import { CreateUserProfileDto } from '../../dtos/CreateUserProfile.dto';
+import { CreateProfileDto } from '../../dtos/CreateProfile.dto';
 import { Customer } from 'src/database/entities';
 
 @Injectable()
-export class UserProfileService {
+export class ProfileService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     @InjectRepository(Customer) private customerRepository: Repository<Customer>,
@@ -16,7 +16,7 @@ export class UserProfileService {
 
   async createUserProfile(
     id: string,
-    createUserProfileDetails: CreateUserProfileDto,
+    createProfileDetails: CreateProfileDto,
   ) {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
@@ -26,7 +26,7 @@ export class UserProfileService {
       );
     }
 
-    const newProfile = this.profileRepository.create(createUserProfileDetails);
+    const newProfile = this.profileRepository.create(createProfileDetails);
     const savedProfile = await this.profileRepository.save(newProfile);
     user.profile = savedProfile;
     return this.userRepository.save(user);
@@ -45,7 +45,7 @@ export class UserProfileService {
 
   async createCustomerProfile(
     id: string,
-    createCustomerProfileDetails: CreateUserProfileDto,
+    createCustomerProfileDetails: CreateProfileDto,
   ) {
     const customer = await this.customerRepository.findOneBy({ id });
     if (!customer) {

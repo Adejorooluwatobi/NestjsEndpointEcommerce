@@ -56,8 +56,8 @@ export type UpdateUserParams = {
     password: string;
 };
 
-export type CreateUserProfileParams = {
-    phoneNumber: string;
+export type CreateProfileParams = {
+    altPhoneNumber: string;
     address: string;
     city: string;
     state: string;
@@ -66,7 +66,7 @@ export type CreateUserProfileParams = {
     dateOfBirth: Date;
     };
 
-    export type CreateUserPostParams = {
+    export type CreatePostParams = {
         title: string;
         description: string;
         isActive: boolean; 
