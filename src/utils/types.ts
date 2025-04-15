@@ -72,6 +72,32 @@ export type CreateProfileParams = {
         isActive: boolean; 
     };
 
+    export type CreateProductParams = {
+        productName: string;
+        sku: string;
+        regularPrice: number;
+        discountPrice: number;
+        quantity: number;
+        shortDescription: string;
+        productDescription: string;
+        productWeight: number;
+        productCode: string;
+        published: boolean;
+    }
+
+    export type UpdateProductParams = {
+        productName: string;
+        sku: string;
+        regularPrice: number;
+        discountPrice: number;
+        quantity: number;
+        shortDescription: string;
+        productDescription: string;
+        productWeight: number;
+        productCode: string;
+        published: boolean;
+    }
+
 export type CreateOrderParams = {
     customerId: string;
     couponId?: string;

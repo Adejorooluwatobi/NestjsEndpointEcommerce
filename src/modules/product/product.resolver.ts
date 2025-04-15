@@ -1,4 +1,13 @@
-import { Resolver } from '@nestjs/graphql';
+import { Query, Resolver } from '@nestjs/graphql';
+import { Product } from 'src/database/entities/products.entity';
+import { ProductService } from './services/product/product.service';
 
-@Resolver()
-export class ProductResolver {}
+@Resolver(() => Product)
+export class ProductResolver {
+    constructor(private productService: ProductService) {}
+
+    @Query(() => [Product], {name: 'product'})
+    async findProduct(): Promise<Product[]> {
+        return this.productService.findProduct();
+    }
+}

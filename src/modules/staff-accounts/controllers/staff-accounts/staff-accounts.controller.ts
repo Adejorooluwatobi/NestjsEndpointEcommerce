@@ -17,7 +17,7 @@ export class StaffAccountsController {
         return this.staffsService.findStaffAccount();
     }
 
-    
+    @UseGuards(UserGuard)
     @Get(':id')
     async getStaffById(@Param('id', ParseUUIDPipe) id: string) {
         return this.staffsService.findStaffAccountById(id);

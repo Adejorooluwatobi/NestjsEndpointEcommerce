@@ -27,8 +27,7 @@ import { StaffAccountsModule } from './modules/staff-accounts/staff-accounts.mod
 import { StaffRolesModule } from './modules/staff-roles/staff-roles.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { ProductController } from './modules/product/controllers/product/product.controller';
-import { ProductModule } from './product/product.module';
-import { ProductResolver } from './product/product.resolver';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
@@ -58,7 +57,7 @@ import { ProductResolver } from './product/product.resolver';
   }),
   ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule],
   controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController],
-  providers: [AppService, AppGateway, AuthService, ProductResolver],
+  providers: [AppService, AppGateway, AuthService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

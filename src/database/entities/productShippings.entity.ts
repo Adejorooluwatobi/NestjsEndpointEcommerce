@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Product } from './products.entity';
+// import { Product } from './products.entity';
 import { Shipping } from './shippings.entity';
 
 
@@ -31,8 +31,8 @@ export class ProductShipping {
     @Column('boolean')
     free: boolean;
 
-    @ManyToOne(() => Product, (product) => product.productShippings)
-    product: Product;
+    // @ManyToOne(() => Product, (product) => product.productShippings)
+    // product: Product;
 
     @ManyToOne(() => Shipping, (shipping) => shipping.productShippings)
     shipping: Shipping;

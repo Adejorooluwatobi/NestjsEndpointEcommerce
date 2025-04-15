@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
-import { Product } from './products.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+// import { Product } from './products.entity';
 import { VariantAttributeValue } from './variantAttributeValues.entity';
 
 @ObjectType()
@@ -30,9 +30,9 @@ export class Variant {
     @Column('uuid')
     productId: string;
 
-    @Field(() => Product)
-    @ManyToOne(() => Product, (product) => product.variants)
-    product: Product;
+    // @Field(() => Product)
+    // @ManyToOne(() => Product, (product) => product.variants)
+    // product: Product;
 
     @Field(() => [VariantAttributeValue])
     @OneToMany(() => VariantAttributeValue, (variantAttributeValues) => variantAttributeValues.variant)
