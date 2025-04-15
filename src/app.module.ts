@@ -26,6 +26,9 @@ import { CardsController } from './modules/cards/controllers/cards/cards.control
 import { StaffAccountsModule } from './modules/staff-accounts/staff-accounts.module';
 import { StaffRolesModule } from './modules/staff-roles/staff-roles.module';
 import { RolesModule } from './modules/roles/roles.module';
+import { ProductController } from './modules/product/controllers/product/product.controller';
+import { ProductModule } from './product/product.module';
+import { ProductResolver } from './product/product.resolver';
 
 @Module({
   imports: [
@@ -53,9 +56,9 @@ import { RolesModule } from './modules/roles/roles.module';
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule],
-  controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController],
-  providers: [AppService, AppGateway, AuthService],
+  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule],
+  controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController],
+  providers: [AppService, AppGateway, AuthService, ProductResolver],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
