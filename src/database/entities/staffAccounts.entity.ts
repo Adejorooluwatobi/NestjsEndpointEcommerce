@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Profile } from './Profile.entity';
 import { StaffRole } from './staffRoles.entity';
 
 @ObjectType()
@@ -27,7 +28,7 @@ export class StaffAccount {
 
     @Field()
     @Column('text')
-    passwordHash: string;
+    password: string;
 
     @Field()
     @Column('boolean')
@@ -37,6 +38,11 @@ export class StaffAccount {
     @Column('text')
     profileImg: string;
 
+    @Field(() => Profile, { nullable: true })
+    @OneToOne(() => Profile)
+    @JoinColumn()
+    profile: Profile;
+
     @Field()
     @CreateDateColumn()
     registeredAt: Date;
@@ -45,13 +51,13 @@ export class StaffAccount {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field()
-    @Column('uuid')
-    createdBy: string;
+    // @Field()
+    // @Column('uuid')
+    // createdBy: string;
 
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
+    // @Field()
+    // @Column('uuid')
+    // updatedBy: string;
 
     @Field(() => StaffRole)
     @ManyToOne(() => StaffRole, (staffRole) => staffRole.staffAccounts)

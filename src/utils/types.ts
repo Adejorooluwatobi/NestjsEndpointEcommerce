@@ -12,10 +12,29 @@ export type UpdateCustomerParams = {
     firstName: string;
     lastName: string;
     phoneNumber: string;
-    userName: string;
     email: string;
     password: string;
     isActive: boolean;
+};
+
+export type CreateStaffParams = {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    email: string;
+    password: string;
+    isActive: boolean;
+    profileImg: string;
+};
+
+export type UpdateStaffParams = {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    email: string;
+    password: string;
+    isActive: boolean;
+    profileImg: string;
 };
 export type CreateUserParams = {
     firstName: string;
@@ -52,37 +71,6 @@ export type CreateUserProfileParams = {
         description: string;
         isActive: boolean; 
     };
-
-    // src/utils/types.ts
-
-// Extending existing types
-// export type CreateCustomerParams = {
-//     firstName: string;
-//     lastName: string;
-//     phoneNumber: string;
-//     email: string;
-//     password: string;
-//     isActive: boolean;;
-//     createdBy: string;
-//     updatedBy: string;
-// };
-
-// export type UpdateCustomerParams = {
-//     firstName?: string;
-//     lastName?: string;
-//     phoneNumber?: string;
-//     email?: string;
-//     password?: string;
-//     active?: boolean;
-//     updatedBy?: string;
-// };
-
-// New types for Orders
-// export type CreateOrderItemParams = {
-//     productId: string;
-//     quantity: number;
-//     unitPrice: number;
-// };
 
 export type CreateOrderParams = {
     customerId: string;
@@ -123,9 +111,6 @@ export type UpdateCardParams = {
     customerId?: string;
 };
 
-// src/utils/types.ts
-// Adding to our existing types file
-
 // Types for OrderStatus
 export type CreateOrderStatusParams = {
     statusName: string;
@@ -154,3 +139,23 @@ export type UpdateOrderItemParams = {
     price?: number;
     quantity?: number;
 };
+
+export type CreateRoleParams = {
+    roleName: string;
+    privileges: string;
+};
+
+export type UpdateRoleParams = {
+    roleName: string;
+    privileges: string;
+};
+
+export type CreateStaffRoleParams = {
+    staffId: string;
+    roleId: string;
+}
+
+export type UpdateStaffRoleParams = {
+    staffId: string;
+    roleId: string;
+}

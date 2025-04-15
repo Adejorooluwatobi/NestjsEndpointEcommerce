@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/modules/users/services/users/users.service';
@@ -63,7 +63,7 @@ export class AuthService {
   async registerUser(email: string, hashedPassword: string): Promise<void> {
     const existingUser = await this.usersService.findUserByEmail(email);
     if (existingUser) {
-      throw new UnauthorizedException('User with this email already exists');
+      throw new UnauthorizedException(`User with this ${email} already exists`);
     }
   
     await this.usersService.createUser({
@@ -91,26 +91,60 @@ export class AuthService {
     return customer;
   }
 
+  // async loginCustomer(email: string, password: string) {
+  //   const customer = await this.validateCustomer(email, password);
+  //   const payload = { 
+  //     sub: customer.id, 
+  //     email: customer.email,
+  //     role: 'customer'  // Make sure this is included
+  //   };
+    
+  //   return {
+  //     access_token: this.jwtService.sign(payload),
+  //     customer: {
+  //       id: customer.id,
+  //       email: customer.email,
+  //       userName: customer.userName,
+  //       isActive: customer.isActive,
+  //     }
+  //   };
+  // }
   async loginCustomer(email: string, password: string) {
-    const customer = await this.validateUser(email, password);
-    
-    const payload = { 
-      email: customer.email, 
-      sub: customer.id, 
-      role: 'customer'
-    };
-    
-    return {
-      access_token: this.jwtService.sign(payload),
-      customer: {
-        id: customer.id,
-        email: customer.email,
-        name: customer.username,
-        isActive: customer.isActive,
-        isAdmin: customer.isAdmin
-      }
-    };
-  }
+    try {
+        const customer = await this.customersService.findCustomerByEmail(email);
+        if (!customer) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, customer.password);
+        if (!isPasswordValid) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const payload = {
+            sub: customer.id,
+            email: customer.email,
+            role: 'customer'
+        };
+
+        return {
+            access_token: this.jwtService.sign(payload),
+            customer: {
+                id: customer.id,
+                email: customer.email,
+                userName: customer.userName,
+                isActive: customer.isActive,
+            }
+        };
+    } catch (error) {
+        console.error('Error during customer login:', error); // Log the error on the server
+        if (error instanceof UnauthorizedException) {
+            throw error; // Re-throw UnauthorizedException
+        }
+        throw new InternalServerErrorException('Login failed due to a server error');
+    }
+}
+
 
   async registerCustomer(email: string, hashedPassword: string): Promise<void> {
     const existingCustomer = await this.customersService.findCustomerByEmail(email);

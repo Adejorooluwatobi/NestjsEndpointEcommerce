@@ -1,7 +1,8 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, OneToOne, JoinColumn, UpdateDateColumn } from 'typeorm';
 import { Order } from './orders.entity';
 import { Card } from './cards.entity';
+import { Profile } from './Profile.entity';
 
 @ObjectType()
 @Entity({ name: 'customers' })
@@ -43,12 +44,17 @@ export class Customer {
     registeredAt: Date;
 
     @Field()
-    @Column('timestamp')
+    @CreateDateColumn()
     createdAt: Date;
 
     @Field()
-    @Column('timestamp')
+    @UpdateDateColumn()
     updatedAt: Date;
+
+    @Field(() => Profile, { nullable: true })
+    @OneToOne(() => Profile)
+    @JoinColumn()
+    profile: Profile;
 
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.customer)

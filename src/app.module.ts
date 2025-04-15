@@ -23,6 +23,9 @@ import { OrderItemsModule } from './modules/order-items/order-items.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { OrderStatusesController } from './modules/order-statuses/controllers/order-statuses/order-statuses.controller';
 import { CardsController } from './modules/cards/controllers/cards/cards.controller';
+import { StaffAccountsModule } from './modules/staff-accounts/staff-accounts.module';
+import { StaffRolesModule } from './modules/staff-roles/staff-roles.module';
+import { RolesModule } from './modules/roles/roles.module';
 
 @Module({
   imports: [
@@ -43,7 +46,6 @@ import { CardsController } from './modules/cards/controllers/cards/cards.control
     autoLoadEntities: true,
     logging: true,
   }),
-  UserProfileModule, UserPostModule, UsersModule,
   GraphQLModule.forRoot<ApolloDriverConfig>({
     driver: ApolloDriver,
     autoSchemaFile: 'schema.gql', // Path to generate the schema file
@@ -51,7 +53,7 @@ import { CardsController } from './modules/cards/controllers/cards/cards.control
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  UserProfileModule, UserPostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule],
+  UserProfileModule, UserPostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule],
   controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController],
   providers: [AppService, AppGateway, AuthService],
 })

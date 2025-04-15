@@ -25,7 +25,7 @@ export class CustomerGuard implements CanActivate {
       // Assign customer to request object
       request.customer = payload;
       // Allow access if customer or admin
-      return payload.role === 'customer' || payload.role === 'admin';
+      return payload.role === 'customer';
     } catch {
       return false;
     }

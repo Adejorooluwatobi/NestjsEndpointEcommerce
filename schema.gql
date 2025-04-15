@@ -99,6 +99,7 @@ type Customer {
   orders: [Order!]!
   password: String!
   phoneNumber: String!
+  profile: Profile
   registeredAt: DateTime!
   updatedAt: DateTime!
   userName: String!
@@ -271,28 +272,38 @@ type Query {
   orderItemsByOrderId(orderId: String!): [OrderItem!]!
   orderStatus(id: Float!): OrderStatus!
   orderStatuses: [OrderStatus!]!
+  roles: [Role!]!
+  staffAccounts: [StaffAccount!]!
+  staffRoles: [StaffRole!]!
   users: [User!]!
 }
 
+type Role {
+  createdAt: DateTime!
+  id: String!
+  privileges: String!
+  roleName: String!
+  updatedAt: DateTime!
+}
+
 type StaffAccount {
-  createdBy: String!
   email: String!
   firstName: String!
   id: String!
   isActive: Boolean!
   lastName: String!
-  passwordHash: String!
+  password: String!
   phoneNumber: String!
+  profile: Profile
   profileImg: String!
   registeredAt: DateTime!
   staffRole: StaffRole!
   updatedAt: DateTime!
-  updatedBy: String!
 }
 
 type StaffRole {
   id: String!
-  roleId: Float!
+  roleId: String!
   staffAccounts: [StaffAccount!]!
   staffId: String!
 }

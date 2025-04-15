@@ -10,7 +10,7 @@ export class Profile {
     id: string; 
 
     @Field() 
-    @Column({ nullable: true })
+    @Column()
     phoneNumber: string;
 
     @Field() 

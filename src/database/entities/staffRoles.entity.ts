@@ -14,8 +14,8 @@ export class StaffRole {
     staffId: string;
 
     @Field()
-    @Column('integer')
-    roleId: number;
+    @Column('uuid')
+    roleId: string;
 
     @Field(() => [StaffAccount])
     @OneToMany(() => StaffAccount, (staffAccounts) => staffAccounts.staffRole)

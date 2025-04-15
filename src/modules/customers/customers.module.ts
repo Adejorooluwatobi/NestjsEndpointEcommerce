@@ -3,14 +3,13 @@ import { CustomersController } from './controllers/customers/customers.controlle
 import { CustomersService } from './services/customers/customers.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Profile } from 'src/database/entities/Profile.entity';
-import { Post } from 'src/database/entities/Post.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { Customer } from 'src/database/entities/customers.entity';
 import { CustomersResolver } from './customers.resolver';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Customer, Profile, Post]),
+  imports: [TypeOrmModule.forFeature([Customer, Profile]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({
