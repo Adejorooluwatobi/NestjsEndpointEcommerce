@@ -1,44 +1,57 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateProductDto{
 
-    @IsNotEmpty()
+    
+
+@ApiProperty()
+@IsNotEmpty()
     @IsString()
     productName: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsString()
     sku: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsNumber()
     regularPrice: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsNumber()
     discountPrice: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsNumber()
     quantity: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsString()
     shortDescription: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsString()
     productDescription: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsNumber()
     productWeight: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsString()
     productCode: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     @IsBoolean()
     published: boolean;
 }

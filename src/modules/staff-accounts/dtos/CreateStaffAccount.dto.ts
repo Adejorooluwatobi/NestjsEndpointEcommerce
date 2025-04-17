@@ -1,32 +1,40 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateStaffAccountDto {
     @IsString()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     firstName: string;
 
     @IsString()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     lastName: string;
 
     @IsString()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     phoneNumber: string;
 
     @IsEmail()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     email: string;
 
     @IsString()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     password: string;
 
     @IsBoolean()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     isActive: boolean;
 
     @IsString()
-    @IsNotEmpty()
+    @ApiProperty()
+@IsNotEmpty()
     profileImg: string;
 
 }

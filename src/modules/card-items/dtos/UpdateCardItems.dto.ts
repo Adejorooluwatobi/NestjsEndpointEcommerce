@@ -1,18 +1,22 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsNotEmpty } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+
 
 @InputType()
 export class UpdateCardItemDto {
 
-  @IsNotEmpty()
+  @ApiProperty()
+
   @Field()
   productId: string;
   
-  @IsNotEmpty()
+  @ApiProperty()
+
   @Field()
   cardId: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
+
   @Field()
   itemDetails: string;
   }

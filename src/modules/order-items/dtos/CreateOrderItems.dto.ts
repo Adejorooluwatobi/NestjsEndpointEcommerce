@@ -1,24 +1,29 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsUUID, IsNumber } from 'class-validator';
 
 @InputType()
 export class CreateOrderItemDto {
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsUUID()
   @Field()
   orderId: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsUUID()
   @Field()
   productId: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsNumber()
   @Field()
   price: number;
 
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsNumber()
   @Field()
   quantity: number;

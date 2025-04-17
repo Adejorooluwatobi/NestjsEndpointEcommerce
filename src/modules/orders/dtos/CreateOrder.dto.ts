@@ -1,24 +1,29 @@
 import { IsNotEmpty, IsUUID, IsOptional, IsArray, ValidateNested, IsNumber } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateOrderItemDto } from 'src/modules/order-items/dtos/CreateOrderItems.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 
 // class CreateOrderItemDto {
-//   @IsNotEmpty()
+//   @ApiProperty()
+// @IsNotEmpty()
 //   @IsUUID()
 //   productId: string;
 
-//   @IsNotEmpty()
+//   @ApiProperty()
+// @IsNotEmpty()
 //   @IsNumber()
 //   quantity: number;
 
-//   @IsNotEmpty()
+//   @ApiProperty()
+// @IsNotEmpty()
 //   @IsNumber()
 //   unitPrice: number;
 // }
 
 export class CreateOrderDto {
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsUUID()
   customerId: string;
 
@@ -26,16 +31,20 @@ export class CreateOrderDto {
   @IsUUID()
   couponId?: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsNumber()
   orderStatusId: number;
 
+  @ApiProperty()
   @IsOptional()
   orderDeliveredCarrierDate?: Date;
 
+  @ApiProperty()
   @IsOptional()
   orderDeliveredCustomerDate?: Date;
 
+  @ApiProperty()
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })

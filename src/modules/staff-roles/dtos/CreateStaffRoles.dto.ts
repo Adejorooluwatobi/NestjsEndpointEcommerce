@@ -1,11 +1,14 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateStaffRoleDto {
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsString()
   staffId: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsString()
   roleId: string;
 }

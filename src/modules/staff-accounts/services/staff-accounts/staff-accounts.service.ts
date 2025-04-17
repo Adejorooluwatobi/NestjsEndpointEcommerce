@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStaffParams, UpdateStaffParams } from 'src/utils/types';
@@ -51,5 +51,13 @@ export class StaffAccountsService {
             return this.staffRepository.delete(id);
         }
     
+        async findStaffByEmail(email: string): Promise<StaffAccount | null> {
+                try {
+                    return await this.staffRepository.findOneBy({ email });
+                } catch (error) {
+                    console.error('Error finding staff by email:', error);
+                    throw new InternalServerErrorException('Database error occurred while finding staff');
+                }
+            }
 
 }

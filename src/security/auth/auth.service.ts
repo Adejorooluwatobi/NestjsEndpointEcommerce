@@ -3,12 +3,14 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/modules/users/services/users/users.service';
 import { CustomersService } from 'src/modules/customers/services/customers/customers.service';
+import { StaffAccountsService } from 'src/modules/staff-accounts/services/staff-accounts/staff-accounts.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private customersService: CustomersService,
+    private staffsService: StaffAccountsService,
     private jwtService: JwtService,
   ) {}
   
@@ -91,24 +93,6 @@ export class AuthService {
     return customer;
   }
 
-  // async loginCustomer(email: string, password: string) {
-  //   const customer = await this.validateCustomer(email, password);
-  //   const payload = { 
-  //     sub: customer.id, 
-  //     email: customer.email,
-  //     role: 'customer'  // Make sure this is included
-  //   };
-    
-  //   return {
-  //     access_token: this.jwtService.sign(payload),
-  //     customer: {
-  //       id: customer.id,
-  //       email: customer.email,
-  //       userName: customer.userName,
-  //       isActive: customer.isActive,
-  //     }
-  //   };
-  // }
   async loginCustomer(email: string, password: string) {
     try {
         const customer = await this.customersService.findCustomerByEmail(email);
@@ -160,6 +144,60 @@ export class AuthService {
       lastName: '',
       phoneNumber: '',
       isActive: false,
+    });
+  }
+
+
+  async loginStaff(email: string, password: string) {
+    try {
+        const staff = await this.staffsService.findStaffByEmail(email);
+        if (!staff) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, staff.password);
+        if (!isPasswordValid) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const payload = {
+            sub: staff.id,
+            email: staff.email,
+            role: 'staff'
+        };
+
+        return {
+            access_token: this.jwtService.sign(payload),
+            staff: {
+                id: staff.id,
+                email: staff.email,
+                isActive: staff.isActive,
+            }
+        };
+    } catch (error) {
+        console.error('Error during staff login:', error); // Log the error on the server
+        if (error instanceof UnauthorizedException) {
+            throw error; // Re-throw UnauthorizedException
+        }
+        throw new InternalServerErrorException('Login failed due to a server error');
+    }
+}
+
+
+  async registerStaff(email: string, hashedPassword: string): Promise<void> {
+    const existingStaff = await this.staffsService.findStaffByEmail(email);
+    if (existingStaff) {
+      throw new UnauthorizedException('User with this email already exists');
+    }
+  
+    await this.staffsService.createStaffAccount({
+      email : '',
+      password: hashedPassword,
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      isActive: false,
+      profileImg: ''
     });
   }
 }

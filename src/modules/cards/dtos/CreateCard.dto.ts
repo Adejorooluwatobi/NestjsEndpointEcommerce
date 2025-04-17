@@ -2,12 +2,15 @@
 import { IsNotEmpty, IsUUID, IsOptional, IsArray, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { CreateCardItemDto } from '../../card-items/dtos/CreateCardItems.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCardDto {
-  @IsNotEmpty()
+  @ApiProperty()
+@IsNotEmpty()
   @IsUUID()
   customerId: string;
 
+  @ApiProperty()
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })

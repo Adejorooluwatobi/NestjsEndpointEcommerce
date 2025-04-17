@@ -1,44 +1,55 @@
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsBoolean, IsNumber, IsString } from "class-validator";
 
 export class UpdateProductDto{
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsString()
     productName: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsString()
     sku: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsNumber()
     regularPrice: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsNumber()
     discountPrice: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsNumber()
     quantity: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsString()
     shortDescription: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsString()
     productDescription: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsNumber()
     productWeight: number;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsString()
     productCode: string;
 
-    @IsNotEmpty()
+    @ApiProperty()
+
     @IsBoolean()
     published: boolean;
 }
