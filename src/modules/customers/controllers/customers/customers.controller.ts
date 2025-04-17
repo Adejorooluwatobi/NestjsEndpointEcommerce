@@ -3,12 +3,13 @@ import { CustomersService } from '../../services/customers/customers.service';
 import { CreateCustomerDto } from 'src/modules/customers/dtos/CreateCustomer.dto';
 import { UpdateCustomerDto } from 'src/modules/customers/dtos/UpdateCustomer.dto';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 
 @Controller('customers')
 export class CustomersController {
     constructor(private customersService: CustomersService) {}
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard, StaffGuard)
     @Get()
     async getCustomers() {
         // Logic to get all customers
@@ -17,7 +18,7 @@ export class CustomersController {
         return this.customersService.findCustomer(); // Assuming findCustomer returns a Promise
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get(':id')
     async getCustomerById(@Param('id', ParseUUIDPipe) id: string) {
         // Logic to get a customer by ID

@@ -3,24 +3,25 @@ import { OrdersService } from '../../services/orders/orders.service';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateOrderDto } from '../../dtos/CreateOrder.dto';
 import { UpdateOrderDto } from '../../dtos/UpdateOrder.dto';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 
 @Controller('orders')
 export class OrdersController {
     constructor(private ordersService: OrdersService) {}
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard, StaffGuard)
     @Get()
     async getOrders() {
         return this.ordersService.findOrders();
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get(':id')
     async getOrderById(@Param('id', ParseUUIDPipe) id: string) {
         return this.ordersService.findOrderById(id);
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get('customer/:customerId')
     async getOrdersByCustomerId(@Param('customerId', ParseUUIDPipe) customerId: string) {
         return this.ordersService.findOrdersByCustomerId(customerId);

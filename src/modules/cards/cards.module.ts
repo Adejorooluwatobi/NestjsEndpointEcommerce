@@ -6,12 +6,20 @@ import { CardsController } from './controllers/cards/cards.controller';
 import { CardsService } from './services/cards/cards.service';
 import { CustomersModule } from 'src/modules/customers/customers.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Card, CardItem]),
     CustomersModule, // Import CustomersModule to use CustomersService
-    JwtModule,
+    JwtModule.registerAsync({
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => ({
+          secret: configService.get('JWT_SECRET') || 'your_jwt_secret_key_change_in_production',
+          signOptions: { expiresIn: '24h' },
+        }),
+        inject: [ConfigService],
+      }),
   ],
   controllers: [CardsController],
   providers: [CardsService],

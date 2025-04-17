@@ -3,12 +3,13 @@ import { CardItemsService } from '../../services/card-items/card-items.service';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateCardItemDto } from '../../dtos/CreateCardItems.dto';
 import { UpdateCardItemDto } from '../../dtos/UpdateCardItems.dto';
+import { UserGuard } from 'src/security/auth/guards';
 
 @Controller('card-items')
 export class CardItemsController {
     constructor(private cardItemsService: CardItemsService) {}
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard)
     @Get()
     async getCardItems() {
         return this.cardItemsService.findCardItems();
@@ -20,7 +21,7 @@ export class CardItemsController {
         return this.cardItemsService.findCardItemById(id);
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard, UserGuard)
     @Get('card/:cardId')
     async getCardItemsByCardId(@Param('cardId', ParseUUIDPipe) cardId: string) {
         return this.cardItemsService.findCardItemsByCardId(cardId);

@@ -3,16 +3,19 @@ import { OrderStatusesService } from '../../services/order-statuses/order-status
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateOrderStatusDto } from '../../dtos/CreateOrderStatus.dto';
 import { UpdateOrderStatusDto } from '../../dtos/UpdateOrderStatus.dto';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 
 @Controller('order-statuses')
 export class OrderStatusesController {
     constructor(private orderStatusesService: OrderStatusesService) {}
 
+    @UseGuards(UserGuard, StaffGuard)
     @Get()
     async getOrderStatuses() {
         return this.orderStatusesService.findOrderStatuses();
     }
 
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get(':id')
     async getOrderStatusById(@Param('id', ParseIntPipe) id: number) {
         return this.orderStatusesService.findOrderStatusById(id);

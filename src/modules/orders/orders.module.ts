@@ -8,12 +8,20 @@ import { OrdersController } from './controllers/orders/orders.controller';
 import { OrdersService } from './services/orders/orders.service';
 import { CustomersModule } from 'src/modules/customers/customers.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Order, OrderItem, OrderStatus, Coupon]),
     CustomersModule, // Import CustomersModule to use CustomersService
-    JwtModule,
+    JwtModule.registerAsync({
+        imports: [ConfigModule],
+        useFactory: async (configService: ConfigService) => ({
+          secret: configService.get('JWT_SECRET') || 'your_jwt_secret_key_change_in_production',
+          signOptions: { expiresIn: '24h' },
+        }),
+        inject: [ConfigService],
+      }),
   ],
   controllers: [OrdersController],
   providers: [OrdersService],

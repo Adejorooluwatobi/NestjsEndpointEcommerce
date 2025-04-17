@@ -3,24 +3,25 @@ import { CardsService } from '../../services/cards/cards.service';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateCardDto } from '../../dtos/CreateCard.dto';
 import { UpdateCardDto } from '../../dtos/UpdateCard.dto';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 
 @Controller('cards')
 export class CardsController {
     constructor(private cardsService: CardsService) {}
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard, StaffGuard)
     @Get()
     async getCards() {
         return this.cardsService.findCards();
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard, UserGuard)
     @Get(':id')
     async getCardById(@Param('id', ParseUUIDPipe) id: string) {
         return this.cardsService.findCardById(id);
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard)
     @Get('customer/:customerId')
     async getCardsByCustomerId(@Param('customerId', ParseUUIDPipe) customerId: string) {
         return this.cardsService.findCardsByCustomerId(customerId);
