@@ -56,22 +56,22 @@ export class OrdersService {
             orderNo: orderNo,
             createdAt: new Date(),
             updatedAt: new Date(),
-            createdBy: orderDetails.customerId, // Using customerId as createdBy
-            updatedBy: orderDetails.customerId  // Using customerId as updatedBy
+            // createdBy: orderDetails.customerId, // Using customerId as createdBy
+            // updatedBy: orderDetails.customerId  // Using customerId as updatedBy
         });
         
         const savedOrder = await this.orderRepository.save(newOrder);
         
         // Create order items if provided
-        if (orderDetails.orderItems && orderDetails.orderItems.length > 0) {
-            const orderItems = orderDetails.orderItems.map(item => {
-                return this.orderItemRepository.create({
-                    ...item,
-                    orderId: savedOrder.id
-                });
-            });
-            await this.orderItemRepository.save(orderItems);
-        }
+        // if (orderDetails.orderItems && orderDetails.orderItems.length > 0) {
+        //     const orderItems = orderDetails.orderItems.map(item => {
+        //         return this.orderItemRepository.create({
+        //             ...item,
+        //             orderId: savedOrder.id
+        //         });
+        //     });
+        //     await this.orderItemRepository.save(orderItems);
+        // }
         
         return this.findOrderById(savedOrder.id);
     }
@@ -85,7 +85,7 @@ export class OrdersService {
         await this.orderRepository.update(id, {
             ...updateOrderDetails,
             updatedAt: new Date(),
-            updatedBy: updateOrderDetails.updatedBy || order.updatedBy
+            // updatedBy: updateOrderDetails.updatedBy || order.updatedBy
         });
         
         return this.findOrderById(id);

@@ -50,13 +50,13 @@ export class Coupon {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field()
-    @Column('uuid')
-    createdBy: string;
+    // @Field()
+    // @Column('uuid')
+    // createdBy: string;
 
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
+    // @Field()
+    // @Column('uuid')
+    // updatedBy: string;
 
     // @Field(() => [ProductCoupon])
     // @OneToMany(() => ProductCoupon, (productCoupons) => productCoupons.coupon)

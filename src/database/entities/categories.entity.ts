@@ -41,13 +41,13 @@ export class Category {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field()
-    @Column('uuid')
-    createdBy: string;
+    // @Field()
+    // @Column('uuid')
+    // createdBy: string;
 
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
+    // @Field()
+    // @Column('uuid')
+    // updatedBy: string;
 
     @Field(() => [ProductCategory])
     @OneToMany(() => ProductCategory, (productCategory) => productCategory.category)

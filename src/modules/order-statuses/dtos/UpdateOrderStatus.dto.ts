@@ -17,11 +17,11 @@ export class UpdateOrderStatusDto extends PartialType(CreateOrderStatusDto) {
       @ApiProperty()
       privacy: string;
     
-      @Field()
-      @ApiProperty()
-      createdBy: string;
+      // @Field()
+      // @ApiProperty()
+      // createdBy: string;
 
-      @Field()
-      @ApiProperty()
-      updatedBy: string;
+      // @Field()
+      // @ApiProperty()
+      // updatedBy: string;
 }

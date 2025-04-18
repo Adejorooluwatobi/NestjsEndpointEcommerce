@@ -21,7 +21,7 @@ export class OrderStatusesController {
         return this.orderStatusesService.findOrderStatusById(id);
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard, UserGuard)
     @Post()
     createOrderStatus(@Body() createOrderStatusDto: CreateOrderStatusDto) {
         return this.orderStatusesService.createOrderStatus(createOrderStatusDto);

@@ -44,13 +44,13 @@ export class Order {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field()
-    @Column('uuid')
-    createdBy: string;
+    // @Field()
+    // @Column('uuid')
+    // createdBy: string;
 
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
+    // @Field()
+    // @Column('uuid')
+    // updatedBy: string;
 
     @Field(() => Customer)
     @ManyToOne(() => Customer, (customer) => customer.orders)

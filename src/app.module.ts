@@ -28,6 +28,8 @@ import { StaffRolesModule } from './modules/staff-roles/staff-roles.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { ProductController } from './modules/product/controllers/product/product.controller';
 import { ProductModule } from './modules/product/product.module';
+import { CouponModule } from './modules/coupon/coupon.module';
+import { CouponController } from './modules/coupon/controllers/coupon/coupon.controller';
 
 @Module({
   imports: [
@@ -55,8 +57,8 @@ import { ProductModule } from './modules/product/product.module';
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule],
-  controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController],
+  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule, CouponModule],
+  controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController, CouponController],
   providers: [AppService, AppGateway, AuthService],
 })
 export class AppModule implements NestModule {

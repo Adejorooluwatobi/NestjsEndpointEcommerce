@@ -25,7 +25,7 @@ export class StaffGuard implements CanActivate {
       // Assign staff to request object
       request.staff = payload;
       // Allow access if staff or admin
-      return payload.role === 'staff';
+      return payload.role === 'staff' || payload.role === 'user';
     } catch {
       return false;
     }

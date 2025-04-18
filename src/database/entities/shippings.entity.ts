@@ -29,13 +29,13 @@ export class Shipping {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field()
-    @Column('uuid')
-    createdBy: string;
+    // @Field()
+    // @Column('uuid')
+    // createdBy: string;
 
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
+    // @Field()
+    // @Column('uuid')
+    // updatedBy: string;
 
     @Field(() => [ProductShipping])
     @OneToMany(() => ProductShipping, (productShippings) => productShippings.shipping)

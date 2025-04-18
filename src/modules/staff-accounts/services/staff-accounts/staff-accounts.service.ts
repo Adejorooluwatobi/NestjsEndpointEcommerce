@@ -17,11 +17,11 @@ export class StaffAccountsService {
     ) {}
 
     findStaffAccount() {
-        return this.staffRepository.find({relations: ['staff-role']});
+        return this.staffRepository.find({relations: ['staffRole', 'profile']});
     }
 
     findStaffAccountById(id: string) {
-        return this.staffRepository.findOne({ where: { id }, relations: ['staff-role'] });
+        return this.staffRepository.findOne({ where: { id }, relations: ['staffRole', 'profile'] });
     }
 
     async createStaffAccount(staffDetails: CreateStaffParams) {

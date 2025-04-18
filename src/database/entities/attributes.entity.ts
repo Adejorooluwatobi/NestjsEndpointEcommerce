@@ -21,13 +21,13 @@ export class Attribute {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    @Field()
-    @Column('uuid')
-    createdBy: string;
+    // @Field()
+    // @Column('uuid')
+    // createdBy: string;
 
-    @Field()
-    @Column('uuid')
-    updatedBy: string;
+    // @Field()
+    // @Column('uuid')
+    // updatedBy: string;
 
     @Field(() => [ProductAttribute])
     @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.attribute)

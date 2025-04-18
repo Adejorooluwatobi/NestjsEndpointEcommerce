@@ -104,7 +104,7 @@ export type CreateOrderParams = {
     orderStatusId: number;
     orderDeliveredCarrierDate?: Date;
     orderDeliveredCustomerDate?: Date;
-    orderItems?: CreateOrderItemParams[];
+    // orderItems?: CreateOrderItemParams[];
 };
 
 export type UpdateOrderParams = {
@@ -142,15 +142,15 @@ export type CreateOrderStatusParams = {
     statusName: string;
     color: string;
     privacy: string;
-    createdBy: string;
-    updatedBy: string;
+    // createdBy: string;
+    // updatedBy: string;
 };
 
 export type UpdateOrderStatusParams = {
     statusName?: string;
     color?: string;
     privacy?: string;
-    updatedBy: string;
+    // updatedBy: string;
 };
 
 // Types for OrderItem
@@ -184,4 +184,102 @@ export type CreateStaffRoleParams = {
 export type UpdateStaffRoleParams = {
     staffId: string;
     roleId: string;
+}
+
+export type CreateCouponParams = {
+    code: string;
+    couponDescription: string;
+    discountValue: number;
+    discountType: string;
+    timesUsed: boolean;
+    maxUsage: number;
+    couponStartDate: Date;
+    couponEndDate: Date;
+}
+
+export type UpdateCouponParams = {
+    code: string;
+    couponDescription: string;
+    discountValue: number;
+    discountType: string;
+    timesUsed: boolean;
+    maxUsage: number;
+    couponStartDate: Date;
+    couponEndDate: Date;
+}
+
+export type CreateProductAttributeParams = {
+    productId: string;
+    attributeId: string;
+}
+
+export type UpdateProductAttributeParams = {
+    productId: string;
+    attributeId: string;
+}
+
+export type CreateProductCategoryParams = {
+    productId: string;
+    attributeId: string;
+}
+
+export type UpdateProductCategoryParams = {
+    productId: string;
+    attributeId: string;
+}
+
+export type CreateProductCouponParams = {
+    productId: string;
+    attributeId: string;
+}
+
+export type UpdateProductCouponParams = {
+    productId: string;
+    attributeId: string;
+}
+
+export type CreateProductTagParams = {
+    productId: string;
+}
+
+export type UpdateProductTagParams = {
+    productId: string;
+}
+
+export type CreateProductShippingParams = {
+
+    productId: string;
+    shippingId: string;
+    shipCharge: number;
+    free: boolean;
+    estimatedDays: number;
+    
+}
+
+export type UpdateProductShippingParams = {
+
+    productId: string;
+    shippingId: string;
+    shipCharge: number;
+    free: boolean;
+    estimatedDays: number;
+    
+}
+
+export type CreateCategoryParams = {
+    parentId: string;
+    categoryName: string;
+    categoryDescription: string;
+    icon: string;
+    imagePath: string;
+    isActive: boolean;
+}
+
+export type UpdateCategoryParams = {
+    parentId: string;
+    categoryName: string;
+    categoryDescription: string;
+    icon: string;
+    imagePath: string;
+    isActive: boolean;
 }

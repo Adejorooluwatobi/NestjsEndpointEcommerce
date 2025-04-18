@@ -1,6 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { IsNotEmpty, IsString} from 'class-validator';
 
 @InputType()
 export class CreateOrderStatusDto {
@@ -22,15 +22,15 @@ export class CreateOrderStatusDto {
   @Field()
   privacy: string;
 
-  @ApiProperty()
-@IsNotEmpty()
-  @IsUUID()
-  @Field()
-  createdBy: string;
+//   @ApiProperty()
+// @IsNotEmpty()
+//   @IsUUID()
+//   @Field()
+//   createdBy: string;
 
-  @ApiProperty()
-@IsNotEmpty()
-  @IsUUID()
-  @Field()
-  updatedBy: string;
+//   @ApiProperty()
+// @IsNotEmpty()
+//   @IsUUID()
+//   @Field()
+//   updatedBy: string;
 }

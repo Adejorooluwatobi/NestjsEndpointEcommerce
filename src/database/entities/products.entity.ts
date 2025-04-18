@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 // import { ProductCategory } from './productCategories.entity';
 // import { Variant } from './variants.entity';
 // import { ProductAttribute } from './productAttributes.entity';
@@ -7,7 +7,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 // import { ProductTag } from './productTags.entity';
 // import { OrderItem } from './orderItems.entity';
 // import { ProductShipping } from './productShippings.entity';
-// import { CardItem } from './cardItems.entity';
+import { CardItem } from './cardItems.entity';
 // import { ProductCoupon } from './productCoupons.entity';
 
 @ObjectType()
@@ -105,7 +105,7 @@ export class Product {
     // @OneToMany(() => ProductShipping, (productShippings) => productShippings.product)
     // productShippings: ProductShipping[];
 
-    // @Field(() => [CardItem])
-    // @OneToMany(() => CardItem, (cardItems) => cardItems.product)
-    // cardItems: CardItem[];
+    @Field(() => [CardItem])
+    @OneToMany(() => CardItem, (cardItems) => cardItems.product)
+    cardItems: CardItem[];
 }

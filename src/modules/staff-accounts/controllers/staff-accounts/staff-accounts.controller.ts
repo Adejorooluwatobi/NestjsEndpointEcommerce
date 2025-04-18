@@ -3,9 +3,7 @@ import { StaffAccountsService } from '../../services/staff-accounts/staff-accoun
 import { CreateStaffAccountDto } from '../../dtos/CreateStaffAccount.dto';
 import { UpdateStaffAccountDto } from '../../dtos/UpdateStaffAccount.dto';
 import { UserGuard } from 'src/security/auth/guards/user.guard';
-
-
-// import { StaffAccountGuard } from 'src/security/auth/guards/staffAccount.guard';
+import { StaffGuard } from 'src/security/auth/guards';
 
 @Controller('staff-accounts')
 export class StaffAccountsController {
@@ -17,7 +15,7 @@ export class StaffAccountsController {
         return this.staffsService.findStaffAccount();
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(StaffGuard)
     @Get(':id')
     async getStaffById(@Param('id', ParseUUIDPipe) id: string) {
         return this.staffsService.findStaffAccountById(id);
@@ -29,6 +27,7 @@ export class StaffAccountsController {
         return this.staffsService.createStaffAccount(createStaffDto);
     }
 
+    @UseGuards(StaffGuard)
     @Put(':id')
     async updateStaffById(
         @Param('id', ParseUUIDPipe) id: string, 

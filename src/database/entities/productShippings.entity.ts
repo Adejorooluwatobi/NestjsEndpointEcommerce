@@ -19,9 +19,9 @@ export class ProductShipping {
     @Column('uuid')
     shippingId: string;
 
-    @Field()
-    @Column('integer')
-    shippingIdInteger: number;
+    // @Field()
+    // @Column('integer')
+    // shippingIdInteger: number;
 
     @Field()
     @Column('numeric')
