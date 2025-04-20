@@ -28,6 +28,5 @@ export * from './staffAccounts.entity'
 export * from './staffRoles.entity'
 export * from './tags.entity'
 export * from './variantAttributeValues.entity'
-export * from './variantValues.entity'
 export * from './variants.entity'
 

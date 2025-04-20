@@ -4,7 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity({ name: 'product_shippings' })
-export class Sells {
+export class Sell {
     @Field()
     @PrimaryGeneratedColumn('uuid')
     id: string;

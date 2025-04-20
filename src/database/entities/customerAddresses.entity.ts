@@ -34,5 +34,9 @@ export class CustomerAddress {
 
     @Field()
     @Column({ length: 200 })
+    state: string;
+
+    @Field()
+    @Column({ length: 200 })
     phoneNumber: string;
 }

@@ -283,3 +283,132 @@ export type UpdateCategoryParams = {
     imagePath: string;
     isActive: boolean;
 }
+
+export type CreateAttributeParams = {
+    attributeName: string;
+}
+
+export type UpdateAttributeParams = {
+    attributeName: string;
+}
+
+export type CreateAttributeValueParams = {
+    attributeId: string;
+    attributeValue: string;
+    color: string;
+}
+
+export type UpdateAttributeValueParams = {
+    attributeId: string;
+    attributeValue: string;
+    color: string;
+}
+
+export type CreateCustomerAddressParams = {
+    customerId: string;
+    address_line1: string;
+    address_line2: string;
+    city: string;
+    state: string;
+    country: string;
+    postalCode: string;
+    PhoneNumber: string;
+}
+
+export type UpdateCustomerAddressParams = {
+    customerId: string;
+    address_line1: string;
+    address_line2: string;
+    city: string;
+    state: string;
+    country: string;
+    postalCode: string;
+    PhoneNumber: string;
+}
+
+export type CreateGalleryParams = {
+    productId: string;
+    imagePath: string;
+    thumbnail: string;
+    displayOrder: boolean;
+}
+
+export type UpdateGalleryParams = {
+    productId: string;
+    imagePath: string;
+    thumbnail: string;
+    displayOrder: boolean;
+}
+
+export type CreateShippingParams = {
+    name: string;
+    isActive: boolean;
+    iconPath: string;
+    
+}
+
+export type UpdateShippingParams = {
+    name: string;
+    isActive: boolean;
+    iconPath: string;
+    
+}
+
+export type CreateTagParams = {
+        tagName: string;
+        icon: string;
+}
+
+export type UpdateTagParams = {
+        tagName: string;
+        icon: string;
+}
+
+export type CreateVariantParams = {
+    price: number;
+    quantity: number;
+    productId: string;
+}
+export type UpdateVariantParams = {
+    price: number;
+    quantity: number;
+    productId: string;
+}
+
+export type CreateVariantAttributeValueParams = {
+    variantId: string;
+    attributeValueId: string;
+}
+
+export type UpdateVariantAttributeValueParams = {
+    variantId: string;
+    attributeValueId: string;
+}
+
+export type CreateSellParams = {
+    productId: string;
+    price: number;
+    quantity: number;
+}
+
+export type UpdateSellParams = {
+    productId: string;
+    price: number;
+    quantity: number;
+}
+
+export type CreateNotificationParams = {
+    accountId: string;
+    title: string;
+    content: string;
+    read: boolean;
+    notification_expiryDate: string;
+};
+
+export type UpdateNotificationParams = {
+    accountId: string;
+    title: string;
+    content: string;
+    read: boolean;
+    notification_expiryDate: string;
+}

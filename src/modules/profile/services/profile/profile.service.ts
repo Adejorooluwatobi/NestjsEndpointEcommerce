@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from 'src/database/entities/User.entity';
 import { Profile } from 'src/database/entities/Profile.entity';
-import { CreateProfileDto } from '../../dtos/CreateProfile.dto';
 import { Customer, StaffAccount } from 'src/database/entities';
+import { CreateProfileParams } from 'src/utils/types';
 
 @Injectable()
 export class ProfileService {
@@ -17,7 +17,7 @@ export class ProfileService {
 
   async createUserProfile(
     id: string,
-    createProfileDetails: CreateProfileDto,
+    createProfileDetails: CreateProfileParams,
   ) {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
@@ -46,7 +46,7 @@ export class ProfileService {
 
   async createCustomerProfile(
     id: string,
-    createCustomerProfileDetails: CreateProfileDto,
+    createCustomerProfileDetails: CreateProfileParams,
   ) {
     const customer = await this.customerRepository.findOneBy({ id });
     if (!customer) {
@@ -75,7 +75,7 @@ export class ProfileService {
 
   async createStaffProfile(
     id: string,
-    createStaffProfileDetails: CreateProfileDto,
+    createStaffProfileDetails: CreateProfileParams,
   ) {
     const staff = await this.staffRepository.findOneBy({ id });
     if (!staff) {
