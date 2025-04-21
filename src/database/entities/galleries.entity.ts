@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-// import { Product } from './products.entity';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Product } from './products.entity';
 
 @ObjectType()
 @Entity({ name: 'galleries' })
@@ -41,7 +41,7 @@ export class Gallery {
     // @Column('uuid')
     // updatedBy: string;
 
-    // @Field(() => Product)
-    // @ManyToOne(() => Product, (product) => product.galleries)
-    // product: Product;
+    @Field(() => Product)
+    @ManyToOne(() => Product, (product) => product.galleries)
+    product: Product;
 }

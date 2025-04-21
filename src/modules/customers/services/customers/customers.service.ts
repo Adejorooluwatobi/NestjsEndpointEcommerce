@@ -6,13 +6,17 @@ import { Profile } from 'src/database/entities/Profile.entity';
 import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Customer } from 'src/database/entities/customers.entity';
+import { Card, CustomerAddress, Order } from 'src/database/entities';
 
 @Injectable()
 export class CustomersService {
 
     constructor(
         @InjectRepository(Customer) private customerRepository: Repository<Customer>,
+        @InjectRepository(CustomerAddress) private customerAddressRepository: Repository<CustomerAddress>,
         @InjectRepository(Profile) private profileRepository: Repository<Profile>,
+        @InjectRepository(Order) private orderRepository: Repository<Order>,
+        @InjectRepository(Card) private cardRepository: Repository<Card>,
         ) {}
 
     findCustomer() {

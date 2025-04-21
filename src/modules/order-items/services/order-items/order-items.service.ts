@@ -4,11 +4,13 @@ import { Repository } from 'typeorm';
 import { OrderItem } from 'src/database/entities/orderItems.entity';
 import { CreateOrderItemParams, UpdateOrderItemParams } from 'src/utils/types';
 import { OrdersService } from 'src/modules/orders/services/orders/orders.service';
+import { Product } from 'src/database/entities';
 
 @Injectable()
 export class OrderItemsService {
     constructor(
         @InjectRepository(OrderItem) private orderItemRepository: Repository<OrderItem>,
+        @InjectRepository(Product) private productRepository: Repository<Product>,
         private ordersService: OrdersService,
     ) {}
 

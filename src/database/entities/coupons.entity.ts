@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-// import { ProductCoupon } from './productCoupons.entity';
+import { ProductCoupon } from './productCoupons.entity';
 import { Order } from './orders.entity';
 
 @ObjectType()
@@ -58,9 +58,9 @@ export class Coupon {
     // @Column('uuid')
     // updatedBy: string;
 
-    // @Field(() => [ProductCoupon])
-    // @OneToMany(() => ProductCoupon, (productCoupons) => productCoupons.coupon)
-    // productCoupons: ProductCoupon[];
+    @Field(() => [ProductCoupon])
+    @OneToMany(() => ProductCoupon, (productCoupons) => productCoupons.coupon)
+    productCoupons: ProductCoupon[];
 
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.coupon)

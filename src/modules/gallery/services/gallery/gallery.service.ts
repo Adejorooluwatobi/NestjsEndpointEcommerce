@@ -3,11 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateGalleryParams, UpdateGalleryParams } from 'src/utils/types';
 import { CustomersService } from 'src/modules/customers/services/customers/customers.service';
-import { Gallery } from 'src/database/entities';
+import { Gallery, Product } from 'src/database/entities';
 @Injectable()
 export class GalleryService {
     constructor(
         @InjectRepository(Gallery) private galleryRepository: Repository<Gallery>,
+        @InjectRepository(Product) private productRepository: Repository<Product>,
         private customersService: CustomersService,
     ) {}
 

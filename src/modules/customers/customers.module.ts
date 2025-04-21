@@ -7,9 +7,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { Customer } from 'src/database/entities/customers.entity';
 import { CustomersResolver } from './customers.resolver';
+import { Card, CustomerAddress, Order } from 'src/database/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Customer, Profile]),
+  imports: [TypeOrmModule.forFeature([Customer, Profile, CustomerAddress, Order, Card]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

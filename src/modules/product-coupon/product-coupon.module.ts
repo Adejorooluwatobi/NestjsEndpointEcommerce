@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductCoupon } from 'src/database/entities';
+import { Coupon, ProductCoupon } from 'src/database/entities';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -9,7 +9,7 @@ import { ProductCouponController } from './controllers/product-coupon/product-co
 import { ProductCouponService } from './services/product-coupon/product-coupon.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProductCoupon]),
+  imports: [TypeOrmModule.forFeature([ProductCoupon, Coupon]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

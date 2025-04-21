@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ProductCoupon } from 'src/database/entities';
+import { Coupon, ProductCoupon } from 'src/database/entities';
 import { CreateProductCouponParams, UpdateProductCouponParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductCouponService {
     constructor(
-        @InjectRepository(ProductCoupon) private productRepository: Repository<ProductCoupon>
+        @InjectRepository(ProductCoupon) private productRepository: Repository<ProductCoupon>,
+        @InjectRepository(Coupon) private couponRepository: Repository<Coupon>
     ) {}
 
     async createProductCoupon(productDetails: CreateProductCouponParams) {

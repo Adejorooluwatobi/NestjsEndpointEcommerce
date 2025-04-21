@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { CategoryService } from './services/category/category.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Category } from 'src/database/entities';
+import { Category, ProductCategory } from 'src/database/entities';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { CategoryController } from './controllers/category/category.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Category]),
+  imports: [TypeOrmModule.forFeature([Category, ProductCategory]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

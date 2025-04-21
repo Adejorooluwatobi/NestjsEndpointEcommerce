@@ -1,13 +1,15 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coupon } from 'src/database/entities';
+import { Coupon, Order, ProductCoupon } from 'src/database/entities';
 import { CreateCouponParams, UpdateCouponParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class CouponService {
     constructor(
-        @InjectRepository(Coupon) private couponRepository: Repository<Coupon>
+        @InjectRepository(Coupon) private couponRepository: Repository<Coupon>,
+        @InjectRepository(Order) private orderRepository: Repository<Order>,
+        @InjectRepository(ProductCoupon) private productCouponRepository: Repository<ProductCoupon>
     ) {}
 
     async createCoupon(couponDetails: CreateCouponParams) {

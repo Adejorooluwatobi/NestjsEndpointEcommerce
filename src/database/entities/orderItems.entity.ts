@@ -1,7 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Order } from './orders.entity';
-// import { Product } from './products.entity';
+import { Product } from './products.entity';
 
 @ObjectType()
 @Entity({ name: 'order_items' })
@@ -30,7 +30,7 @@ export class OrderItem {
     @ManyToOne(() => Order, (order) => order.orderItems)
     order: Order;
 
-    // @Field(() => Product)
-    // @ManyToOne(() => Product, (product) => product.orderItems)
-    // product: Product;
+    @Field(() => Product)
+    @ManyToOne(() => Product, (product) => product.orderItems)
+    product: Product;
 }

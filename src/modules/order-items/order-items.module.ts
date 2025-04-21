@@ -7,10 +7,11 @@ import { OrdersModule } from '../orders/orders.module'; // Import OrdersModule t
 import { OrderItemsResolver } from './order-items.resolver';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Order, Product } from 'src/database/entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([OrderItem]),
+    TypeOrmModule.forFeature([OrderItem, Product, Order]),
     OrdersModule, // Import OrdersModule to use OrdersService
     JwtModule.registerAsync({
         imports: [ConfigModule],
