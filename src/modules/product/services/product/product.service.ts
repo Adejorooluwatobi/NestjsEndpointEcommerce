@@ -25,7 +25,7 @@ export class ProductService {
         });
 
         const savedProduct = await this.productRepository.save(newProduct);
-        console.log(`Product cretaed successfullu with ID: ${savedProduct.id}`);
+        console.log(`Product created successfully with ID: ${savedProduct.id}`);
         return savedProduct;
         
     }

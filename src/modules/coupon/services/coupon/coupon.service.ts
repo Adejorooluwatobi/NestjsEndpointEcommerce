@@ -26,7 +26,7 @@ export class CouponService {
         });
 
         const savedCoupon = await this.couponRepository.save(newCoupon);
-        console.log(`Coupon cretaed successfullu with ID: ${savedCoupon.id}`);
+        console.log(`Coupon created successfully with ID: ${savedCoupon.id}`);
         return savedCoupon;
         
     }

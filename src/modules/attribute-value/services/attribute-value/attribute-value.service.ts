@@ -16,7 +16,7 @@ export class AttributeValueService {
         });
 
         const savedAttributeValue = await this.attributeValueRepository.save(newAttributeValue);
-        console.log(`AttributeValue cretaed successfullu with ID: ${savedAttributeValue.id}`);
+        console.log(`AttributeValue created successfully with ID: ${savedAttributeValue.id}`);
         return savedAttributeValue;
         
     }

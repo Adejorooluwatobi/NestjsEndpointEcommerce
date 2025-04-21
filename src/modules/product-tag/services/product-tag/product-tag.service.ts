@@ -18,7 +18,7 @@ export class ProductTagService {
         });
 
         const savedProductTag = await this.productTagRepository.save(newProductTag);
-        console.log(`ProductTag cretaed successfullu with ID: ${savedProductTag.id}`);
+        console.log(`ProductTag created successfully with ID: ${savedProductTag.id}`);
         return savedProductTag;
         
     }

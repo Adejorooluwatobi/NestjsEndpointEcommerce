@@ -18,7 +18,7 @@ export class ProductAttributeService {
         });
 
         const savedProductAttribute = await this.productAttributeRepository.save(newProductAttribute);
-        console.log(`ProductAttribute cretaed successfullu with ID: ${savedProductAttribute.id}`);
+        console.log(`ProductAttribute created successfully with ID: ${savedProductAttribute.id}`);
         return savedProductAttribute;
         
     }

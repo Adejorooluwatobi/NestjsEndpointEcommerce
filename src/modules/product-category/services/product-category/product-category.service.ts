@@ -18,7 +18,7 @@ export class ProductCategoryService {
         });
 
         const savedProductCategory = await this.productCategoryRepository.save(newProductCategory);
-        console.log(`ProductCategory cretaed successfullu with ID: ${savedProductCategory.id}`);
+        console.log(`ProductCategory created successfully with ID: ${savedProductCategory.id}`);
         return savedProductCategory;
         
     }

@@ -19,7 +19,7 @@ export class TagService {
         });
 
         const savedTag = await this.tagRepository.save(newTag);
-        console.log(`Tag cretaed successfullu with ID: ${savedTag.id}`);
+        console.log(`Tag created successfully with ID: ${savedTag.id}`);
         return savedTag;
         
     }

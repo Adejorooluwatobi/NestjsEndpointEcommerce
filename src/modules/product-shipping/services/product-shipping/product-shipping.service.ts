@@ -18,7 +18,7 @@ export class ProductShippingService {
         });
 
         const savedProductShipping = await this.productShippingRepository.save(newProductShipping);
-        console.log(`ProductShipping cretaed successfullu with ID: ${savedProductShipping.id}`);
+        console.log(`ProductShipping created successfully with ID: ${savedProductShipping.id}`);
         return savedProductShipping;
         
     }

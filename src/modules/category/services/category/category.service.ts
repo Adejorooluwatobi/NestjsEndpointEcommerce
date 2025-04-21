@@ -19,7 +19,7 @@ export class CategoryService {
         });
 
         const savedCategory = await this.categoryRepository.save(newCategory);
-        console.log(`Category cretaed successfullu with ID: ${savedCategory.id}`);
+        console.log(`Category created successfully with ID: ${savedCategory.id}`);
         return savedCategory;
         
     }

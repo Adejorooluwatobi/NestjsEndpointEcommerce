@@ -19,7 +19,7 @@ export class AttributeService {
         });
 
         const savedAttribute = await this.attributeRepository.save(newAttribute);
-        console.log(`Attribute cretaed successfullu with ID: ${savedAttribute.id}`);
+        console.log(`Attribute created successfully with ID: ${savedAttribute.id}`);
         return savedAttribute;
         
     }
