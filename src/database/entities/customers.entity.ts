@@ -3,6 +3,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, On
 import { Order } from './orders.entity';
 import { Card } from './cards.entity';
 import { Profile } from './Profile.entity';
+import { CustomerAddress } from './customerAddresses.entity';
 
 @ObjectType()
 @Entity({ name: 'customers' })
@@ -63,4 +64,8 @@ export class Customer {
     @Field(() => [Card])
     @OneToMany(() => Card, (card) => card.customer)
     cards: Card[];
+
+    @OneToOne(() => CustomerAddress, { cascade: true })
+    @JoinColumn()
+    customerAddress: CustomerAddress;
 }

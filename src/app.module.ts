@@ -30,6 +30,7 @@ import { ProductController } from './modules/product/controllers/product/product
 import { ProductModule } from './modules/product/product.module';
 import { CouponModule } from './modules/coupon/coupon.module';
 import { CouponController } from './modules/coupon/controllers/coupon/coupon.controller';
+import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
 
 @Module({
   imports: [
@@ -57,7 +58,7 @@ import { CouponController } from './modules/coupon/controllers/coupon/coupon.con
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule, CouponModule],
+  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CustomerAddressModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule, CouponModule],
   controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController, CouponController],
   providers: [AppService, AppGateway, AuthService],
 })
