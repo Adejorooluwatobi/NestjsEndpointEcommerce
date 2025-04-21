@@ -1,13 +1,14 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Coupon } from 'src/database/entities';
+import { Coupon, ProductCoupon } from 'src/database/entities';
 import { CreateCouponParams, UpdateCouponParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class CouponService {
     constructor(
-        @InjectRepository(Coupon) private couponRepository: Repository<Coupon>
+        @InjectRepository(Coupon) private couponRepository: Repository<Coupon>,
+        @InjectRepository(ProductCoupon) private productCouponRepository: Repository<ProductCoupon>
     ) {}
 
     async createCoupon(couponDetails: CreateCouponParams) {
@@ -32,12 +33,12 @@ export class CouponService {
 
     findCoupon() {
         // Logic to find all customers
-        return this.couponRepository.find(); // Fetch customers with their profiles
+        return this.couponRepository.find({relations: ['productCoupon']}); // Fetch customers with their profiles
     }
 
     findCouponByCode(code: string) {
         // Logic to find a customer by ID
-        return this.couponRepository.findOne({ where: { code }}); // Fetch customer with their profile
+        return this.couponRepository.findOne({ where: { code }, relations:['productCoupon']}); // Fetch customer with their profile
     }
 
     async updateCoupon(code: string, updateCouponDetails: UpdateCouponParams) {

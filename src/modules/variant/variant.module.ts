@@ -6,9 +6,10 @@ import { Variant } from 'src/database/entities/variants.entity'
 import { VariantController } from './controllers/variant/variant.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { Product, VariantAttributeValue } from 'src/database/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Variant]),
+  imports: [TypeOrmModule.forFeature([Variant, VariantAttributeValue, Product]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

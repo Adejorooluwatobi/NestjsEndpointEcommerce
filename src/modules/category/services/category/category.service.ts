@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from 'src/database/entities';
+import { Category, ProductCategory } from 'src/database/entities';
 import { CreateCategoryParams, UpdateCategoryParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoryService {
     constructor(
-        @InjectRepository(Category) private categoryRepository: Repository<Category>
+        @InjectRepository(Category) private categoryRepository: Repository<Category>,
+        @InjectRepository(ProductCategory) private productCategoryRepository: Repository<ProductCategory>,
     ) {}
 
     async createCategory(categoryDetails: CreateCategoryParams) {

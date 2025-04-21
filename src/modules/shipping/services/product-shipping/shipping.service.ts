@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Shipping } from 'src/database/entities';
+import { ProductShipping, Shipping } from 'src/database/entities';
 import { CreateShippingParams, UpdateShippingParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class ShippingService {
     constructor(
-        @InjectRepository(Shipping) private shippingRepository: Repository<Shipping>
+        @InjectRepository(Shipping) private shippingRepository: Repository<Shipping>,
+        @InjectRepository(ProductShipping) private productShippingRepository: Repository<ProductShipping>,
     ) {}
 
     async createShipping(shippingDetails: CreateShippingParams) {

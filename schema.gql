@@ -58,6 +58,7 @@ type Coupon {
   id: String!
   maxUsage: Float!
   orders: [Order!]!
+  productCoupons: [ProductCoupon!]!
   timesUsed: Boolean!
   updatedAt: DateTime!
 }
@@ -147,6 +148,7 @@ type OrderItem {
   order: Order!
   orderId: String!
   price: Float!
+  product: Product!
   productId: String!
   quantity: Float!
 }
@@ -177,9 +179,15 @@ type Product {
   discountPrice: Float!
   galleries: [Gallery!]!
   id: String!
+  orderItems: [OrderItem!]!
+  productAttributes: [ProductAttribute!]!
+  productCategory: [ProductCategory!]!
   productCode: String!
+  productCoupons: [ProductCoupon!]!
   productDescription: String!
   productName: String!
+  productShippings: [ProductShipping!]!
+  productTags: [ProductTag!]!
   productWeight: Float!
   published: Boolean!
   quantity: Float!
@@ -187,12 +195,14 @@ type Product {
   shortDescription: String!
   sku: String!
   updatedAt: DateTime!
+  variants: [Variant!]!
 }
 
 type ProductAttribute {
   attribute: Attribute!
   attributeId: String!
   id: String!
+  product: Product!
   productId: String!
 }
 
@@ -200,6 +210,15 @@ type ProductCategory {
   category: Category!
   categoryId: String!
   id: String!
+  product: Product!
+  productId: String!
+}
+
+type ProductCoupon {
+  coupon: Coupon!
+  couponId: String!
+  id: String!
+  product: Product!
   productId: String!
 }
 
@@ -214,6 +233,7 @@ type ProductShipping {
 
 type ProductTag {
   id: String!
+  product: Product!
   productId: String!
   tag: Tag!
 }
@@ -245,6 +265,7 @@ type Query {
   staffAccounts: [StaffAccount!]!
   staffRoles: [StaffRole!]!
   users: [User!]!
+  variants: [Variant!]!
 }
 
 type Role {
@@ -322,6 +343,7 @@ type User {
 type Variant {
   id: String!
   price: Float!
+  product: Product!
   productId: String!
   quantity: Float!
   variantAttributeValues: [VariantAttributeValue!]!

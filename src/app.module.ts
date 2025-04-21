@@ -31,6 +31,13 @@ import { ProductModule } from './modules/product/product.module';
 import { CouponModule } from './modules/coupon/coupon.module';
 import { CouponController } from './modules/coupon/controllers/coupon/coupon.controller';
 import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
+import { VariantModule } from './modules/variant/variant.module';
+// import { VariantAttributeValueModule } from './modules/variant-attribute-value/variant-attribute-value.module';
+import { AttributeValueModule } from './modules/attribute-value/attribute-value.module';
+import { CategoryModule } from './modules/category/category.module';
+import { AttributeModule } from './modules/attribute/attribute.module';
+import { TagModule } from './modules/tag/tag.module';
+import { ShippingModule } from './modules/shipping/shipping.module';
 
 @Module({
   imports: [
@@ -58,7 +65,7 @@ import { CustomerAddressModule } from './modules/customer-address/customer-addre
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CustomerAddressModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule, CouponModule],
+  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CustomerAddressModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule, CouponModule, VariantModule, AttributeValueModule, CategoryModule, AttributeModule, TagModule, ShippingModule],
   controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController, CouponController],
   providers: [AppService, AppGateway, AuthService],
 })

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Gallery, Product } from 'src/database/entities';
+import { Gallery, Product, ProductAttribute, ProductCategory, ProductCoupon, ProductShipping, ProductTag, Variant } from 'src/database/entities';
 import { CreateProductParams, UpdateProductParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
@@ -9,6 +9,12 @@ export class ProductService {
     constructor(
         @InjectRepository(Product) private productRepository: Repository<Product>,
         @InjectRepository(Gallery) private galleryRepository: Repository<Gallery>,
+        @InjectRepository(Variant) private variantRepository: Repository<Variant>,
+        @InjectRepository(ProductAttribute) private productAttributeRepository: Repository<ProductAttribute>,
+        @InjectRepository(ProductCategory) private productCategoryRepository: Repository<ProductCategory>,
+        @InjectRepository(ProductCoupon) private productCouponRepository: Repository<ProductCoupon>,
+        @InjectRepository(ProductShipping) private productShippingRepository: Repository<ProductShipping>,
+        @InjectRepository(ProductTag) private productTagRepository: Repository<ProductTag>,
     ) {}
 
     async createProduct(productDetails: CreateProductParams) {

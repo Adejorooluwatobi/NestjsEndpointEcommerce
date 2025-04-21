@@ -6,9 +6,10 @@ import { VariantAttributeValue } from 'src/database/entities/variantAttributeVal
 import { VariantAttributeValueController } from './controllers/variant-attribute-value/variant-attribute-value.controller';
 import { VariantAttributeValueService } from './services/variant-attribute-value/variant-attribute-value.service';
 import { VariantAttributeValueResolver } from './variant-attribute-value.resolver';
+import { AttributeValue, Variant } from 'src/database/entities';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([VariantAttributeValue]),
+  imports: [TypeOrmModule.forFeature([VariantAttributeValue, Variant, AttributeValue]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

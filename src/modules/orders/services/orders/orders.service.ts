@@ -5,25 +5,29 @@ import { Order } from 'src/database/entities/orders.entity';
 import { CreateOrderParams, UpdateOrderParams } from 'src/utils/types';
 import { CustomersService } from 'src/modules/customers/services/customers/customers.service';
 import { OrderItem } from 'src/database/entities/orderItems.entity';
+import { Coupon, OrderStatus, Product } from 'src/database/entities';
 
 @Injectable()
 export class OrdersService {
     constructor(
         @InjectRepository(Order) private orderRepository: Repository<Order>,
         @InjectRepository(OrderItem) private orderItemRepository: Repository<OrderItem>,
+        @InjectRepository(OrderStatus) private OrderStatusRepository: Repository<OrderStatus>,
+        @InjectRepository(Coupon) private CouponRepository: Repository<Coupon>,
+        @InjectRepository(Product) private productRepository: Repository<Product>,
         private customersService: CustomersService,
     ) {}
 
     findOrders() {
         return this.orderRepository.find({ 
-            relations: ['customer', 'orderItems', 'orderStatus', 'coupon'] 
+            relations: ['customer', 'orderItems', 'orderStatus', 'coupon', 'product'] 
         });
     }
 
     findOrderById(id: string) {
         return this.orderRepository.findOne({ 
             where: { id },
-            relations: ['customer', 'orderItems', 'orderStatus', 'coupon']
+            relations: ['customer', 'orderItems', 'orderStatus', 'coupon', 'product']
         });
     }
 
@@ -36,7 +40,7 @@ export class OrdersService {
         
         return this.orderRepository.find({
             where: { customerId: customerId },
-            relations: ['orderItems', 'orderStatus', 'coupon']
+            relations: ['orderItems', 'orderStatus', 'coupon', 'product']
         });
     }
 

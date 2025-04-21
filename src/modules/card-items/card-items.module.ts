@@ -7,10 +7,11 @@ import { CardItemsResolver } from './card-items.resolver';
 import { CardsModule } from '../cards/cards.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Card } from 'src/database/entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([CardItem]),
+    TypeOrmModule.forFeature([CardItem, Card]),
     CardsModule, // Import CardsModule to use CardsService
     JwtModule.registerAsync({
         imports: [ConfigModule],

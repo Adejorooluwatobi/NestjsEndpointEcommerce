@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductShipping } from 'src/database/entities';
+import { Product, ProductShipping, Shipping } from 'src/database/entities';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -9,7 +9,7 @@ import { ProductShippingController } from './controllers/product-shipping/produc
 import { ProductShippingService } from './services/product-shipping/product-shipping.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([ProductShipping]),
+  imports: [TypeOrmModule.forFeature([ProductShipping, Product, Shipping]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

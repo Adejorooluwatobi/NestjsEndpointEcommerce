@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Shipping } from 'src/database/entities';
+import { ProductShipping, Shipping } from 'src/database/entities';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { ShippingController } from './controllers/shipping/shipping.controller';
 import { ShippingService } from './services/product-shipping/shipping.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Shipping]),
+  imports: [TypeOrmModule.forFeature([Shipping, ProductShipping]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

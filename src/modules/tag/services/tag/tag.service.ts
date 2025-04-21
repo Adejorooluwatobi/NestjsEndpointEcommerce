@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Tag } from 'src/database/entities';
+import { ProductTag, Tag } from 'src/database/entities';
 import { CreateTagParams, UpdateTagParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class TagService {
     constructor(
-        @InjectRepository(Tag) private tagRepository: Repository<Tag>
+        @InjectRepository(Tag) private tagRepository: Repository<Tag>,
+        @InjectRepository(ProductTag) private productTagRepository: Repository<ProductTag>,
     ) {}
 
     async createTag(tagDetails: CreateTagParams) {

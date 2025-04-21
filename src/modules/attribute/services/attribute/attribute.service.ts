@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Attribute } from 'src/database/entities';
+import { Attribute, ProductAttribute } from 'src/database/entities';
 import { CreateAttributeParams, UpdateAttributeParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 @Injectable()
 export class AttributeService {
     constructor(
-        @InjectRepository(Attribute) private attributeRepository: Repository<Attribute>
+        @InjectRepository(Attribute) private attributeRepository: Repository<Attribute>,
+        @InjectRepository(ProductAttribute) private productRepository: Repository<ProductAttribute>
     ) {}
 
     async createAttribute(attributeDetails: CreateAttributeParams) {

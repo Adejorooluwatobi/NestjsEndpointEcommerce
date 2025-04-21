@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Product, VariantAttributeValue } from 'src/database/entities';
 import { Variant } from 'src/database/entities/variants.entity';
 import { CreateVariantParams, UpdateVariantParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
@@ -7,7 +8,9 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class VariantService {
     constructor(
-        @InjectRepository(Variant) private variantRepository: Repository<Variant>
+        @InjectRepository(Variant) private variantRepository: Repository<Variant>,
+        @InjectRepository(VariantAttributeValue) private variantAttributeValueRepository: Repository<VariantAttributeValue>,
+        @InjectRepository(Product) private productRepository: Repository<Product>,
     ) {}
 
     async createVariant(variantDetails: CreateVariantParams) {
@@ -18,11 +21,11 @@ export class VariantService {
 }
 
 findVariant() {
-    return this.variantRepository.find();
+    return this.variantRepository.find({ relations: ['variantAttributeValue'] });
 }
 
 findVariantById(id: string) {
-    return this.variantRepository.findOne({where: {id}});
+    return this.variantRepository.findOne({where: {id}, relations: ['variantAttributeValue'] });
 }
 
 async updateVariant(id: string, updateVariantDetails: UpdateVariantParams) {

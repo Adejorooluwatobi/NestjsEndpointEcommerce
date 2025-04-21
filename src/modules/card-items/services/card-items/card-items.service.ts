@@ -15,14 +15,14 @@ export class CardItemsService {
 
     findCardItems() {
         return this.cardItemRepository.find({ 
-            relations: ['card', 'product'] 
+            relations: ['card'] 
         });
     }
 
     findCardItemById(id: string) {
         return this.cardItemRepository.findOne({ 
             where: { id },
-            relations: ['card', 'product']
+            relations: ['card']
         });
     }
 
@@ -35,7 +35,7 @@ export class CardItemsService {
         
         return this.cardItemRepository.find({
             where: { cardId: cardId },
-            relations: ['product']
+            relations: ['card']
         });
     }
 

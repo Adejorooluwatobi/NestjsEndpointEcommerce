@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Tag } from 'src/database/entities';
+import { ProductTag, Tag } from 'src/database/entities';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
@@ -8,7 +8,7 @@ import { TagController } from './controllers/tag/tag.controller';
 import { TagService } from './services/tag/tag.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Tag]),
+  imports: [TypeOrmModule.forFeature([Tag, ProductTag]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({
