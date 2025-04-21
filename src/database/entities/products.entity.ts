@@ -8,6 +8,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 // import { OrderItem } from './orderItems.entity';
 // import { ProductShipping } from './productShippings.entity';
 import { CardItem } from './cardItems.entity';
+import { Gallery } from './galleries.entity';
 // import { ProductCoupon } from './productCoupons.entity';
 
 @ObjectType()
@@ -89,9 +90,9 @@ export class Product {
     // @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.product)
     // productAttributes: ProductAttribute[];
 
-    // @Field(() => [Gallery])
-    // @OneToMany(() => Gallery, (galleries) => galleries.product)
-    // galleries: Gallery[];
+    @Field(() => [Gallery])
+    @OneToMany(() => Gallery, (galleries) => galleries.product)
+    galleries: Gallery[];
 
     // @Field(() => [ProductTag])
     // @OneToMany(() => ProductTag, (productTags) => productTags.product)

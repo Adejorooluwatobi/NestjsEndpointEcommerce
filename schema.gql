@@ -103,6 +103,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Gallery {
+  createdAt: DateTime!
+  displayOrder: Boolean!
+  id: String!
+  imagePath: String!
+  product: Product!
+  productId: String!
+  thumbnail: String!
+  updatedAt: DateTime!
+}
+
 type Mutation {
   createCardItem(createCardItemInput: CreateCardItemDto!): CardItem!
   createOrderItem(createOrderItemInput: CreateOrderItemDto!): OrderItem!
@@ -164,6 +175,7 @@ type Product {
   cardItems: [CardItem!]!
   createdAt: DateTime!
   discountPrice: Float!
+  galleries: [Gallery!]!
   id: String!
   productCode: String!
   productDescription: String!
