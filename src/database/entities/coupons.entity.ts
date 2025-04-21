@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
 // import { ProductCoupon } from './productCoupons.entity';
 import { Order } from './orders.entity';
 import { ProductCoupon } from './productCoupons.entity';
@@ -24,12 +24,12 @@ export class Coupon {
     discountValue: number;
 
     @Field()
-    @Column({ length: 50 })
+    @Column({ length: 50, default: 'percentage' })
     discountType: string;
 
     @Field()
-    @Column('boolean')
-    timesUsed: boolean;
+    @Column('integer', { default: 0 })
+    timesUsed: number;
 
     @Field()
     @Column('integer')
@@ -51,13 +51,13 @@ export class Coupon {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    // @Field()
-    // @Column('uuid')
-    // createdBy: string;
+    @Field()
+    @Column('uuid', { nullable: true }) // Track who created the coupon
+    createdBy: string;
 
-    // @Field()
-    // @Column('uuid')
-    // updatedBy: string;
+    @Field()
+    @Column('uuid', { nullable: true }) // Track who last updated the coupon
+    updatedBy: string;
 
     @Field(() => [ProductCoupon])
     @OneToMany(() => ProductCoupon, (productCoupons) => productCoupons.coupon)
@@ -66,4 +66,12 @@ export class Coupon {
     @Field(() => [Order])
     @OneToMany(() => Order, (order) => order.coupon)
     orders: Order[];
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    validateDates() {
+        if (this.couponEndDate <= this.couponStartDate) {
+            throw new Error('couponEndDate must be after couponStartDate');
+        }
+    }
 }

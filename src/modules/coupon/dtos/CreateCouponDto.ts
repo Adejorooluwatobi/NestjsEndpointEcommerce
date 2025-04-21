@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Transform } from "class-transformer";
-import { IsBoolean, IsDate, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsDate, IsInt, IsNotEmpty, IsNumber, IsString } from "class-validator";
 
 export class CreateCouponDto{
 
@@ -27,8 +27,8 @@ export class CreateCouponDto{
     discountType: string;
 
     @ApiProperty()
-    @IsBoolean()
-    timesUsed: boolean;
+    @IsNumber()
+    timesUsed: number;
 
     @ApiProperty()
     @IsInt()

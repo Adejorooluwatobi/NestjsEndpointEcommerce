@@ -44,13 +44,13 @@ export class Order {
     @UpdateDateColumn()
     updatedAt: Date;
 
-    // @Field()
-    // @Column('uuid')
-    // createdBy: string;
+    @Field()
+    @Column('uuid', { nullable: true }) // Track who created the coupon
+    createdBy: string;
 
-    // @Field()
-    // @Column('uuid')
-    // updatedBy: string;
+    @Field()
+    @Column('uuid', { nullable: true }) // Track who last updated the coupon
+    updatedBy: string;
 
     @Field(() => Customer)
     @ManyToOne(() => Customer, (customer) => customer.orders)

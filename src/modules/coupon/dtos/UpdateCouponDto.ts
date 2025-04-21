@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsDate, IsInt, IsNumber, IsString } from "class-validator";
+import { IsDate, IsInt, IsNumber, IsString } from "class-validator";
 
 export class UpdateCouponDto{
 
@@ -20,8 +20,8 @@ export class UpdateCouponDto{
     discountType: string;
 
     @ApiProperty()
-    @IsBoolean()
-    timesUsed: boolean;
+    @IsNumber()
+    timesUsed: number;
 
     @ApiProperty()
     @IsInt()

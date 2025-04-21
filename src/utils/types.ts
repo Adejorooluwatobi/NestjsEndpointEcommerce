@@ -191,7 +191,7 @@ export type CreateCouponParams = {
     couponDescription: string;
     discountValue: number;
     discountType: string;
-    timesUsed: boolean;
+    timesUsed: number;
     maxUsage: number;
     couponStartDate: Date;
     couponEndDate: Date;
@@ -202,7 +202,7 @@ export type UpdateCouponParams = {
     couponDescription: string;
     discountValue: number;
     discountType: string;
-    timesUsed: boolean;
+    timesUsed: number;
     maxUsage: number;
     couponStartDate: Date;
     couponEndDate: Date;

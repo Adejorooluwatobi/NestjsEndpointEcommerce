@@ -5,9 +5,11 @@
 type Attribute {
   attributeName: String!
   createdAt: DateTime!
+  createdBy: String!
   id: String!
   productAttributes: [ProductAttribute!]!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type AttributeValue {
@@ -38,6 +40,7 @@ type Category {
   categoryDescription: String!
   categoryName: String!
   createdAt: DateTime!
+  createdBy: String!
   icon: String!
   id: String!
   imagePath: String!
@@ -45,6 +48,7 @@ type Category {
   parentId: String!
   productCategory: [ProductCategory!]!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type Coupon {
@@ -53,14 +57,16 @@ type Coupon {
   couponEndDate: DateTime!
   couponStartDate: DateTime!
   createdAt: DateTime!
+  createdBy: String!
   discountType: String!
   discountValue: Float!
   id: String!
   maxUsage: Float!
   orders: [Order!]!
   productCoupons: [ProductCoupon!]!
-  timesUsed: Boolean!
+  timesUsed: Float!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 input CreateCardItemDto {
@@ -106,6 +112,7 @@ scalar DateTime
 
 type Gallery {
   createdAt: DateTime!
+  createdBy: String!
   displayOrder: Boolean!
   id: String!
   imagePath: String!
@@ -113,6 +120,7 @@ type Gallery {
   productId: String!
   thumbnail: String!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type Mutation {
@@ -131,6 +139,7 @@ type Order {
   coupon: Coupon!
   couponId: String!
   createdAt: DateTime!
+  createdBy: String!
   customer: Customer!
   customerId: String!
   id: String!
@@ -141,6 +150,7 @@ type Order {
   orderStatus: OrderStatus!
   orderStatusId: Float!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type OrderItem {
@@ -156,11 +166,13 @@ type OrderItem {
 type OrderStatus {
   color: String!
   createdAt: DateTime!
+  createdBy: String!
   id: Float!
   orders: [Order!]!
   privacy: String!
   statusName: String!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type Post {
@@ -176,6 +188,7 @@ type Post {
 type Product {
   cardItems: [CardItem!]!
   createdAt: DateTime!
+  createdBy: String!
   discountPrice: Float!
   galleries: [Gallery!]!
   id: String!
@@ -195,6 +208,7 @@ type Product {
   shortDescription: String!
   sku: String!
   updatedAt: DateTime!
+  updatedBy: String!
   variants: [Variant!]!
 }
 
@@ -277,6 +291,7 @@ type Role {
 }
 
 type StaffAccount {
+  createdBy: String!
   email: String!
   firstName: String!
   id: String!
@@ -289,6 +304,7 @@ type StaffAccount {
   registeredAt: DateTime!
   staffRole: StaffRole!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 type StaffRole {
@@ -300,11 +316,13 @@ type StaffRole {
 
 type Tag {
   createdAt: DateTime!
+  createdBy: String!
   icon: String!
   id: String!
   productTags: [ProductTag!]!
   tagName: String!
   updatedAt: DateTime!
+  updatedBy: String!
 }
 
 input UpdateCardItemDto {
