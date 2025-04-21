@@ -12,11 +12,11 @@ export class VariantAttributeValue {
 
     @Field()
     @Column('uuid')
-    variantAttributeValueId: string;
+    attributeValueId: string;
 
     @Field()
     @Column('uuid')
-    variantValueId: string;
+    variantId: string;
 
     @Field(() => Variant)
     @ManyToOne(() => Variant, (variant) => variant.variantAttributeValues)

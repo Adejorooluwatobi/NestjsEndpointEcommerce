@@ -11,20 +11,12 @@ export class Variant {
     id: string;
 
     @Field()
-    @Column('uuid')
-    variantId: string;
-
-    @Field()
     @Column('numeric')
     price: number;
 
     @Field()
     @Column('integer')
     quantity: number;
-
-    @Field()
-    @Column('uuid')
-    variantAttributeValueId: string;
 
     @Field()
     @Column('uuid')

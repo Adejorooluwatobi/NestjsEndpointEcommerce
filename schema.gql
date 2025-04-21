@@ -324,15 +324,13 @@ type Variant {
   price: Float!
   productId: String!
   quantity: Float!
-  variantAttributeValueId: String!
   variantAttributeValues: [VariantAttributeValue!]!
-  variantId: String!
 }
 
 type VariantAttributeValue {
+  attributeValueId: String!
   attributeValues: AttributeValue!
   id: String!
   variant: Variant!
-  variantAttributeValueId: String!
-  variantValueId: String!
+  variantId: String!
 }
