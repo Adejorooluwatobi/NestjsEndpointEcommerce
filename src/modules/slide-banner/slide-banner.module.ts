@@ -9,6 +9,7 @@ import { SlideBannerService } from './services/slide-banner/slide-banner.service
 @Module({
   imports: [TypeOrmModule.forFeature([SlideBanner])],
   controllers: [SlideBannerController],
-  providers: [SlideBannerService]
+  providers: [SlideBannerService],
+  exports: [SlideBannerService],
 })
 export class SlideBannerModule {}

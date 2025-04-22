@@ -135,6 +135,17 @@ type Mutation {
   updateOrderStatus(id: Float!, updateOrderStatusInput: UpdateOrderStatusDto!): OrderStatus!
 }
 
+type Notification {
+  accountId: String!
+  content: String!
+  createdAt: DateTime!
+  id: String!
+  notification_expiryDate: DateTime!
+  read: Boolean!
+  receive_time: DateTime!
+  title: String!
+}
+
 type Order {
   coupon: Coupon!
   couponId: String!
@@ -266,16 +277,18 @@ type Profile {
 }
 
 type Query {
+  Sell: [Sell!]!
   cardItem(id: String!): CardItem!
   cardItems: [CardItem!]!
   cardItemsByCardId(cardId: String!): [CardItem!]!
   customers: [Customer!]!
+  notification: [Notification!]!
   orderItem(id: String!): OrderItem!
   orderItems: [OrderItem!]!
   orderItemsByOrderId(orderId: String!): [OrderItem!]!
   orderStatus(id: Float!): OrderStatus!
   orderStatuses: [OrderStatus!]!
-  roles: [Role!]!
+  roles: [VariantAttributeValue!]!
   staffAccounts: [StaffAccount!]!
   staffRoles: [StaffRole!]!
   users: [User!]!
@@ -288,6 +301,13 @@ type Role {
   privileges: String!
   roleName: String!
   updatedAt: DateTime!
+}
+
+type Sell {
+  id: String!
+  price: Float!
+  productId: String!
+  quantity: Float!
 }
 
 type StaffAccount {
