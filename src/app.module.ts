@@ -9,35 +9,8 @@ import { AuthService } from './security/auth/auth.service';
 import { LoggingMiddleware } from './middleware/logging.middleware';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './security/auth/auth.module';
-import { CustomersModule } from './modules/customers/customers.module';
-import { ProfileModule } from './modules/profile/profile.module';
-import { PostModule } from './modules/post/post.module';
-import { UsersModule } from './modules/users/users.module';
-import { OrdersController } from './modules/orders/controllers/orders/orders.controller';
-import { CardsModule } from './modules/cards/cards.module';
-import { OrderItemsController } from './modules/order-items/controllers/order-items/order-items.controller';
-import { CardItemsController } from './modules/card-items/controllers/card-items/card-items.controller';
-import { OrderStatusesModule } from './modules/order-statuses/order-statuses.module';
-import { CardItemsModule } from './modules/card-items/card-items.module';
-import { OrderItemsModule } from './modules/order-items/order-items.module';
-import { OrdersModule } from './modules/orders/orders.module';
-import { OrderStatusesController } from './modules/order-statuses/controllers/order-statuses/order-statuses.controller';
-import { CardsController } from './modules/cards/controllers/cards/cards.controller';
-import { StaffAccountsModule } from './modules/staff-accounts/staff-accounts.module';
-import { StaffRolesModule } from './modules/staff-roles/staff-roles.module';
-import { RolesModule } from './modules/roles/roles.module';
-import { ProductController } from './modules/product/controllers/product/product.controller';
-import { ProductModule } from './modules/product/product.module';
-import { CouponModule } from './modules/coupon/coupon.module';
-import { CouponController } from './modules/coupon/controllers/coupon/coupon.controller';
-import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
-import { VariantModule } from './modules/variant/variant.module';
-// import { VariantAttributeValueModule } from './modules/variant-attribute-value/variant-attribute-value.module';
-import { AttributeValueModule } from './modules/attribute-value/attribute-value.module';
-import { CategoryModule } from './modules/category/category.module';
-import { AttributeModule } from './modules/attribute/attribute.module';
-import { TagModule } from './modules/tag/tag.module';
-import { ShippingModule } from './modules/shipping/shipping.module';
+import * as Modules from './modules';
+import * as Controllers from './controllers';
 
 @Module({
   imports: [
@@ -65,8 +38,73 @@ import { ShippingModule } from './modules/shipping/shipping.module';
     playground: true, // Enable GraphQL Playground in development
     debug: true,
   }),
-  ProfileModule, PostModule, UsersModule, AuthModule, CustomersModule, CustomerAddressModule, CardsModule, OrdersModule, OrderStatusesModule, OrderItemsModule, CardItemsModule, StaffAccountsModule, StaffRolesModule, RolesModule, ProductModule, CouponModule, VariantModule, AttributeValueModule, CategoryModule, AttributeModule, TagModule, ShippingModule],
-  controllers: [AppController, OrdersController, CardsController, OrderStatusesController, OrderItemsController, CardItemsController, ProductController, CouponController],
+  AuthModule,
+    Modules.AttributeModule,
+    Modules.AttributeValueModule,
+    Modules.CardItemsModule,
+    Modules.CardsModule,
+    Modules.CategoryModule,
+    Modules.CouponModule,
+    Modules.CustomerAddressModule,
+    Modules.CustomersModule,
+    Modules.GalleryModule,
+    Modules.NotificationModule,
+    Modules.OrderItemsModule,
+    Modules.OrderStatusesModule,
+    Modules.OrdersModule,
+    Modules.PostModule,
+    Modules.ProductAttributeModule,
+    Modules.ProductCategoryModule,
+    Modules.ProductCouponModule,
+    Modules.ProductModule,
+    Modules.ProductShippingModule,
+    Modules.ProductTagModule,
+    Modules.ProfileModule,
+    Modules.RolesModule,
+    Modules.SellModule,
+    Modules.ShippingModule,
+    Modules.SlideBannerModule,
+    Modules.StaffAccountsModule,
+    Modules.StaffRolesModule,
+    Modules.TagModule,
+    Modules.UsersModule,
+    Modules.VariantAttributeValueModule,
+    Modules.VariantModule,
+  ],
+  controllers: [
+    AppController,
+    Controllers.AttributeController,
+    Controllers.AttributeValueController,
+    Controllers.CardItemsController,
+    Controllers.CardsController,
+    Controllers.CategoryController,
+    Controllers.CouponController,
+    Controllers.CustomerAddressController,
+    Controllers.CustomersController,
+    Controllers.GalleryController,
+    Controllers.NotificationController,
+    Controllers.OrderItemsController,
+    Controllers.OrdersController,
+    Controllers.OrderStatusesController,
+    Controllers.PostController,
+    Controllers.ProductAttributeController,
+    Controllers.ProductCategoryController,
+    Controllers.ProductCouponController,
+    Controllers.ProductController,
+    Controllers.ProductShippingController,
+    Controllers.ProductTagController,
+    Controllers.ProfileController,
+    Controllers.RolesController,
+    Controllers.SellController,
+    Controllers.ShippingController,
+    Controllers.SlideBannerController,
+    Controllers.StaffAccountsController,
+    Controllers.StaffRolesController,
+    Controllers.TagController,
+    Controllers.UsersController,
+    Controllers.VariantAttributeValueController,
+    Controllers.VariantController,
+  ],
   providers: [AppService, AppGateway, AuthService],
 })
 export class AppModule implements NestModule {
