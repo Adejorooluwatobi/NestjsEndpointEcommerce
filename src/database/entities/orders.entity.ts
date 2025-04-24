@@ -4,6 +4,7 @@ import { Customer } from './customers.entity';
 import { Coupon } from './coupons.entity';
 import { OrderItem } from './orderItems.entity';
 import { OrderStatus } from './orderStatuses.entity';
+import { Payment } from './payment.entity';
 
 @ObjectType()
 @Entity({ name: 'orders' })
@@ -67,4 +68,8 @@ export class Order {
     @Field(() => OrderStatus)
     @ManyToOne(() => OrderStatus, (orderStatus) => orderStatus.orders)
     orderStatus: OrderStatus;
+
+    @Field(() => [Payment])
+    @OneToMany(() => Payment, (payment) => payment.order)
+    payments: Payment[];
 }

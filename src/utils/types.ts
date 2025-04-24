@@ -412,3 +412,57 @@ export type UpdateNotificationParams = {
     read: boolean;
     notification_expiryDate: string;
 }
+
+export type CreatePaymentParam = {
+orderId: string;
+customerId: string;
+paymentMethod: string;
+amount: number;
+status: 'pending' | 'completed' | 'failed';
+createdAt: Date;
+refundedAt: Date;
+}
+
+export type UpdatePaymentParam = {
+    orderId: string;
+    customerId: string;
+    paymentMethod: string;
+    amount: number;
+    status: 'pending' | 'completed' | 'failed';
+    createdAt: Date;
+    refundedAt: Date;
+    }
+
+    export type CreateCustomerEngagementReviewParams = {
+        productId: string;
+        customerId: string;
+        rating: number;
+        comment: string;
+    }
+    export type UpdateCustomerEngagementReviewParams = {
+        productId: string;
+        customerId: string;
+        rating: number;
+        comment: string;
+    }
+
+    export type CreateCustomerEngagementWishlistParams = {
+        customerId: string;
+        productId: string;
+    }
+
+    export type UpdateCustomerEngagementWishlistParams = {
+        customerId: string;
+        productId: string;
+    }
+
+export type UpdateInventoryParams = {
+    productId: string;
+    stockLevel: number;
+}
+
+export type UpdateAnalyticParams = {
+metric: string;
+value: number;
+metadata: Record<string, any>;
+}

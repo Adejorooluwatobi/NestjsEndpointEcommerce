@@ -98,6 +98,7 @@ type Customer {
   lastName: String!
   orders: [Order!]!
   password: String!
+  payments: [Payment!]!
   phoneNumber: String!
   profile: Profile
   registeredAt: DateTime!
@@ -160,6 +161,7 @@ type Order {
   orderNo: String!
   orderStatus: OrderStatus!
   orderStatusId: Float!
+  payments: [Payment!]!
   updatedAt: DateTime!
   updatedBy: String!
 }
@@ -184,6 +186,19 @@ type OrderStatus {
   statusName: String!
   updatedAt: DateTime!
   updatedBy: String!
+}
+
+type Payment {
+  amount: Float!
+  createdAt: DateTime!
+  customer: Customer!
+  customerId: String!
+  id: String!
+  order: Order!
+  orderId: String!
+  paymentMethod: String!
+  refundedAt: DateTime!
+  status: String!
 }
 
 type Post {
