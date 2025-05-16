@@ -42,7 +42,7 @@ export type CreateUserParams = {
     userName: string;
     email: string;
     isAdmin: boolean;
-    isActive: boolean
+    isActive: boolean;
     password: string;
 };
 
@@ -64,39 +64,39 @@ export type CreateProfileParams = {
     country: string;
     postalCode: string;
     dateOfBirth: Date;
-    };
+};
 
-    export type CreatePostParams = {
-        title: string;
-        description: string;
-        isActive: boolean; 
-    };
+export type CreatePostParams = {
+    title: string;
+    description: string;
+    isActive: boolean;
+};
 
-    export type CreateProductParams = {
-        productName: string;
-        sku: string;
-        regularPrice: number;
-        discountPrice: number;
-        quantity: number;
-        shortDescription: string;
-        productDescription: string;
-        productWeight: number;
-        productCode: string;
-        published: boolean;
-    }
+export type CreateProductParams = {
+    productName: string;
+    sku: string;
+    regularPrice: number;
+    discountPrice: number;
+    quantity: number;
+    shortDescription: string;
+    productDescription: string;
+    productWeight: number;
+    productCode: string;
+    published: boolean;
+};
 
-    export type UpdateProductParams = {
-        productName: string;
-        sku: string;
-        regularPrice: number;
-        discountPrice: number;
-        quantity: number;
-        shortDescription: string;
-        productDescription: string;
-        productWeight: number;
-        productCode: string;
-        published: boolean;
-    }
+export type UpdateProductParams = {
+    productName: string;
+    sku: string;
+    regularPrice: number;
+    discountPrice: number;
+    quantity: number;
+    shortDescription: string;
+    productDescription: string;
+    productWeight: number;
+    productCode: string;
+    published: boolean;
+};
 
 export type CreateOrderParams = {
     customerId: string;
@@ -179,12 +179,12 @@ export type UpdateRoleParams = {
 export type CreateStaffRoleParams = {
     staffId: string;
     roleId: string;
-}
+};
 
 export type UpdateStaffRoleParams = {
     staffId: string;
     roleId: string;
-}
+};
 
 export type CreateCouponParams = {
     code: string;
@@ -195,7 +195,7 @@ export type CreateCouponParams = {
     maxUsage: number;
     couponStartDate: Date;
     couponEndDate: Date;
-}
+};
 
 export type UpdateCouponParams = {
     code: string;
@@ -206,196 +206,190 @@ export type UpdateCouponParams = {
     maxUsage: number;
     couponStartDate: Date;
     couponEndDate: Date;
-}
+};
 
 export type CreateProductAttributeParams = {
     productId: string;
     attributeId: string;
-}
+};
 
 export type UpdateProductAttributeParams = {
     productId: string;
     attributeId: string;
-}
+};
 
 export type CreateProductCategoryParams = {
     productId: string;
     attributeId: string;
-}
+};
 
 export type UpdateProductCategoryParams = {
     productId: string;
     attributeId: string;
-}
+};
 
 export type CreateProductCouponParams = {
     productId: string;
     attributeId: string;
-}
+};
 
 export type UpdateProductCouponParams = {
     productId: string;
     attributeId: string;
-}
+};
 
 export type CreateProductTagParams = {
     productId: string;
-}
+};
 
 export type UpdateProductTagParams = {
     productId: string;
-}
+};
 
 export type CreateProductShippingParams = {
-
     productId: string;
     shippingId: string;
     shipCharge: number;
     free: boolean;
     estimatedDays: number;
-    
-}
+};
 
 export type UpdateProductShippingParams = {
-
     productId: string;
     shippingId: string;
     shipCharge: number;
     free: boolean;
     estimatedDays: number;
-    
-}
+};
 
 export type CreateCategoryParams = {
-    parentId: string;
+    //parentId: string;
     categoryName: string;
     categoryDescription: string;
     icon: string;
     imagePath: string;
     isActive: boolean;
-}
+};
 
 export type UpdateCategoryParams = {
-    parentId: string;
+    //parentId: string;
     categoryName: string;
     categoryDescription: string;
     icon: string;
     imagePath: string;
     isActive: boolean;
-}
+};
 
 export type CreateAttributeParams = {
     attributeName: string;
-}
+};
 
 export type UpdateAttributeParams = {
     attributeName: string;
-}
+};
 
 export type CreateAttributeValueParams = {
     attributeId: string;
     attributeValue: string;
     color: string;
-}
+};
 
 export type UpdateAttributeValueParams = {
     attributeId: string;
     attributeValue: string;
     color: string;
-}
+};
 
 export type CreateCustomerAddressParams = {
-    customerId: string;
+    // customerId: string;
     address_line1: string;
     address_line2: string;
     city: string;
     state: string;
     country: string;
     postalCode: string;
-    PhoneNumber: string;
-}
+    phoneNumber: string;
+};
 
 export type UpdateCustomerAddressParams = {
-    customerId: string;
+    // customerId: string;
     address_line1: string;
     address_line2: string;
     city: string;
     state: string;
     country: string;
     postalCode: string;
-    PhoneNumber: string;
-}
+    phoneNumber: string;
+};
 
 export type CreateGalleryParams = {
     productId: string;
     imagePath: string;
     thumbnail: string;
     displayOrder: boolean;
-}
+};
 
 export type UpdateGalleryParams = {
     productId: string;
     imagePath: string;
     thumbnail: string;
     displayOrder: boolean;
-}
+};
 
 export type CreateShippingParams = {
     name: string;
     isActive: boolean;
     iconPath: string;
-    
-}
+};
 
 export type UpdateShippingParams = {
     name: string;
     isActive: boolean;
     iconPath: string;
-    
-}
+};
 
 export type CreateTagParams = {
-        tagName: string;
-        icon: string;
-}
+    tagName: string;
+    icon: string;
+};
 
 export type UpdateTagParams = {
-        tagName: string;
-        icon: string;
-}
+    tagName: string;
+    icon: string;
+};
 
 export type CreateVariantParams = {
     price: number;
     quantity: number;
     productId: string;
-}
+};
 export type UpdateVariantParams = {
     price: number;
     quantity: number;
     productId: string;
-}
+};
 
 export type CreateVariantAttributeValueParams = {
     variantId: string;
     attributeValueId: string;
-}
+};
 
 export type UpdateVariantAttributeValueParams = {
     variantId: string;
     attributeValueId: string;
-}
+};
 
 export type CreateSellParams = {
     productId: string;
     price: number;
     quantity: number;
-}
+};
 
 export type UpdateSellParams = {
     productId: string;
     price: number;
     quantity: number;
-}
+};
 
 export type CreateNotificationParams = {
     accountId: string;
@@ -411,58 +405,76 @@ export type UpdateNotificationParams = {
     content: string;
     read: boolean;
     notification_expiryDate: string;
-}
+};
 
 export type CreatePaymentParam = {
-orderId: string;
-customerId: string;
-paymentMethod: string;
-amount: number;
-status: 'pending' | 'completed' | 'failed';
-createdAt: Date;
-refundedAt: Date;
-}
+    orderId: string;
+    customerId: string;
+    paymentMethod: string;
+    transactionId: string;
+    amount: number;
+    status: 'pending' | 'completed' | 'failed';
+    createdAt: Date;
+    refundedAt: Date;
+};
 
 export type UpdatePaymentParam = {
     orderId: string;
     customerId: string;
     paymentMethod: string;
+    transactionId: string;
     amount: number;
     status: 'pending' | 'completed' | 'failed';
     createdAt: Date;
     refundedAt: Date;
-    }
+};
 
-    export type CreateCustomerEngagementReviewParams = {
-        productId: string;
-        customerId: string;
-        rating: number;
-        comment: string;
-    }
-    export type UpdateCustomerEngagementReviewParams = {
-        productId: string;
-        customerId: string;
-        rating: number;
-        comment: string;
-    }
+export type CreateCustomerEngagementReviewParams = {
+    productId: string;
+    customerId: string;
+    rating: number;
+    comment: string;
+};
+export type UpdateCustomerEngagementReviewParams = {
+    productId: string;
+    customerId: string;
+    rating: number;
+    comment: string;
+};
 
-    export type CreateCustomerEngagementWishlistParams = {
-        customerId: string;
-        productId: string;
-    }
+export type CreateCustomerEngagementWishlistParams = {
+    customerId: string;
+    productId: string;
+};
 
-    export type UpdateCustomerEngagementWishlistParams = {
-        customerId: string;
-        productId: string;
-    }
+export type UpdateCustomerEngagementWishlistParams = {
+    customerId: string;
+    productId: string;
+};
+
+export type CreateInventoryParams = {
+    productId: string;
+    stockLevel: number;
+    stock: number;
+    reservedStock: number;
+};
 
 export type UpdateInventoryParams = {
     productId: string;
     stockLevel: number;
-}
+    stock: number;
+    reservedStock: number;
+};
 
 export type UpdateAnalyticParams = {
-metric: string;
-value: number;
-metadata: Record<string, any>;
-}
+    metric: string;
+    value: number;
+    metadata: Record<string, any>;
+};
+
+export type CreateAuditLogParams = {
+    action: string;
+    userId: string;
+    staffId: Date;
+    details: string;
+};

@@ -20,6 +20,11 @@ paymentMethod: string;
 
 @ApiProperty()
 @IsNotEmpty()
+@IsString()
+transactionId: string;
+
+@ApiProperty()
+@IsNotEmpty()
 @IsNumber()
 amount: number;
 

@@ -1,6 +1,7 @@
 export * from './analystic/analytics.module';
 export * from './attribute/attribute.module';
 export * from './attribute-value/attribute-value.module';
+export * from './audit-log/audit-log.module'
 export * from './card-items/card-items.module';
 export * from './cards/cards.module';
 export * from './category/category.module';

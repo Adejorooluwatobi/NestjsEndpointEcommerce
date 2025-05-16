@@ -33,4 +33,17 @@ async refundPayment(
 ) {
   return this.paymentService.refundPayment(customerId, updatePaymentDto);
 }
+
+  @Put(':id/status')
+
+  async updatePaymentStatus(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updatePaymentDto: UpdatePaymentParam,
+  ) {
+    return this.paymentService.updatePaymentStatus(id, updatePaymentDto);
+  }
+  @Get(':id')
+  async getPaymentById(@Param('id', ParseUUIDPipe) id: string) {
+    return this.paymentService.getPaymentById(id);
+  }
 }

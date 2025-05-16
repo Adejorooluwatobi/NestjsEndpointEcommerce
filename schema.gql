@@ -45,7 +45,6 @@ type Category {
   id: String!
   imagePath: String!
   isActive: Boolean!
-  parentId: String!
   productCategory: [ProductCategory!]!
   updatedAt: DateTime!
   updatedBy: String!
@@ -199,6 +198,7 @@ type Payment {
   paymentMethod: String!
   refundedAt: DateTime!
   status: String!
+  transactionId: String!
 }
 
 type Post {

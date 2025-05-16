@@ -3,10 +3,10 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateCustomerAddressDto {
 
-  @ApiProperty()
-@IsNotEmpty()
-  @IsString()
-  customerId: string;
+//   @ApiProperty()
+// @IsNotEmpty()
+//   @IsString()
+//   customerId: string;
 
   @ApiProperty()
 @IsNotEmpty()
@@ -39,7 +39,7 @@ export class CreateCustomerAddressDto {
   postalCode: string;
 
   @ApiProperty()
-@IsNotEmpty()
+  @IsNotEmpty() // Ensure this validation is present
   @IsString()
-  PhoneNumber: string;
+  phoneNumber: string;
 }

@@ -5,14 +5,24 @@ export class CreateInventoryDto{
 
     
 
-@ApiProperty()
-@IsNotEmpty()
+    @ApiProperty()
+    @IsNotEmpty()
     @IsString()
     productId: string;
 
     @ApiProperty()
-@IsNotEmpty()
+    @IsNotEmpty()
     @IsNumber()
     stockLevel: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
+    stock: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsNumber()
+    reservedStock: number;
 
 }

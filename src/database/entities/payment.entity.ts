@@ -23,6 +23,10 @@ export class Payment {
   paymentMethod: string;
 
   @Field()
+  @Column()
+  transactionId: string;
+
+  @Field()
   @Column('decimal')
   amount: number;
 

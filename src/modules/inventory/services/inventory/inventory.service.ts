@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Inventory } from 'src/database/entities/inventory.entity';
-import { UpdateInventoryParams } from 'src/utils/types';
+import { CreateInventoryParams, UpdateInventoryParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
 
@@ -11,6 +11,15 @@ export class InventoryService {
     @InjectRepository(Inventory)
     private readonly inventoryRepository: Repository<Inventory>,
   ) {}
+
+  async createInventory(createInventoryDetails: CreateInventoryParams) {
+    const inventory = this.inventoryRepository.create(createInventoryDetails);
+    return this.inventoryRepository.save(inventory);
+  }
+
+  async getInventory() {
+    return this.inventoryRepository.find();
+  }
 
   async updateInventory(productId: string, updateInventoryDetails: UpdateInventoryParams) {
     const inventory = await this.inventoryRepository.findOne({ where: { productId } });

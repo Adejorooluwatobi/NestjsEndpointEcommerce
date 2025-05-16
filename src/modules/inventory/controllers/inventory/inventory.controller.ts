@@ -1,12 +1,26 @@
-import { Controller, Patch, Body, Param, Get } from '@nestjs/common';
+import { Controller, Put, Body, Param, Get, Post } from '@nestjs/common';
 import { UpdateInventoryDto } from '../../dtos/UpdateInventory.dto';
 import { InventoryService } from '../../services/inventory/inventory.service';
+import { CreateInventoryDto } from '../../dtos/CreateInventoryDto';
 
 @Controller('inventory')
 export class InventoryController {
   constructor(private readonly inventoryService: InventoryService) {}
 
-  @Patch(':productId')
+  @Post()
+  async createInventory(
+    @Param()
+    @Body() createInventoryDto: CreateInventoryDto,
+  ) {
+    return this.inventoryService.createInventory(createInventoryDto);
+  }
+
+  @Get()
+  async getInventory() {
+    return this.inventoryService.getInventory();
+  }
+
+  @Put(':productId')
   async updateInventory(
     @Param('productId') productId: string,
     @Body() updateInventoryDto: UpdateInventoryDto,

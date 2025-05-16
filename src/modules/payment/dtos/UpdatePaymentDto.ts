@@ -16,6 +16,10 @@ customerId: string;
 paymentMethod: string;
 
 @ApiProperty()
+@IsString()
+transactionId: string;
+
+@ApiProperty()
 @IsNumber()
 amount: number;
 

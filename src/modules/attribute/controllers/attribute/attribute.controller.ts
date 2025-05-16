@@ -8,7 +8,7 @@ import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
 export class AttributeController {
     constructor(private attributeService: AttributeService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @Post()
     createAttribute(@Body() createAttributeDto: CreateAttributeDto) {
         return this.attributeService.createAttribute(createAttributeDto);
@@ -34,7 +34,7 @@ export class AttributeController {
             await this.attributeService.updateAttribute(id, updateAttributeDto)
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(UserGuard)
     @Delete(':id')
     async deleteAttributeById(
         @Param('id') id: string) {

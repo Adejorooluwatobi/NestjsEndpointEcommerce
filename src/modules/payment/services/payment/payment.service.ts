@@ -46,4 +46,19 @@ export class PaymentService {
   deletePayment(customerId: string) {
     return this.paymentRepository.delete(customerId);
   }
+
+  async updatePaymentStatus(id: string, updatePaymentDetails: UpdatePaymentParam) {
+    const payment = await this.paymentRepository.findOneBy({ id });
+    if (!payment) {
+      throw new HttpException('Payment not found', HttpStatus.NOT_FOUND);
+    }
+    return this.paymentRepository.update(id, updatePaymentDetails);
+  }
+  async getPaymentById(id: string) {
+    const payment = await this.paymentRepository.findOneBy({ id });
+    if (!payment) {
+      throw new HttpException('Payment not found', HttpStatus.NOT_FOUND);
+    }
+    return payment;
+  }
 }

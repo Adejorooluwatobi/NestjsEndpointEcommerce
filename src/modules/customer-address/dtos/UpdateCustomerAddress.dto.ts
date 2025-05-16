@@ -3,9 +3,9 @@ import { IsString } from "class-validator";
 
 export class UpdateCustomerAddressDto {
 
-  @ApiProperty()
-  @IsString()
-  customerId: string;
+  // @ApiProperty()
+  // @IsString()
+  // customerId: string;
 
   @ApiProperty()
   @IsString()
@@ -33,5 +33,5 @@ export class UpdateCustomerAddressDto {
 
   @ApiProperty()
   @IsString()
-  PhoneNumber: string;
+  phoneNumber: string;
 }

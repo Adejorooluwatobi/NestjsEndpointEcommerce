@@ -11,4 +11,12 @@ export class UpdateInventoryDto{
     @IsNumber()
     stockLevel: number;
 
+    @ApiProperty()
+    @IsNumber()
+    stock: number;
+
+    @ApiProperty()
+    @IsNumber()
+    reservedStock: number;
+
 }

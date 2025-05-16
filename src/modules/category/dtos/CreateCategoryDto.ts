@@ -5,10 +5,10 @@ export class CreateCategoryDto{
 
     
 
-@ApiProperty()
-@IsNotEmpty()
-    @IsString()
-    parentId: string;
+// @ApiProperty()
+// @IsNotEmpty()
+//     @IsString()
+//     parentId: string;
 
 @ApiProperty()
 @IsNotEmpty()

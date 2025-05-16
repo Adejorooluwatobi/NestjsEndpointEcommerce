@@ -3,9 +3,9 @@ import { IsBoolean, IsString } from "class-validator";
 
 export class UpdateCategoryDto{
 
-    @ApiProperty()
-        @IsString()
-        parentId: string;
+    // @ApiProperty()
+    //     @IsString()
+    //     parentId: string;
     
     @ApiProperty()
         @IsString()

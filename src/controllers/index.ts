@@ -1,6 +1,7 @@
 export * from '../modules/analystic/controllers/analytics/analytics.controller';
 export * from '../modules/attribute/controllers/attribute/attribute.controller';
 export * from '../modules/attribute-value/controllers/attribute-value/attribute-value.controller';
+export * from '../modules/audit-log/controllers/audit-log/audit-log.controller'
 export * from '../modules/card-items/controllers/card-items/card-items.controller';
 export * from '../modules/cards/controllers/cards/cards.controller';
 export * from '../modules/category/controllers/category/category.controller';

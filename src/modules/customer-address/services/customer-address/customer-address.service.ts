@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Customer, CustomerAddress} from 'src/database/entities';
-import { CreateCustomerAddressParams } from 'src/utils/types';
+import { CreateCustomerAddressParams, UpdateCustomerAddressParams } from 'src/utils/types';
 
 @Injectable()
 export class CustomerAddressService {
@@ -38,5 +38,10 @@ export class CustomerAddressService {
       throw new HttpException('Customer not found', HttpStatus.NOT_FOUND);
     }
     return customer.customerAddress;
+  }
+
+
+  async updateCustomerAddress(id: string, updateCustomerAddress: UpdateCustomerAddressParams){
+    return this.customerRepository.update(id, {...updateCustomerAddress})
   }
 }

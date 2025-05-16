@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
 import { AnalyticsService } from '../../services/analytics/analytics.service';
 import { CreateAnalyticDto } from '../../dtos/CreateAnalyticsDto';
 import { UpdateAnalyticDto } from '../../dtos/UpdateAnalyticsDto';
@@ -23,7 +23,7 @@ export class AnalyticsController {
     return this.analyticsService.createAnalytics(createAnalyticsDto);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async updateAnalytics(
     @Param('id') id: string,
     @Body() updateAnalyticsDto: UpdateAnalyticDto,

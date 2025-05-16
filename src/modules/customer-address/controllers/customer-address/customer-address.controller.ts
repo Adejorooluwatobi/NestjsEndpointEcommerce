@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateCustomerAddressDto } from '../../dtos/CreateCustomerAddress.dto';
 import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
 import { CustomerAddressService } from '../../services/customer-address/customer-address.service';
+import { UpdateCustomerAddressDto } from '../../dtos/UpdateCustomerAddress.dto';
 
 @Controller('customers/:id/customerAddress')
 export class CustomerAddressController {
@@ -21,4 +22,12 @@ export class CustomerAddressController {
   getCustomerAddress(@Param('id', ParseUUIDPipe) id: string) {
     return this.customerAddressService.getCustomerAddress(id.toString());
   }
+
+  @UseGuards(CustomerGuard)
+  @Put(':id')
+  async updateCustomerAddressById (
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateCustomerAddressDto: UpdateCustomerAddressDto,) {
+      await this.customerAddressService.updateCustomerAddress(id,  updateCustomerAddressDto);
+ }
 }

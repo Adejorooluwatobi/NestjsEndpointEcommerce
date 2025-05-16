@@ -47,7 +47,8 @@ export class AuthService {
     const payload = { 
       email: user.email, 
       sub: user.id, 
-      role: 'user'
+      role: 'user',
+      name: user.userName,
     };
     
     return {
@@ -108,7 +109,8 @@ export class AuthService {
         const payload = {
             sub: customer.id,
             email: customer.email,
-            role: 'customer'
+            role: 'customer',
+            name: customer.firstName,
         };
 
         return {
@@ -116,7 +118,7 @@ export class AuthService {
             customer: {
                 id: customer.id,
                 email: customer.email,
-                userName: customer.userName,
+                userName: customer.firstName,
                 isActive: customer.isActive,
             }
         };
@@ -163,7 +165,8 @@ export class AuthService {
         const payload = {
             sub: staff.id,
             email: staff.email,
-            role: 'staff'
+            role: 'staff',
+            name: staff.firstName
         };
 
         return {
@@ -172,6 +175,7 @@ export class AuthService {
                 id: staff.id,
                 email: staff.email,
                 isActive: staff.isActive,
+                name: staff.firstName
             }
         };
     } catch (error) {
