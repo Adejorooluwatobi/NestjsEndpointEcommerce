@@ -32,13 +32,19 @@ export class GalleryController {
     async updateGalleryById(
         @Param('id', ParseUUIDPipe) id: string, 
         @Body() updateGalleryDto: UpdateGalleryDto) {
-            return this.gallerysService.updateGallery(id, updateGalleryDto);
+            await this.gallerysService.updateGallery(id, updateGalleryDto);
+            return this.gallerysService.findGalleryById(id);
     }
 
     @UseGuards(CustomerGuard)
     @Delete(':id')
     async deleteGalleryById(
         @Param('id', ParseUUIDPipe) id: string) {
-        await this.gallerysService.deleteGallery(id);
+        const result = await this.gallerysService.deleteGallery(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Gallery deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

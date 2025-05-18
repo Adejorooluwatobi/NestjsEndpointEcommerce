@@ -31,14 +31,20 @@ export class ProductAttributeController {
     async updateProductAttributeById(
         @Param('id') id: string,
         @Body() updateProductAttributeDto: UpdateProductAttributeDto,) {
-            await this.productAttributeService.updateProductAttribute(id, updateProductAttributeDto)
+            await this.productAttributeService.updateProductAttribute(id, updateProductAttributeDto);
+            return this.productAttributeService.findProductAttributeById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteProductAttributeById(
         @Param('id') id: string) {
-            await this.productAttributeService.deleteProductAttribute(id);
+            const result = await this.productAttributeService.deleteProductAttribute(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Product Attriute deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

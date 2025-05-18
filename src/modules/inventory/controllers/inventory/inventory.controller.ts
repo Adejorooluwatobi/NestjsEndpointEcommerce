@@ -1,4 +1,4 @@
-import { Controller, Put, Body, Param, Get, Post } from '@nestjs/common';
+import { Controller, Put, Body, Param, Get, Post, Delete } from '@nestjs/common';
 import { UpdateInventoryDto } from '../../dtos/UpdateInventory.dto';
 import { InventoryService } from '../../services/inventory/inventory.service';
 import { CreateInventoryDto } from '../../dtos/CreateInventoryDto';
@@ -25,11 +25,22 @@ export class InventoryController {
     @Param('productId') productId: string,
     @Body() updateInventoryDto: UpdateInventoryDto,
   ) {
-    return this.inventoryService.updateInventory(productId, updateInventoryDto);
+    await this.inventoryService.updateInventory(productId, updateInventoryDto);
+    return this.inventoryService.checkInventory(productId);
   }
 
   @Get(':productId')
   async checkStock(@Param('productId') productId: string) {
     return this.inventoryService.checkInventory(productId);
+  }
+
+  @Delete(':productId')
+  async deleteInventory(@Param('productId') productId: string) {
+    const result = await this.inventoryService.deleteInventory(productId);
+    if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Service deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
   }
 }

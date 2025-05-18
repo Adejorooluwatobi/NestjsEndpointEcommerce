@@ -4,7 +4,7 @@ import { UpdateProductShippingDto } from '../../dtos/UpdateProductShippingDto';
 import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
 import { ProductShippingService } from '../../services/product-shipping/product-shipping.service';
 
-@Controller('product')
+@Controller('productShipping')
 export class ProductShippingController {
     constructor(private productService: ProductShippingService) {}
 
@@ -32,13 +32,19 @@ export class ProductShippingController {
         @Param('id') id: string,
         @Body() updateProductShippingDto: UpdateProductShippingDto,) {
             await this.productService.updateProductShipping(id, updateProductShippingDto)
+            return this.productService.findProductShippingById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteProductShippingById(
         @Param('id') id: string) {
-            await this.productService.deleteProductShipping(id);
+            const result = await this.productService.deleteProductShipping(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Product Shipping deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

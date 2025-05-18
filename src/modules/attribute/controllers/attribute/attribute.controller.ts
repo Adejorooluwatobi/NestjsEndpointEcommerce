@@ -32,13 +32,19 @@ export class AttributeController {
         @Param('id') id: string,
         @Body() updateAttributeDto: UpdateAttributeDto,) {
             await this.attributeService.updateAttribute(id, updateAttributeDto)
+            return this.attributeService.findAttributeById(id)
         }
 
         @UseGuards(UserGuard)
     @Delete(':id')
     async deleteAttributeById(
         @Param('id') id: string) {
-            await this.attributeService.deleteAttribute(id);
+            const result = await this.attributeService.deleteAttribute(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Attribute deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

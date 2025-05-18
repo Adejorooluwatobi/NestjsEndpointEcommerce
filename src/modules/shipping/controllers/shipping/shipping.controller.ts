@@ -32,14 +32,20 @@ export class ShippingController {
     async updateShippingById(
         @Param('id') id: string,
         @Body() updateShippingDto: UpdateShippingDto,) {
-            await this.shippingService.updateShipping(id, updateShippingDto)
+            await this.shippingService.updateShipping(id, updateShippingDto);
+            return this.shippingService.findShippingById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteShippingById(
         @Param('id') id: string) {
-            await this.shippingService.deleteShipping(id);
+            const result = await this.shippingService.deleteShipping(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Shipping deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

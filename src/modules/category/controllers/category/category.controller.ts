@@ -31,14 +31,20 @@ export class CategoryController {
     async updateCategoryById(
         @Param('id') id: string,
         @Body() updateCategoryDto: UpdateCategoryDto,) {
-            await this.categoryService.updateCategory(id, updateCategoryDto)
+            await this.categoryService.updateCategory(id, updateCategoryDto);
+            return this.categoryService.findCategoryById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteCategoryById(
         @Param('id') id: string) {
-            await this.categoryService.deleteCategory(id);
+            const result = await this.categoryService.deleteCategory(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Category deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

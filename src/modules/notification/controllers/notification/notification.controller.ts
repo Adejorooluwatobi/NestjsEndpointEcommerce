@@ -27,12 +27,18 @@ export class NotificationController {
         @Param('id', ParseUUIDPipe) id: string,
         @Body() UpdateNotificationDto: UpdateNotificationDto,) {
             await this.roleService.updateNotification(id, UpdateNotificationDto);
+            return this.roleService.findNotificationById(id);
         }
     
     @Delete(':id')
     async deleteNotificationById(
         @Param('id', ParseUUIDPipe) id: string
     ) {
-        await this.roleService.deleteNotification(id);
+        const result = await this.roleService.deleteNotification(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Notification deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

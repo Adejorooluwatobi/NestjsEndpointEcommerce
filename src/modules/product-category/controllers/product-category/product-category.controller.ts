@@ -4,7 +4,7 @@ import { CreateProductCategoryDto } from '../../dtos/CreateProductCategoryDto';
 import { UpdateProductCategoryDto } from '../../dtos/UpdateProductCategoryDto';
 import { ProductCategoryService } from '../../services/product-category/product-category.service';
 
-@Controller('product')
+@Controller('productCategory')
 export class ProductCategoryController {
     constructor(private productService: ProductCategoryService) {}
 
@@ -13,14 +13,12 @@ export class ProductCategoryController {
     createProductCategory(@Body() createProductCategoryDto: CreateProductCategoryDto) {
         return this.productService.createProductCategory(createProductCategoryDto);
     }
-
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    
     @Get()
     async getProductCategory() {
         return this.productService.findProductCategory();
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get(':id')
     async getProductCategoryById(@Param('id') id: string) {
         return this.productService.findProductCategoryById(id);
@@ -32,13 +30,19 @@ export class ProductCategoryController {
         @Param('id') id: string,
         @Body() updateProductCategoryDto: UpdateProductCategoryDto,) {
             await this.productService.updateProductCategory(id, updateProductCategoryDto)
+            return this.productService.findProductCategoryById(id)
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteProductCategoryById(
         @Param('id') id: string) {
-            await this.productService.deleteProductCategory(id);
+            const result = await this.productService.deleteProductCategory(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Product Category deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

@@ -31,14 +31,20 @@ export class AttributeValueController {
     async updateAttributeValueById(
         @Param('id') id: string,
         @Body() updateAttributeValueDto: UpdateAttributeValueDto,) {
-            await this.attributeValueService.updateAttributeValue(id, updateAttributeValueDto)
+            await this.attributeValueService.updateAttributeValue(id, updateAttributeValueDto);
+            return this.attributeValueService.findAttributeValueById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteAttributeValueById(
         @Param('id') id: string) {
-            await this.attributeValueService.deleteAttributeValue(id);
+            const result = await this.attributeValueService.deleteAttributeValue(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Attribute Value deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

@@ -13,6 +13,6 @@ export class CreateProductCategoryDto{
     @ApiProperty()
 @IsNotEmpty()
     @IsString()
-    attributeId: string;
+    categoryId: string;
 
 }

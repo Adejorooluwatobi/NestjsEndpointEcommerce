@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param, Get, ParseUUIDPipe, Put } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get, ParseUUIDPipe, Put, Delete } from '@nestjs/common';
 import { CreatePaymentDto } from '../../dtos/CreatePaymentDto';
 import { PaymentService } from '../../services/payment/payment.service';
 import { UpdatePaymentParam } from 'src/utils/types';
@@ -31,7 +31,8 @@ async refundPayment(
   @Param('customerId', ParseUUIDPipe) customerId: string,
   @Body() updatePaymentDto: UpdatePaymentParam,
 ) {
-  return this.paymentService.refundPayment(customerId, updatePaymentDto);
+  await this.paymentService.refundPayment(customerId, updatePaymentDto);
+  return this.paymentService.findpaymentByCustomerID(customerId);
 }
 
   @Put(':id/status')
@@ -40,10 +41,23 @@ async refundPayment(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updatePaymentDto: UpdatePaymentParam,
   ) {
-    return this.paymentService.updatePaymentStatus(id, updatePaymentDto);
+    await this.paymentService.updatePaymentStatus(id, updatePaymentDto);
+    return this.paymentService.getPaymentById(id);
   }
+
   @Get(':id')
   async getPaymentById(@Param('id', ParseUUIDPipe) id: string) {
+    await this.paymentService.getPaymentById(id);
     return this.paymentService.getPaymentById(id);
+  }
+
+  @Delete(':customerId')
+  async deletePayment(@Param('customerId') customerId: string) {
+    const result = await this.paymentService.deletePayment(customerId);
+    if (result && result.affected && result.affected > 0) {
+      return { success: true, message: 'Payment deleted successfully.' };
+    } else {
+      return { error: true, message: 'Payment not found.' };
+    }
   }
 }

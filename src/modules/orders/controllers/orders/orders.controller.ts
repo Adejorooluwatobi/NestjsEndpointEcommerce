@@ -38,13 +38,19 @@ export class OrdersController {
     async updateOrderById(
         @Param('id', ParseUUIDPipe) id: string, 
         @Body() updateOrderDto: UpdateOrderDto,) {
-            return this.ordersService.updateOrder(id, updateOrderDto);
+            await this.ordersService.updateOrder(id, updateOrderDto);
+            return this.ordersService.findOrderById(id);
     }
 
     @UseGuards(CustomerGuard)
     @Delete(':id')
     async deleteOrderById(
         @Param('id', ParseUUIDPipe) id: string) {
-        await this.ordersService.deleteOrder(id);
+        const result = await this.ordersService.deleteOrder(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Order deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

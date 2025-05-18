@@ -220,12 +220,12 @@ export type UpdateProductAttributeParams = {
 
 export type CreateProductCategoryParams = {
     productId: string;
-    attributeId: string;
+    categoryId: string;
 };
 
 export type UpdateProductCategoryParams = {
     productId: string;
-    attributeId: string;
+    categoryId: string;
 };
 
 export type CreateProductCouponParams = {

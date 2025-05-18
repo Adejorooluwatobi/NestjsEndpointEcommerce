@@ -27,12 +27,18 @@ export class VariantController {
         @Param('id', ParseUUIDPipe) id: string,
         @Body() UpdateVariantDto: UpdateVariantDto,) {
             await this.variantService.updateVariant(id, UpdateVariantDto);
+            return this.variantService.findVariantById(id);
         }
     
     @Delete(':id')
     async deleteVariantById(
         @Param('id', ParseUUIDPipe) id: string
     ) {
-        await this.variantService.deleteVariant(id);
+        const result = await this.variantService.deleteVariant(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Variant deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

@@ -32,13 +32,19 @@ export class OrderStatusesController {
     async updateOrderStatusById(
         @Param('id', ParseIntPipe) id: number, 
         @Body() updateOrderStatusDto: UpdateOrderStatusDto) {
-            return this.orderStatusesService.updateOrderStatus(id, updateOrderStatusDto);
+            await this.orderStatusesService.updateOrderStatus(id, updateOrderStatusDto);
+            return this.orderStatusesService.findOrderStatusById(id);
     }
 
     @UseGuards(CustomerGuard)
     @Delete(':id')
     async deleteOrderStatusById(
         @Param('id', ParseIntPipe) id: number) {
-        await this.orderStatusesService.deleteOrderStatus(id);
+        const result = await this.orderStatusesService.deleteOrderStatus(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Order Status deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

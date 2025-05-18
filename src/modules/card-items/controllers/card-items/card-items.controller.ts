@@ -38,13 +38,19 @@ export class CardItemsController {
     async updateCardItemById(
         @Param('id', ParseUUIDPipe) id: string, 
         @Body() updateCardItemDto: UpdateCardItemDto) {
-            return this.cardItemsService.updateCardItem(id, updateCardItemDto);
+            await this.cardItemsService.updateCardItem(id, updateCardItemDto);
+            return this.cardItemsService.findCardItemById(id)
     }
 
     @UseGuards(CustomerGuard)
     @Delete(':id')
     async deleteCardItemById(
         @Param('id', ParseUUIDPipe) id: string) {
-        await this.cardItemsService.deleteCardItem(id);
+        const result = await this.cardItemsService.deleteCardItem(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'CardItems deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

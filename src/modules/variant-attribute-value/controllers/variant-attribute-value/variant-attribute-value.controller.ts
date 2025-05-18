@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
-
 import { CreateVariantAttributeValueDto } from '../../dtos/CreateVariantAttributeValue.dto';
 import { UpdateVariantAttributeValueDto } from '../../dtos/UpdateVariantAttributeValue.dto';
 import { VariantAttributeValueService } from '../../services/variant-attribute-value/variant-attribute-value.service';
@@ -28,12 +27,18 @@ export class VariantAttributeValueController {
         @Param('id', ParseUUIDPipe) id: string,
         @Body() UpdateVariantAttributeValueDto: UpdateVariantAttributeValueDto,) {
             await this.variantAttributeValueService.updateVariantAttributeValue(id, UpdateVariantAttributeValueDto);
+            return this.variantAttributeValueService.findVariantAttributeValueById(id);
         }
     
     @Delete(':id')
     async deleteVariantAttributeValueById(
         @Param('id', ParseUUIDPipe) id: string
     ) {
-        await this.variantAttributeValueService.deleteVariantAttributeValue(id);
+        const result = await this.variantAttributeValueService.deleteVariantAttributeValue(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Variant Attribute Value deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

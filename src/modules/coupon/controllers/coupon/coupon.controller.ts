@@ -31,14 +31,20 @@ export class CouponController {
     async updateCouponByCode(
         @Param('couponCode') couponCode: string,
         @Body() updateCouponDto: UpdateCouponDto,) {
-            await this.couponService.updateCoupon(couponCode, updateCouponDto)
+            await this.couponService.updateCoupon(couponCode, updateCouponDto);
+            return this.couponService.findCouponByCode(couponCode);
         }
 
         // @UseGuards(UserGuard)
     @Delete(':couponCode')
     async deleteCouponByCode(
         @Param('couponCode') couponCode: string) {
-            await this.couponService.deleteCoupon(couponCode);
+            const result = await this.couponService.deleteCoupon(couponCode);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'coupon deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

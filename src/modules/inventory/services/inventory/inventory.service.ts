@@ -34,4 +34,8 @@ export class InventoryService {
     const inventory = await this.inventoryRepository.findOne({ where: { productId } });
     return inventory ? inventory.stockLevel : 0;
   }
+
+  async deleteInventory(productId: string) {
+    return this.inventoryRepository.delete({productId})
+  }
 }

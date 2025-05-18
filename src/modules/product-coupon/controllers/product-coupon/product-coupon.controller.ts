@@ -5,7 +5,7 @@ import { ProductCouponService } from '../../services/product-coupon/product-coup
 import { UpdateProductCouponDto } from '../../dtos/UpdateProductCouponDto';
 import { CreateProductCouponDto } from '../../dtos/CreateProductCouponDto';
 
-@Controller('product')
+@Controller('productCoupon')
 export class ProductCouponController {
     constructor(private productService: ProductCouponService) {}
 
@@ -32,14 +32,20 @@ export class ProductCouponController {
     async updateProductCouponById(
         @Param('id') id: string,
         @Body() updateProductCouponDto: UpdateProductCouponDto,) {
-            await this.productService.updateProductCoupon(id, updateProductCouponDto)
+            await this.productService.updateProductCoupon(id, updateProductCouponDto);
+            return this.productService.findProductCouponById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteProductCouponById(
         @Param('id') id: string) {
-            await this.productService.deleteProductCoupon(id);
+            const result = await this.productService.deleteProductCoupon(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Product Coupon deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }

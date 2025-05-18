@@ -33,6 +33,7 @@ export class StaffAccountsController {
         @Param('id', ParseUUIDPipe) id: string, 
         @Body() updateStaffDto: UpdateStaffAccountDto,) {
             await this.staffsService.updateStaffAccount(id, updateStaffDto);
+            return this.staffsService.findStaffAccountById(id);
     }
 
     
@@ -40,6 +41,11 @@ export class StaffAccountsController {
     @Delete(':id')
     async deleteStaffById(
         @Param('id', ParseUUIDPipe) id: string) {
-        await this.staffsService.deleteStaffAccount(id);
+        const result = await this.staffsService.deleteStaffAccount(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'staff Account deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

@@ -11,6 +11,6 @@ export class UpdateProductCategoryDto{
     @ApiProperty()
 
     @IsString()
-    attributeId: string;
+    categoryId: string;
 
 }

@@ -27,12 +27,18 @@ export class SellController {
         @Param('id', ParseUUIDPipe) id: string,
         @Body() UpdateSellDto: UpdateSellDto,) {
             await this.sellService.updateSell(id, UpdateSellDto);
+            return this.sellService.findSellById(id);
         }
     
     @Delete(':id')
     async deleteSellById(
         @Param('id', ParseUUIDPipe) id: string
     ) {
-        await this.sellService.deleteSell(id);
+        const result = await this.sellService.deleteSell(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Sales deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

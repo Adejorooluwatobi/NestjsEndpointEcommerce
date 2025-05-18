@@ -27,12 +27,18 @@ export class RolesController {
         @Param('id', ParseUUIDPipe) id: string,
         @Body() UpdateRoleDto: UpdateRoleDto,) {
             await this.roleService.updateRole(id, UpdateRoleDto);
+            return this.roleService.findRoleById(id);
         }
     
     @Delete(':id')
     async deleteRoleById(
         @Param('id', ParseUUIDPipe) id: string
     ) {
-        await this.roleService.deleteRole(id);
+        const result = await this.roleService.deleteRole(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Roles deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

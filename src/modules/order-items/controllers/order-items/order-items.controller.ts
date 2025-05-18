@@ -38,13 +38,19 @@ export class OrderItemsController {
     async updateOrderItemById(
         @Param('id', ParseUUIDPipe) id: string, 
         @Body() updateOrderItemDto: UpdateOrderItemDto) {
-            return this.orderItemsService.updateOrderItem(id, updateOrderItemDto);
+            await this.orderItemsService.updateOrderItem(id, updateOrderItemDto);
+            return this.orderItemsService.findOrderItemById(id)
     }
 
     @UseGuards(CustomerGuard)
     @Delete(':id')
     async deleteOrderItemById(
         @Param('id', ParseUUIDPipe) id: string) {
-        await this.orderItemsService.deleteOrderItem(id);
+        const result = await this.orderItemsService.deleteOrderItem(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'OrderItems deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

@@ -41,12 +41,13 @@ export class ProductService {
     }
 
     async updateProduct(productCode: string, updateProductDetails: UpdateProductParams) {
-                return this.productRepository.update(productCode, { ...updateProductDetails, updatedAt: new Date() });
+                await this.productRepository.update({productCode}, { ...updateProductDetails, updatedAt: new Date() });
+                return this.productRepository.findOne({ where: {productCode}});
     }
 
-    deleteProduct(productCode: string) {
+    async deleteProduct(productCode: string) {
         // Logic to delete an customer by ID
-        return this.productRepository.delete(productCode);
+        return this.productRepository.delete({productCode});
     }
 
 }

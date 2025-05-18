@@ -32,7 +32,8 @@ export class AnalyticsController {
   }
 
   @Delete(':id')
-  async deleteAnalytics(@Param('id') id: string): Promise<void> {
-    return this.analyticsService.deleteAnalytics(id);
+  async deleteAnalytics(@Param('id') id: string): Promise<{ success: boolean; message: string }> {
+    await this.analyticsService.deleteAnalytics(id);
+    return { success: true, message: 'Analyics deleted successfully' };
   }
 }

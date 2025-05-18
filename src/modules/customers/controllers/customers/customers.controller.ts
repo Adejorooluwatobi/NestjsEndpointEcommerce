@@ -39,6 +39,7 @@ export class CustomersController {
         @Param('id', ParseUUIDPipe) id: string, 
         @Body() updateCustomerDto: UpdateCustomerDto,) {
             await this.customersService.updateCustomer(id, updateCustomerDto);
+            return this.customersService.findCustomerById(id);
     }
 
     
@@ -47,6 +48,11 @@ export class CustomersController {
     async deleteCustomerById(
         @Param('id', ParseUUIDPipe) id: string) {
         // Logic to delete an customer by ID
-        await this.customersService.deleteCustomer(id);
+        const result = await this.customersService.deleteCustomer(id);
+        if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Customer deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
     }
 }

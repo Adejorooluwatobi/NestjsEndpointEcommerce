@@ -4,7 +4,7 @@ import { UpdateProductTagDto } from '../../dtos/UpdateProductTagDto';
 import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
 import { ProductTagService } from '../../services/product-tag/product-tag.service';
 
-@Controller('product')
+@Controller('productTags')
 export class ProductTagController {
     constructor(private productService: ProductTagService) {}
 
@@ -31,14 +31,20 @@ export class ProductTagController {
     async updateProductTagById(
         @Param('id') id: string,
         @Body() updateProductTagDto: UpdateProductTagDto,) {
-            await this.productService.updateProductTag(id, updateProductTagDto)
+            await this.productService.updateProductTag(id, updateProductTagDto);
+            return this.productService.findProductTagById(id);
         }
 
         @UseGuards(UserGuard, StaffGuard)
     @Delete(':id')
     async deleteProductTagById(
         @Param('id') id: string) {
-            await this.productService.deleteProductTag(id);
+            const result = await this.productService.deleteProductTag(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Product Tag deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
         }
 
 }
