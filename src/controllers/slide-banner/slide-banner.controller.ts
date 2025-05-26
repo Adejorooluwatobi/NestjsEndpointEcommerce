@@ -4,7 +4,7 @@ import { SlideBannerService } from 'src/Services/slide-banner/slide-banner.servi
 
 
 
-@Controller('users/:id/posts')
+@Controller('users/:id/slide-banners')
 export class SlideBannerController {
   constructor(private readonly postService: SlideBannerService) {}
 
