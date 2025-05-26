@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CustomerEngagementController } from './controllers/customer-engagement/customer-engagement.controller';
-import { CustomerEngagementService } from './services/customer-engagement/customer-engagement.service';
+import { CustomerEngagementController } from '../../controllers/customer-engagement/customer-engagement.controller';
+import { CustomerEngagementService } from '../../Services/customer-engagement/customer-engagement.service';
 import { Wishlist } from 'src/database/entities/customer-engagement_wishlist.entity';
 import { Review } from 'src/database/entities/customer-engagement_review.entity';
 import { Customer } from 'src/database/entities/customers.entity';

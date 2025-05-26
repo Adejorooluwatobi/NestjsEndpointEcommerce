@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
-
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Profile } from 'src/database/entities/Profile.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { StaffAccount } from 'src/database/entities/staffAccounts.entity';
-import { StaffsResolver } from './staff-accounts.resolver';
-import { StaffAccountsController } from './controllers/staff-accounts/staff-accounts.controller';
-import { StaffAccountsService } from './services/staff-accounts/staff-accounts.service';
+import { StaffAccountsService } from '../../Services/staff-accounts/staff-accounts.service';
 import { StaffRole } from 'src/database/entities';
+import { StaffAccountsController } from 'src/controllers/staff-accounts/staff-accounts.controller';
+import { StaffsResolver } from 'src/resolver/staff-accounts/staff-accounts.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StaffAccount, Profile, StaffRole]),

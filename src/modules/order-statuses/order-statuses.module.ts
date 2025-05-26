@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderStatus } from 'src/database/entities/orderStatuses.entity';
-import { OrderStatusesController } from './controllers/order-statuses/order-statuses.controller';
-import { OrderStatusesService } from './services/order-statuses/order-statuses.service';
-import { OrderStatusesResolver } from './order-statuses.resolver';
+import { OrderStatusesController } from '../../controllers/order-statuses/order-statuses.controller';
+import { OrderStatusesService } from '../../Services/order-statuses/order-statuses.service';
 import { AuthModule } from 'src/security/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { OrderStatusesResolver } from 'src/resolver/order-statuses/order-statuses.resolver';
 
 @Module({
   imports: [

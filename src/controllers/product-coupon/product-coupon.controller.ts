@@ -1,0 +1,51 @@
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+
+import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { ProductCouponService } from '../../Services/product-coupon/product-coupon.service';
+import { UpdateProductCouponDto } from '../../DTOs/ProductCouponDTO/UpdateProductCoupon.dto';
+import { CreateProductCouponDto } from '../../DTOs/ProductCouponDTO/CreateProductCoupon.dto';
+
+@Controller('productCoupon')
+export class ProductCouponController {
+    constructor(private productService: ProductCouponService) {}
+
+    @UseGuards(UserGuard, StaffGuard)
+    @Post()
+    createProductCoupon(@Body() createProductCouponDto: CreateProductCouponDto) {
+        return this.productService.createProductCoupon(createProductCouponDto);
+    }
+
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @Get()
+    async getProductCoupon() {
+        return this.productService.findProductCoupon();
+    }
+
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @Get(':id')
+    async getProductCouponById(@Param('id') id: string) {
+        return this.productService.findProductCouponById(id);
+    }
+
+    @UseGuards(UserGuard, StaffGuard)
+    @Put(':id')
+    async updateProductCouponById(
+        @Param('id') id: string,
+        @Body() updateProductCouponDto: UpdateProductCouponDto,) {
+            await this.productService.updateProductCoupon(id, updateProductCouponDto);
+            return this.productService.findProductCouponById(id);
+        }
+
+        @UseGuards(UserGuard, StaffGuard)
+    @Delete(':id')
+    async deleteProductCouponById(
+        @Param('id') id: string) {
+            const result = await this.productService.deleteProductCoupon(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Product Coupon deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
+        }
+
+}

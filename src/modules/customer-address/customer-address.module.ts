@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Customer, CustomerAddress } from 'src/database/entities';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { CustomerAddressController } from './controllers/customer-address/customer-address.controller';
-import { CustomerAddressService } from './services/customer-address/customer-address.service';
+import { CustomerAddressController } from '../../controllers/customer-address/customer-address.controller';
+import { CustomerAddressService } from '../../Services/customer-address/customer-address.service';
 
 
 @Module({

@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductShipping, Shipping } from 'src/database/entities';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { ShippingController } from './controllers/shipping/shipping.controller';
-import { ShippingService } from './services/product-shipping/shipping.service';
+import { ShippingController } from '../../controllers/shipping/shipping.controller';
+import { ShippingService } from '../../Services/shipping/shipping.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Shipping, ProductShipping]),

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AnalyticsController } from './controllers/analytics/analytics.controller';
-import { AnalyticsService } from './services/analytics/analytics.service';
+import { AnalyticsController } from '../../controllers/analytics/analytics.controller';
+import { AnalyticsService } from '../../Services/analytics/analytics.service';
 import { Analytics } from 'src/database/entities/analytics.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';

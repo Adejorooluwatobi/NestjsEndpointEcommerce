@@ -4,8 +4,8 @@ import { ProductTag, Tag } from 'src/database/entities';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { TagController } from './controllers/tag/tag.controller';
-import { TagService } from './services/tag/tag.service';
+import { TagController } from '../../controllers/tag/tag.controller';
+import { TagService } from '../../Services/tag/tag.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Tag, ProductTag]),

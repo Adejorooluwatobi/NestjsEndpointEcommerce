@@ -1,9 +1,10 @@
 import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from 'src/modules/users/services/users/users.service';
-import { CustomersService } from 'src/modules/customers/services/customers/customers.service';
-import { StaffAccountsService } from 'src/modules/staff-accounts/services/staff-accounts/staff-accounts.service';
+import { UsersService } from 'src/Services/users/users.service';
+import { CustomersService } from 'src/Services/customers/customers.service';
+import { StaffAccountsService } from 'src/Services/staff-accounts/staff-accounts.service';
+
 
 @Injectable()
 export class AuthService {

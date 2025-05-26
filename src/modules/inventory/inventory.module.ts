@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Inventory } from 'src/database/entities/inventory.entity';
-import { InventoryController } from './controllers/inventory/inventory.controller';
-import { InventoryService } from './services/inventory/inventory.service';
+import { InventoryController } from '../../controllers/inventory/inventory.controller';
+import { InventoryService } from '../../Services/inventory/inventory.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 

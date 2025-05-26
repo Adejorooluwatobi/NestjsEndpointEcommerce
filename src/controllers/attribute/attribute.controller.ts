@@ -1,0 +1,50 @@
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { AttributeService } from '../../Services/attribute/attribute.service';
+import { CreateAttributeDto } from '../../DTOs/AttributeDTO/CreateAttribute.dto';
+import { UpdateAttributeDto } from '../../DTOs/AttributeDTO/UpdateAttribute.dto';
+import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+
+@Controller('attribute')
+export class AttributeController {
+    constructor(private attributeService: AttributeService) {}
+
+    @UseGuards(UserGuard)
+    @Post()
+    createAttribute(@Body() createAttributeDto: CreateAttributeDto) {
+        return this.attributeService.createAttribute(createAttributeDto);
+    }
+
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @Get()
+    async getAttribute() {
+        return this.attributeService.findAttribute();
+    }
+
+    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @Get(':id')
+    async getAttributeById(@Param('id') id: string) {
+        return this.attributeService.findAttributeById(id);
+    }
+
+    @UseGuards(UserGuard, StaffGuard)
+    @Put(':id')
+    async updateAttributeById(
+        @Param('id') id: string,
+        @Body() updateAttributeDto: UpdateAttributeDto,) {
+            await this.attributeService.updateAttribute(id, updateAttributeDto)
+            return this.attributeService.findAttributeById(id)
+        }
+
+        @UseGuards(UserGuard)
+    @Delete(':id')
+    async deleteAttributeById(
+        @Param('id') id: string) {
+            const result = await this.attributeService.deleteAttribute(id);
+            if (result.affected && result.affected > 0) {
+                return {success: true, message: 'Attribute deleted successfully'};
+            } else {
+                return {error: false, message: 'not found.'}
+            }
+        }
+
+}

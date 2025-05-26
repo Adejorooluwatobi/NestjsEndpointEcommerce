@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';import { AuditLog } from 'src/database/entities/auditLog.entity';
-import { AuditLogController } from './controllers/audit-log/audit-log.controller';
-import { AuditLogService } from './services/audit-log/audit-log.service';
+import { AuditLogController } from '../../controllers/audit-log/audit-log.controller';
+import { AuditLogService } from '../../Services/audit-log/audit-log.service';
 ;
 
 @Module({
