@@ -131,10 +131,19 @@ export type UpdateCardItemParams = {
 export type CreateCardParams = {
     customerId: string;
     cardItems?: CreateCardItemParams[];
+    cardNumber: string;
+    cardName: string;
+    cardType: string;
+    isActive: boolean;
 };
 
 export type UpdateCardParams = {
     customerId?: string;
+    cardItems?: UpdateCardItemParams[];
+    cardNumber?: string;
+    cardName?: string;
+    cardType?: string;
+    isActive?: boolean;
 };
 
 // Types for OrderStatus

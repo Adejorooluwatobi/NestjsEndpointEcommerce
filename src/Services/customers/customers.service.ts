@@ -1,65 +1,137 @@
-//import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DeleteResult,  } from 'typeorm'; // Import DeleteResult and UpdateResult for method signatures
 import { CreateCustomerParams, UpdateCustomerParams } from 'src/utils/types';
 import { Profile } from 'src/database/entities/Profile.entity';
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'; // Added NotFoundException
 import * as bcrypt from 'bcrypt';
 import { Customer } from 'src/database/entities/customers.entity';
 
 @Injectable()
 export class CustomersService {
-
     constructor(
         @InjectRepository(Customer) private customerRepository: Repository<Customer>,
         @InjectRepository(Profile) private profileRepository: Repository<Profile>,
-        ) {}
+    ) {}
 
-    findCustomer() {
-        // Logic to find all customers
-        return this.customerRepository.find({ relations: ['profile'] }); // Fetch customers with their profiles
+    /**
+     * Finds all customers, optionally with their profiles.
+     * @returns A promise that resolves to an array of Customer entities.
+     */
+    findCustomer(): Promise<Customer[]> {
+        return this.customerRepository.find({ relations: ['profile'] });
     }
 
-    findCustomerById(id: string) {
-        // Logic to find a customer by ID
-        return this.customerRepository.findOne({ where: { id }, relations: ['profile'] }); // Fetch customer with their profile
+    /**
+     * Finds a customer by their ID, optionally with their profile.
+     * @param id The UUID of the customer.
+     * @returns A promise that resolves to a Customer entity or null if not found.
+     */
+    findCustomerById(id: string): Promise<Customer | null> {
+        return this.customerRepository.findOne({ where: { id }, relations: ['profile'] });
     }
 
-    async createCustomer(customerDetails: CreateCustomerParams) {
+    /**
+     * Creates a new customer profile.
+     * Hashes the password and checks for existing email.
+     * @param customerDetails The data to create the customer.
+     * @returns A promise that resolves to the newly created Customer entity.
+     * @throws ConflictException if a customer with the given email already exists.
+     * @throws InternalServerErrorException for unexpected errors during hashing or saving.
+     */
+    async createCustomer(customerDetails: CreateCustomerParams): Promise<Customer> {
         if (!customerDetails.email) {
-            throw new Error('Email is required');
+            // This check might be redundant if ValidationPipe is used in controller with DTO validation
+            throw new InternalServerErrorException('Email is required');
         }
+
         const existingCustomer = await this.customerRepository.findOneBy({ email: customerDetails.email });
-    if (existingCustomer) {
-        throw new ConflictException(`Customer with this ${customerDetails.email} already exists`);
-    }
-        // Logic to create a new customer
-        const hashedPassword = await bcrypt.hash(customerDetails.password, 10); // Hash the password
-        const newCustomer = this.customerRepository.create({ ...customerDetails, password: hashedPassword, createdAt: new Date(), updatedAt: new Date() });
-        const savedCustomer = await this.customerRepository.save(newCustomer);
-        console.log(`Customer created successfully with ID: ${savedCustomer.id}`);
-        return savedCustomer;
-    }
+        if (existingCustomer) {
+            throw new ConflictException(`Customer with this email (${customerDetails.email}) already exists`);
+        }
 
-    async updateCustomer( id: string, updateCustomerDetails: UpdateCustomerParams) {
-
-        updateCustomerDetails.password = await bcrypt.hash(updateCustomerDetails.password, 10);
-        // Logic to update an customer
-        return this.customerRepository.update(id, { ...updateCustomerDetails, updatedAt: new Date() });
-    }
-
-    deleteCustomer(id: string) {
-        // Logic to delete an customer by ID
-        return this.customerRepository.delete(id);
+        try {
+            const hashedPassword = await bcrypt.hash(customerDetails.password, 10);
+            const newCustomer = this.customerRepository.create({
+                ...customerDetails,
+                password: hashedPassword,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            });
+            const savedCustomer = await this.customerRepository.save(newCustomer);
+            console.log(`Customer created successfully with ID: ${savedCustomer.id}`);
+            return savedCustomer;
+        } catch (error) {
+            console.error('Error creating customer:', error);
+            throw new InternalServerErrorException('Failed to create customer due to an internal error.');
+        }
     }
 
-    // async findCustomerByEmail(email: string) {
-    //     // Logic to find a customer by email
-    //     return this.customerRepository.findOne({ 
-    //       where: { email },
-    //       relations: ['profile', 'posts']
-    //     });
-    //   }
+    /**
+     * Updates an existing customer profile.
+     * Hashes the new password if provided and checks for email conflicts.
+     * @param id The UUID of the customer to update.
+     * @param updateCustomerDetails The data to update the customer.
+     * @returns A promise that resolves to the updated Customer entity.
+     * @throws NotFoundException if the customer with the given ID is not found.
+     * @throws ConflictException if the updated email already exists for another customer.
+     * @throws InternalServerErrorException for unexpected errors during hashing or saving.
+     */
+    async updateCustomer(id: string, updateCustomerDetails: UpdateCustomerParams): Promise<Customer> {
+        const customerToUpdate = await this.customerRepository.findOneBy({ id });
+        if (!customerToUpdate) {
+            throw new NotFoundException(`Customer with ID ${id} not found.`);
+        }
+
+        // Check for email conflict if email is being updated and is different from current
+        if (updateCustomerDetails.email && updateCustomerDetails.email !== customerToUpdate.email) {
+            const existingCustomerWithNewEmail = await this.customerRepository.findOneBy({ email: updateCustomerDetails.email });
+            if (existingCustomerWithNewEmail && existingCustomerWithNewEmail.id !== id) {
+                throw new ConflictException('Another customer with this email already exists.');
+            }
+        }
+
+        if (updateCustomerDetails.password) {
+            updateCustomerDetails.password = await bcrypt.hash(updateCustomerDetails.password, 10);
+        }
+
+        try {
+            // Merge the existing customer with the update details
+            this.customerRepository.merge(customerToUpdate, { ...updateCustomerDetails, updatedAt: new Date() });
+            return await this.customerRepository.save(customerToUpdate);
+        } catch (error) {
+            console.error('Error updating customer:', error);
+            throw new InternalServerErrorException('Failed to update customer due to an internal error.');
+        }
+    }
+
+    /**
+     * Deletes a customer profile by ID.
+     * @param id The UUID of the customer to delete.
+     * @returns A promise that resolves when the customer is deleted.
+     * @throws NotFoundException if the customer with the given ID is not found.
+     * @throws InternalServerErrorException for unexpected database errors.
+     */
+    async deleteCustomer(id: string): Promise<void> {
+        try {
+            const result: DeleteResult = await this.customerRepository.delete(id);
+            if (result.affected === 0) {
+                throw new NotFoundException(`Customer with ID ${id} not found.`);
+            }
+        } catch (error) {
+            if (error instanceof NotFoundException) {
+                throw error; // Re-throw NotFoundException
+            }
+            console.error('Error deleting customer:', error);
+            throw new InternalServerErrorException('Failed to delete customer due to an internal error.');
+        }
+    }
+
+    /**
+     * Finds a customer by their email.
+     * @param email The email of the customer.
+     * @returns A promise that resolves to a Customer entity or null if not found.
+     * @throws InternalServerErrorException for database errors.
+     */
     async findCustomerByEmail(email: string): Promise<Customer | null> {
         try {
             return await this.customerRepository.findOneBy({ email });
@@ -68,5 +140,4 @@ export class CustomersService {
             throw new InternalServerErrorException('Database error occurred while finding customer');
         }
     }
-
-    }
+}

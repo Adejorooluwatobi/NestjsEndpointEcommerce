@@ -40,6 +40,29 @@ export class CardsService {
         });
     }
 
+    // Method to check if card number is available (returns boolean)
+    async isCardNumberAvailable(cardNumber: string): Promise<boolean> {
+        const existingCard = await this.cardRepository.findOne({ 
+            where: { cardNumber } 
+        });
+        
+        // Return true if card number is available (not found), false if already in use
+        return !existingCard;
+    }
+
+    // Original method for finding cards by card number (if you still need it)
+    async findCardsByCardNumber(cardNumber: string) {
+        const card = await this.cardRepository.findOne({ where: { cardNumber } });
+        if (!card) {
+            throw new NotFoundException('Card not found');
+        }
+        
+        return this.cardRepository.find({
+            where: { cardNumber: cardNumber },
+            relations: ['customer', 'cardItems']
+        });
+    }
+
     async createCard(cardDetails: CreateCardParams) {
         // Verify customer exists first
         const customer = await this.customersService.findCustomerById(cardDetails.customerId);

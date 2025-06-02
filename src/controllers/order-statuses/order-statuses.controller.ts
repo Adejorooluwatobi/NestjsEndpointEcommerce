@@ -4,40 +4,151 @@ import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateOrderStatusDto } from '../../DTOs/OrderStatus/CreateOrderStatus.dto';
 import { UpdateOrderStatusDto } from '../../DTOs/OrderStatus/UpdateOrderStatus.dto';
 import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
+import { ApiResponseDto, ErrorResponseDto, OrderStatusResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
+@ApiExtraModels(OrderStatusResponseDto)
 @Controller('order-statuses')
 export class OrderStatusesController {
     constructor(private orderStatusesService: OrderStatusesService) {}
 
     @UseGuards(UserGuard, StaffGuard)
-    @Get()
+    @ApiBearerAuth()
+        @Get()
+        @ApiOperation({ summary: 'Get all order status' })
+        @ApiOkResponse({
+            description: 'Users retrieved successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: {
+                                type: 'array',
+                                items: { $ref: getSchemaPath(OrderStatusResponseDto) }
+                            }
+                        }
+                    }
+                ]
+            }
+        })
     async getOrderStatuses() {
-        return this.orderStatusesService.findOrderStatuses();
+        const orderstatus = await this.orderStatusesService.findOrderStatuses();
+        return {
+             succeeded: true,
+            message: 'order status retrieved successfully',
+            statusCode: 200,
+            resultData: orderstatus,
+        }
     }
 
     @UseGuards(CustomerGuard, UserGuard, StaffGuard)
-    @Get(':id')
+    @ApiBearerAuth()
+        @Get(':id')
+        @ApiOperation({ summary: 'Get order status by ID' })
+        @ApiOkResponse({
+            description: 'Order status retrieved successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: { $ref: getSchemaPath(OrderStatusResponseDto) }
+                        }
+                    }
+                ]
+            }
+        })
+        @ApiNotFoundResponse({
+            description: 'order status not found',
+            type: ErrorResponseDto
+        })
     async getOrderStatusById(@Param('id', ParseIntPipe) id: number) {
-        return this.orderStatusesService.findOrderStatusById(id);
+        const orderstatus = await  this.orderStatusesService.findOrderStatusById(id);
+        if (!orderstatus) {
+            return { error: true, message: 'Order status not found', statusCode: 404 };
+        }
+        return {
+            succeeded: true,
+            message: 'Order status retrieved successfully',
+            statusCode: 200,
+            resultData: orderstatus,
+        };
     }
 
     @UseGuards(CustomerGuard, UserGuard)
     @Post()
-    createOrderStatus(@Body() createOrderStatusDto: CreateOrderStatusDto) {
-        return this.orderStatusesService.createOrderStatus(createOrderStatusDto);
+    @ApiOperation({ summary: 'Create a new Order status Record' })
+        @ApiCreatedResponse({
+            description: 'Order status created successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: { $ref: getSchemaPath(OrderStatusResponseDto) }
+                        }
+                    }
+                ]
+            }
+        })
+        @ApiBadRequestResponse({
+            description: 'Invalid input data',
+            type: ErrorResponseDto
+        })
+        @ApiConflictResponse({
+            description: 'Order Status with this email already exists'
+        })
+    async createOrderStatus(@Body() createOrderStatusDto: CreateOrderStatusDto) {
+        const orderstatus = await this.orderStatusesService.createOrderStatus(createOrderStatusDto);
+        return {
+            succeeded: true,
+            message: 'Order status created successfully',
+            statusCode: 201,
+            resultData: orderstatus,
+        };
     }
 
     @UseGuards(CustomerGuard)
-    @Put(':id')
+    @ApiBearerAuth()
+        @Put(':id')
+        @ApiOperation({ summary: 'Update Order status by ID' })
+        @ApiOkResponse({
+            description: 'Order Status updated successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: { $ref: getSchemaPath(OrderStatusResponseDto) }
+                        }
+                    }
+                ]
+            }
+        })
+        @ApiNotFoundResponse({ description: 'Order Status not found', type: ErrorResponseDto })
+        @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
     async updateOrderStatusById(
         @Param('id', ParseIntPipe) id: number, 
         @Body() updateOrderStatusDto: UpdateOrderStatusDto) {
-            await this.orderStatusesService.updateOrderStatus(id, updateOrderStatusDto);
-            return this.orderStatusesService.findOrderStatusById(id);
+            const orderstatus = await this.orderStatusesService.updateOrderStatus(id, updateOrderStatusDto);
+            if (!orderstatus) {
+                return { error: true, message: 'Order status not found', statusCode: 404 };
+            }
+            return {
+                succeeded: true,
+                message: 'Order status updated successfully',
+                statusCode: 200,
+                resultData: orderstatus,
+            };
     }
 
     @UseGuards(CustomerGuard)
-    @Delete(':id')
+    @ApiBearerAuth() // Added ApiBearerAuth for consistency
+        @Delete(':id')
+        @ApiOperation({ summary: 'Delete by ID' })
+        @ApiNoContentResponse({ description: 'deleted successfully' })
+        @ApiNotFoundResponse({ description: 'ot found', type: ErrorResponseDto })
     async deleteOrderStatusById(
         @Param('id', ParseIntPipe) id: number) {
         const result = await this.orderStatusesService.deleteOrderStatus(id);

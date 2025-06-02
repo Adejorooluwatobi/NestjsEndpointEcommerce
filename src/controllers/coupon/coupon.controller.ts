@@ -3,40 +3,153 @@ import { CouponService } from '../../Services/coupon/coupon.service';
 import { CreateCouponDto } from '../../DTOs/CouponDTO/CreateCoupon.dto';
 import { UpdateCouponDto } from '../../DTOs/CouponDTO/UpdateCoupon.dto';
 import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
+import { ApiResponseDto, CouponResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
+@ApiExtraModels(CouponResponseDto)
 @Controller('coupon')
 export class CouponController {
     constructor(private couponService: CouponService) {}
 
     @UseGuards(UserGuard, StaffGuard)
+    @ApiOperation({ summary: 'Create a new coupon' })
+        @ApiCreatedResponse({
+            description: 'Coupon created successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: { $ref: getSchemaPath(CouponResponseDto) }
+                        }
+                    }
+                ]
+            }
+        })
+        @ApiBadRequestResponse({
+                description: 'Invalid input data',
+                type: ErrorResponseDto
+            })
     @Post()
-    createCoupon(@Body() createCouponDto: CreateCouponDto) {
-        return this.couponService.createCoupon(createCouponDto);
+    async createCoupon(@Body() createCouponDto: CreateCouponDto) {
+        const coupon = await this.couponService.createCoupon(createCouponDto);
+        return {
+            succeeded: true,
+            message: 'Coupon created successfully',
+            statusCode: 201,
+            resultData: coupon,
+        };  
     }
 
     @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @ApiBearerAuth()
+        @ApiOperation({ summary: 'Get all coupon' })
+        @ApiOkResponse({
+            description: 'Coupon retrieved successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: {
+                                type: 'array',
+                                items: { $ref: getSchemaPath(CouponResponseDto) }
+                            }
+                        }
+                    }
+                ]
+            }
+        })
     @Get()
     async getCoupon() {
-        return this.couponService.findCoupon();
+        const coupon = await this.couponService.findCoupon();
+        return {
+            succeeded: true,
+            message: 'Coupon retrieved successfully',
+            statusCode: 200,
+            resultData: coupon,
+        };
     }
 
     @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @ApiBearerAuth()
+        @ApiOperation({ summary: 'Get coupon by code' })
+        @ApiOkResponse({
+            description: 'Coupon retrieved successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: { $ref: getSchemaPath(CouponResponseDto) }
+                        }
+                    }
+                ]
+            }
+        })
+        @ApiNotFoundResponse({
+            description: 'Coupon not found',
+            type: ErrorResponseDto
+        })
     @Get(':couponCode')
     async getCouponByCode(@Param('couponCode') couponCode: string) {
-        return this.couponService.findCouponByCode(couponCode);
+        const coupon = await this.couponService.findCouponByCode(couponCode);
+        if (!coupon) {
+            return { error: true, message: 'Coupon not found.' };
+        }
+        return {
+            succeeded: true,
+            message: 'Coupon retrieved successfully',
+            statusCode: 200,
+            resultData: coupon,
+        };
     }
 
     @UseGuards(UserGuard, StaffGuard)
+    @ApiOperation({ summary: 'Update coupon by Code' })
+        @ApiOkResponse({
+            description: 'Coupon updated successfully',
+            schema: {
+                allOf: [
+                    { $ref: getSchemaPath(ApiResponseDto) },
+                    {
+                        properties: {
+                            resultData: { $ref: getSchemaPath(CouponResponseDto) }
+                        }
+                    }
+                ]
+            }
+        })
+        @ApiNotFoundResponse({
+            description: 'Coupon not found',
+            type: ErrorResponseDto
+        })
+        @ApiBadRequestResponse({
+            description: 'Invalid input data',
+            type: ErrorResponseDto
+        })
     @Put(':couponCode')
     async updateCouponByCode(
         @Param('couponCode') couponCode: string,
         @Body() updateCouponDto: UpdateCouponDto,) {
-            await this.couponService.updateCoupon(couponCode, updateCouponDto);
-            return this.couponService.findCouponByCode(couponCode);
+            const coupon = await this.couponService.updateCoupon(couponCode, updateCouponDto);
+            if (!coupon) {
+                return {error: true, message: 'Coupon not found.'};
+            }
+            return {
+                succeeded: true,
+                message: 'Coupon updated successfully',
+                statusCode: 200,
+                resultData: coupon,
+            };
         }
 
         // @UseGuards(UserGuard)
-    @Delete(':couponCode')
+    @ApiBearerAuth() // Added ApiBearerAuth for consistency
+            @Delete(':couponCode')
+            @ApiOperation({ summary: 'Delete by ID' })
+            @ApiNoContentResponse({ description: 'deleted successfully' })
+            @ApiNotFoundResponse({ description: 'ot found', type: ErrorResponseDto })
     async deleteCouponByCode(
         @Param('couponCode') couponCode: string) {
             const result = await this.couponService.deleteCoupon(couponCode);

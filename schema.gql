@@ -22,6 +22,7 @@ type AttributeValue {
 
 type Card {
   cardItems: [CardItem!]!
+  cardNumber: String!
   customer: Customer!
   customerId: String!
   id: String!

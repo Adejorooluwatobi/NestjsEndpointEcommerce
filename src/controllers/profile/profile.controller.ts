@@ -2,58 +2,225 @@ import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@n
 import { CreateProfileDto } from '../../DTOs/ProfileDTO/CreateProfile.dto';
 import { ProfileService } from '../../Services/profile/profile.service';
 import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiExtraModels, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
+import { ApiResponseDto, ErrorResponseDto, ProfileResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
+@ApiExtraModels(CreateProfileDto)
 @Controller()
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
   @UseGuards(UserGuard, StaffGuard)
   @Post('users/:id/profiles')
-  createUserProfile(
+  @ApiOperation({ summary: 'Create user profile by ID' })
+      @ApiOkResponse({
+          description: 'User profile created successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: { $ref: getSchemaPath(ProfileResponseDto) }
+                      }
+                  }
+              ]
+          }
+      })
+      @ApiNotFoundResponse({ description: 'User not found', type: ErrorResponseDto })
+      @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
+  async createUserProfile(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() createProfileDto: CreateProfileDto,
   ) {
-    return this.profileService.createUserProfile(id, createProfileDto);
+    const profile = await this.profileService.createUserProfile(id, createProfileDto);
+    return {
+      succeeded: true,
+      message: 'User profile created successfully',
+      statusCode: 201,
+      resultData: profile,
+    };
   }
 
   @UseGuards(UserGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all user profiles' })
+      @ApiOkResponse({
+          description: 'User profiles retrieved successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: {
+                              type: 'array',
+                              items: { $ref: getSchemaPath(ProfileResponseDto) }
+                          }
+                      }
+                  }
+              ]
+          }
+      })
+      @ApiNotFoundResponse({ description: 'No user profiles found', type: ErrorResponseDto })
   @Get('users/:id/profiles')
-  getUserProfile(@Param('id', ParseUUIDPipe) id: string) {
-    return this.profileService.getUserProfile(id.toString());
+  async getUserProfile(@Param('id', ParseUUIDPipe) id: string) {
+    const profile = await this.profileService.getUserProfile(id);
+    return {
+      succeeded: true,
+      message: 'User profile retrieved successfully',
+      statusCode: 200,
+      resultData: profile,
+    };
   }
 
   @UseGuards(CustomerGuard)
   @Post('customers/:id/profiles')
-  createCustomerProfile(
+  @ApiOperation({ summary: 'Create customer profile by ID' })
+      @ApiOkResponse({
+          description: 'Customer profile created successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: { $ref: getSchemaPath(ProfileResponseDto) }
+                      }
+                  }
+              ]
+          }
+      })
+      @ApiNotFoundResponse({ description: 'Customer not found', type: ErrorResponseDto })
+      @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
+  async createCustomerProfile(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() createCustomerProfileDto: CreateProfileDto,
   ) {
-    return this.profileService.createCustomerProfile(id, createCustomerProfileDto);
+    const profile = await this.profileService.createCustomerProfile(id, createCustomerProfileDto);
+    return {
+      succeeded: true,
+      message: 'Customer profile created successfully',
+      statusCode: 201,
+      resultData: profile,
+    };
   }
 
   @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all customer profiles' })
+      @ApiOkResponse({
+          description: 'customer profiles retrieved successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: {
+                              type: 'array',
+                              items: { $ref: getSchemaPath(ProfileResponseDto) }
+                          }
+                      }
+                  }
+              ]
+          }
+      })
+      @ApiNotFoundResponse({ description: 'No customer profiles found', type: ErrorResponseDto })
   @Get('customers/:id/profiles')
-  getCustomerProfile(@Param('id', ParseUUIDPipe) id: string) {
-    return this.profileService.getCustomerProfile(id.toString());
+  async getCustomerProfile(@Param('id', ParseUUIDPipe) id: string) {
+    const profile = await this.profileService.getCustomerProfile(id.toString());
+    return {
+      succeeded: true,
+      message: 'Customer profile retrieved successfully',
+      statusCode: 200,
+      resultData: profile,
+    };
   }
 
   @UseGuards(StaffGuard)
   @Post('staffs/:id/profiles')
-  createStaffProfile(
+  @ApiOperation({ summary: 'Create staff profile by ID' })
+      @ApiOkResponse({
+          description: 'staff profile created successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: { $ref: getSchemaPath(ProfileResponseDto) }
+                      }
+                  }
+              ]
+          }
+      })
+      @ApiNotFoundResponse({ description: 'Staff not found', type: ErrorResponseDto })
+      @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
+  async createStaffProfile(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() createStaffProfileDto: CreateProfileDto,
   ) {
-    return this.profileService.createStaffProfile(id, createStaffProfileDto);
+    const profile = await this.profileService.createStaffProfile(id, createStaffProfileDto);
+    return {
+      succeeded: true,
+      message: 'Staff profile created successfully',
+      statusCode: 201,
+      resultData: profile,
+    };
   }
 
   @UseGuards(UserGuard, StaffGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get all staff profiles' })
+      @ApiOkResponse({
+          description: 'staff profiles retrieved successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: {
+                              type: 'array',
+                              items: { $ref: getSchemaPath(ProfileResponseDto) }
+                          }
+                      }
+                  }
+              ]
+          }
+      })
+      @ApiNotFoundResponse({ description: 'No staff profiles found', type: ErrorResponseDto })
   @Get('staffs/:id/profiles')
-  getStaffProfile(@Param('id', ParseUUIDPipe) id: string) {
-    return this.profileService.getStaffProfile(id.toString());
+  async getStaffProfile(@Param('id', ParseUUIDPipe) id: string) {
+    const profile = await this.profileService.getStaffProfile(id);
+    return {
+      succeeded: true,
+      message: 'Staff profile retrieved successfully',
+      statusCode: 200,
+      resultData: profile,
+    };
   }
 
   @Get('profiles')
-  findAllProfiles() {
-    return this.profileService.findAllProfiles();
+  @ApiOperation({ summary: 'Get all profile' })
+      @ApiOkResponse({
+          description: 'Profile retrieved successfully',
+          schema: {
+              allOf: [
+                  { $ref: getSchemaPath(ApiResponseDto) },
+                  {
+                      properties: {
+                          resultData: {
+                              type: 'array',
+                              items: { $ref: getSchemaPath(ProfileResponseDto) }
+                          }
+                      }
+                  }
+              ]
+          }
+      })
+  async findAllProfiles() {
+    const profile = await this.profileService.findAllProfiles();
+    return {
+      succeeded: true,
+      message: 'Profiles retrieved successfully',
+      statusCode: 200,
+      resultData: profile,
+    };
   }
 }
