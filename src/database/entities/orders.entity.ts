@@ -22,7 +22,7 @@ export class Order {
     customerId: string;
 
     @Field()
-    @Column('uuid')
+    @Column('uuid', { nullable: true })
     couponId: string;
 
     @Field()

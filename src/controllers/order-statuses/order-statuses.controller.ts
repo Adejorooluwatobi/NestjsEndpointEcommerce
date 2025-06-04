@@ -8,11 +8,11 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedRe
 import { ApiResponseDto, ErrorResponseDto, OrderStatusResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
 @ApiExtraModels(OrderStatusResponseDto)
-@Controller('order-statuses')
+@Controller('order-status')
 export class OrderStatusesController {
     constructor(private orderStatusesService: OrderStatusesService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @Get()
         @ApiOperation({ summary: 'Get all order status' })
@@ -42,8 +42,8 @@ export class OrderStatusesController {
         }
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
-    @ApiBearerAuth()
+    @UseGuards(UserGuard)
+    // @ApiBearerAuth()
         @Get(':id')
         @ApiOperation({ summary: 'Get order status by ID' })
         @ApiOkResponse({
@@ -76,7 +76,7 @@ export class OrderStatusesController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard)
+    @UseGuards(UserGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new Order status Record' })
         @ApiCreatedResponse({
@@ -109,7 +109,7 @@ export class OrderStatusesController {
         };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @Put(':id')
         @ApiOperation({ summary: 'Update Order status by ID' })
@@ -143,19 +143,23 @@ export class OrderStatusesController {
             };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })
         @ApiNoContentResponse({ description: 'deleted successfully' })
         @ApiNotFoundResponse({ description: 'ot found', type: ErrorResponseDto })
-    async deleteOrderStatusById(
-        @Param('id', ParseIntPipe) id: number) {
+    async deleteOrderStatusById(@Param('id', ParseIntPipe) id: number) {
+    try {
         const result = await this.orderStatusesService.deleteOrderStatus(id);
         if (result.affected && result.affected > 0) {
-                return {success: true, message: 'Order Status deleted successfully'};
-            } else {
-                return {error: false, message: 'not found.'}
-            }
+            return { success: true, message: 'Order Status deleted successfully' };
+        } else {
+            return { error: false, message: 'not found.' };
+        }
+    } catch (error) {
+        console.error(error); // Add this line
+        return { error: true, message: error.message || 'Internal server error' };
     }
+}
 }

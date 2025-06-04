@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 import { ProductCouponService } from '../../Services/product-coupon/product-coupon.service';
 import { UpdateProductCouponDto } from '../../DTOs/ProductCouponDTO/UpdateProductCoupon.dto';
 import { CreateProductCouponDto } from '../../DTOs/ProductCouponDTO/CreateProductCoupon.dto';
@@ -43,7 +43,6 @@ export class ProductCouponController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all product coupon' })
         @ApiOkResponse({
@@ -73,7 +72,7 @@ export class ProductCouponController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product coupon by ID' })
         @ApiOkResponse({

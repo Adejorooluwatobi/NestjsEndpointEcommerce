@@ -41,7 +41,7 @@ export class ProductController {
         };
     }
 
-    // @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all product' })
         @ApiOkResponse({
@@ -71,7 +71,6 @@ export class ProductController {
         };
     }
 
-    // @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product by code' })
         @ApiOkResponse({

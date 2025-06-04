@@ -35,9 +35,17 @@ export class OrderItemsResolver {
   @Mutation(() => OrderItem)
   @UseGuards(CustomerGuard)
   async createOrderItem(
+    @Args('orderId') orderId: string,
     @Args('createOrderItemInput') createOrderItemDto: CreateOrderItemDto
-  ): Promise<OrderItem> {
-    return this.orderItemsService.createOrderItem(createOrderItemDto);
+  ): Promise<OrderItem[]> {
+    const { productId, price, quantity, ...rest } = createOrderItemDto;
+    return await this.orderItemsService.createOrderItem({
+      ...rest,
+      orderId,
+      productId: productId,
+      price: price,
+      quantity: quantity,
+    });
   }
 
   @Mutation(() => OrderItem)
@@ -46,7 +54,14 @@ export class OrderItemsResolver {
     @Args('id') id: string, 
     @Args('updateOrderItemInput') updateOrderItemDto: UpdateOrderItemDto
   ): Promise<OrderItem> {
-    const updatedOrderItem = await this.orderItemsService.updateOrderItem(id, updateOrderItemDto);
+    const { productId, ...rest } = updateOrderItemDto as any;
+    const updatedOrderItem = await this.orderItemsService.updateOrderItem(
+      id,
+      {
+        ...rest,
+        productId: Array.isArray(productId) ? productId : [productId],
+      }
+    );
     if (!updatedOrderItem) {
       throw new Error(`OrderItem with id ${id} could not be updated or does not exist`);
     }

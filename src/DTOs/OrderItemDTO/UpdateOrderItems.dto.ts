@@ -1,28 +1,31 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateOrderItemDto } from './CreateOrderItems.dto';
-import { IsNumber, IsUUID } from 'class-validator';
+import { ArrayMinSize, IsArray, IsNumber, IsUUID } from 'class-validator';
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
 
 @InputType()
-export class UpdateOrderItemDto extends PartialType(CreateOrderItemDto) {
+export class UpdateOrderItemDto extends PartialType(CreateOrderItemDto) {   
+
       @IsUUID()
-      @Field()
-      @ApiProperty()
-      orderId: string;
-    
-      @IsUUID()
-      @Field()
-      @ApiProperty()
-      productId: string;
+      @IsArray() // Ensures it's an array
+        @ArrayMinSize(1) // Ensures at least one product is provided
+        @Field(() => [String]) // Specifies that this field is an array of strings for GraphQL
+        @ApiProperty()
+        productId: string[];
     
       @IsNumber()
-      @Field()
+      @IsArray()
+      @ArrayMinSize(1)
+      @Field(() => [Number])
       @ApiProperty()
-      price: number;
+      price: number[];
     
       @IsNumber()
-      @Field()
+      @IsNumber({}, { each: true })
+      @IsArray()
+      @ArrayMinSize(1)
+      @Field(() => [Number])
       @ApiProperty()
-      quantity: number;
+      quantity: number[];
 }

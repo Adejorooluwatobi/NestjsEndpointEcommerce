@@ -20,14 +20,14 @@ export class OrdersService {
 
     findOrders() {
         return this.orderRepository.find({ 
-            relations: ['customer', 'orderItems', 'orderStatus', 'coupon', 'product'] 
+            relations: ['customer', 'orderItems.product', 'orderStatus', 'coupon'] 
         });
     }
 
     findOrderById(id: string) {
         return this.orderRepository.findOne({ 
             where: { id },
-            relations: ['customer', 'orderItems', 'orderStatus', 'coupon', 'product']
+            relations: ['customer', 'orderItems.product', 'orderStatus', 'coupon']
         });
     }
 
@@ -40,7 +40,7 @@ export class OrdersService {
         
         return this.orderRepository.find({
             where: { customerId: customerId },
-            relations: ['orderItems', 'orderStatus', 'coupon', 'product']
+            relations: ['orderItems.product', 'orderStatus', 'coupon']
         });
     }
 

@@ -12,14 +12,14 @@ export class OrderStatusesService {
 
     findOrderStatuses() {
         return this.orderStatusRepository.find({ 
-            relations: ['orders'] 
+            // relations: ['orders'] 
         });
     }
 
     findOrderStatusById(id: number) {
         return this.orderStatusRepository.findOne({ 
             where: { id },
-            relations: ['orders']
+            // relations: ['orders']
         });
     }
 

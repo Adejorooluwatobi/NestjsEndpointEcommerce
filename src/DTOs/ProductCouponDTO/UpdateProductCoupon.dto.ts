@@ -11,6 +11,6 @@ export class UpdateProductCouponDto{
     @ApiProperty()
 
     @IsString()
-    attributeId: string;
+    couponId: string;
 
 }

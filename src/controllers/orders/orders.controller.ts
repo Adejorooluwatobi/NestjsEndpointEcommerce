@@ -42,7 +42,7 @@ export class OrdersController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get order by ID' })
         @ApiOkResponse({
@@ -110,7 +110,7 @@ export class OrdersController {
         };
     }
 
-    // @UseGuards(CustomerGuard)
+    @UseGuards(CustomerGuard)
     @Post()
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Create a new order' })

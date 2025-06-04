@@ -77,9 +77,9 @@ input CreateCardItemDto {
 
 input CreateOrderItemDto {
   orderId: String!
-  price: Float!
-  productId: String!
-  quantity: Float!
+  price: [Float!]!
+  productId: [String!]!
+  quantity: [Float!]!
 }
 
 input CreateOrderStatusDto {
@@ -126,7 +126,7 @@ type Gallery {
 
 type Mutation {
   createCardItem(createCardItemInput: CreateCardItemDto!): CardItem!
-  createOrderItem(createOrderItemInput: CreateOrderItemDto!): OrderItem!
+  createOrderItem(createOrderItemInput: CreateOrderItemDto!, orderId: String!): OrderItem!
   createOrderStatus(createOrderStatusInput: CreateOrderStatusDto!): OrderStatus!
   deleteCardItem(id: String!): Boolean!
   deleteOrderItem(id: String!): Boolean!
@@ -368,10 +368,9 @@ input UpdateCardItemDto {
 }
 
 input UpdateOrderItemDto {
-  orderId: String!
-  price: Float!
-  productId: String!
-  quantity: Float!
+  price: [Float!]!
+  productId: [String!]!
+  quantity: [Float!]!
 }
 
 input UpdateOrderStatusDto {

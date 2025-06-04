@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { CategoryService } from '../../Services/category/category.service';
 import { CreateCategoryDto } from '../../DTOs/CategoryDTO/CreateCategory.dto';
 import { UpdateCategoryDto } from '../../DTOs/CategoryDTO/UpdateCategory.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, CategoryResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -60,7 +60,6 @@ export class CategoryController {
                 ]
             }
         })
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get()
     async getCategory() {
         const category = await this.categoryService.findCategory();
@@ -91,7 +90,6 @@ export class CategoryController {
             description: 'category not found',
             type: ErrorResponseDto
         })
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
     @Get(':id')
     async getCategoryById(@Param('id') id: string) {
         const category = await this.categoryService.findCategoryById(id);

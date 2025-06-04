@@ -13,6 +13,6 @@ export class CreateProductCouponDto{
     @ApiProperty()
 @IsNotEmpty()
     @IsString()
-    attributeId: string;
+    couponId: string;
 
 }
