@@ -14,6 +14,12 @@ export class CreateOrderStatusDto {
 @IsNotEmpty()
   @IsString()
   @Field()
+  statusCode: string;
+
+  @ApiProperty()
+@IsNotEmpty()
+  @IsString()
+  @Field()
   color: string;
 
   @ApiProperty()

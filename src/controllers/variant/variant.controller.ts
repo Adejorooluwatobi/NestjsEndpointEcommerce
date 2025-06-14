@@ -1,15 +1,17 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { VariantService } from '../../Services/variant/variant.service';
 import { CreateVariantDto } from '../../DTOs/VariantDTO/CreateVariant.dto';
 import { UpdateVariantDto } from '../../DTOs/VariantDTO/UpdateVariant.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, VariantResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
+import { StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
 
 @ApiExtraModels(VariantResponseDto)
 @Controller('variant')
 export class VariantController {
     constructor(private readonly variantService: VariantService) {}
 
+    @UseGuards(StaffGuard)
     @Post()
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Create a new variant' })
@@ -36,6 +38,7 @@ export class VariantController {
         };
     }
 
+    @UseGuards(UniversalGuard)
     @Get()
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all attributes' })
@@ -65,6 +68,7 @@ export class VariantController {
         };
     }
 
+    @UseGuards(UniversalGuard)
     @Get(':id')
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get variant by ID' })
@@ -98,6 +102,7 @@ export class VariantController {
         };
     }
 
+    @UseGuards(StaffGuard)
     @Put(':id')
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update variant by ID' })
@@ -137,6 +142,7 @@ export class VariantController {
             };
         }
     
+    @UseGuards(UserGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

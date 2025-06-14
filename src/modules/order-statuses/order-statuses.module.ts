@@ -7,10 +7,11 @@ import { AuthModule } from 'src/security/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { OrderStatusesResolver } from 'src/resolver/order-statuses/order-statuses.resolver';
+import { Order } from 'src/database/entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([OrderStatus]), AuthModule,
+    TypeOrmModule.forFeature([OrderStatus, Order]), AuthModule,
     JwtModule.registerAsync({
         imports: [ConfigModule],
         useFactory: async (configService: ConfigService) => ({

@@ -1,15 +1,17 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { RolesService } from '../../Services/roles/roles.service';
 import { CreateRoleDto } from '../../DTOs/RolesDTO/CreateRoles.dto';
 import { UpdateRoleDto } from '../../DTOs/RolesDTO/UpdateRoles.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, RolesResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
+import { UserGuard } from 'src/security/auth/guards';
 
 @ApiExtraModels(CreateRoleDto, UpdateRoleDto, RolesResponseDto)
 @Controller('roles')
 export class RolesController {
     constructor(private readonly roleService: RolesService) {}
 
+    @UseGuards(UserGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new roles' })
         @ApiCreatedResponse({
@@ -39,6 +41,7 @@ export class RolesController {
         };
     }
 
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all roles' })
         @ApiOkResponse({
@@ -68,6 +71,7 @@ export class RolesController {
         };
     }
 
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get role by ID' })
         @ApiOkResponse({
@@ -101,8 +105,9 @@ export class RolesController {
         };
     }
 
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
-        @ApiOperation({ summary: 'Get role by ID' })
+        @ApiOperation({ summary: 'Update role by ID' })
         @ApiOkResponse({
             description: 'Role retrieved successfully',
             schema: {
@@ -136,6 +141,7 @@ export class RolesController {
             };
         }
     
+    @UseGuards(UserGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

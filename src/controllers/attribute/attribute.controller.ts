@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { AttributeService } from '../../Services/attribute/attribute.service';
 import { CreateAttributeDto } from '../../DTOs/AttributeDTO/CreateAttribute.dto';
 import { UpdateAttributeDto } from '../../DTOs/AttributeDTO/UpdateAttribute.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, AttributeResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -41,7 +41,7 @@ export class AttributeController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Get all attributes' })
     @ApiOkResponse({
@@ -62,7 +62,7 @@ export class AttributeController {
     })
     @Get()
     async getAttribute() {
-        const attribute = this.attributeService.findAttribute();
+        const attribute = await this.attributeService.findAttribute();
         return {
             succeeded: true,
             message: 'Attributes retrieved successfully',
@@ -71,7 +71,7 @@ export class AttributeController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Get attribute by ID' })
     @ApiOkResponse({
@@ -105,7 +105,7 @@ export class AttributeController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Update attribute by ID' })
     @ApiOkResponse({

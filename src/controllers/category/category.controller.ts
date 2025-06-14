@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { CategoryService } from '../../Services/category/category.service';
 import { CreateCategoryDto } from '../../DTOs/CategoryDTO/CreateCategory.dto';
 import { UpdateCategoryDto } from '../../DTOs/CategoryDTO/UpdateCategory.dto';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, CategoryResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -29,7 +29,7 @@ export class CategoryController {
                 description: 'Invalid input data',
                 type: ErrorResponseDto
             })
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
     async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
         const category = await this.categoryService.createCategory(createCategoryDto);
@@ -104,7 +104,7 @@ export class CategoryController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update category by ID' })
         @ApiOkResponse({
@@ -136,7 +136,7 @@ export class CategoryController {
             return this.categoryService.findCategoryById(id);
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

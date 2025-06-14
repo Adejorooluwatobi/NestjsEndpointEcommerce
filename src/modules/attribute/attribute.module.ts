@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AttributeService } from '../../Services/attribute/attribute.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Attribute, ProductAttribute } from 'src/database/entities';
+import { Attribute, AttributeValue, ProductAttribute } from 'src/database/entities';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AttributeController } from '../../controllers/attribute/attribute.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Attribute, ProductAttribute]),
+  imports: [TypeOrmModule.forFeature([Attribute, ProductAttribute, AttributeValue]),
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({

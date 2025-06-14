@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, SlideBannerResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { CreateSlideBannerDto } from 'src/DTOs/SliderBannerDTO/CreateSlideBanner.dto';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { SlideBannerService } from 'src/Services/slide-banner/slide-banner.service';
 
 
@@ -10,6 +11,7 @@ import { SlideBannerService } from 'src/Services/slide-banner/slide-banner.servi
 export class SlideBannerController {
   constructor(private readonly postService: SlideBannerService) {}
 
+  @UseGuards(StaffGuard)
   @Post()
   @ApiOperation({ summary: 'Create a new slider' })
       @ApiCreatedResponse({
@@ -42,6 +44,7 @@ export class SlideBannerController {
     }
   }
 
+    @UseGuards(UniversalGuard)
   @ApiBearerAuth()
       @ApiOperation({ summary: 'Get all slider' })
       @ApiOkResponse({

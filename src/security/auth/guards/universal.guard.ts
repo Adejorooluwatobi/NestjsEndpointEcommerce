@@ -1,31 +1,23 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
-import { Observable } from 'rxjs';
 
 @Injectable()
-export class CustomerGuard implements CanActivate {
-  constructor(
-    private reflector: Reflector,
-    private jwtService: JwtService,
-  ) {}
+export class UniversalGuard implements CanActivate {
+  constructor(private jwtService: JwtService) {}
 
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
     const token = this.extractTokenFromHeader(request);
-    
-    if (!token) {
-      return false;
-    }
-    
+    if (!token) return false;
     try {
       const payload = this.jwtService.verify(token);
-      // Assign customer to request object
-      request.customer = payload;
-      // Allow access if customer or admin
-      return payload.role === 'customer';
+      // Allow access if any valid role
+      return (
+        payload.role === 'customer' ||
+        payload.role === 'user' ||
+        payload.role === 'staff' ||
+        payload.role === 'admin'
+      );
     } catch {
       return false;
     }

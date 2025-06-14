@@ -10,6 +10,10 @@ export class OrderStatus {
     id: number;
 
     @Field()
+    @Column({ length: 50, unique: true })
+    statusCode: string;
+
+    @Field()
     @Column({ length: 50 })
     statusName: string;
 

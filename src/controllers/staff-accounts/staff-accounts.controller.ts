@@ -107,7 +107,7 @@ export class StaffAccountsController {
         };
     }
 
-    @UseGuards(StaffGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update staff account by ID' })
         @ApiOkResponse({

@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { NotificationService } from '../../Services/notification/notification.service';
 import { CreateNotificationDto } from '../../DTOs/NotificationDTO/CreateNotification.dto';
 import { UpdateNotificationDto } from '../../DTOs/NotificationDTO/UpdateNotification.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, NotificationResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 
 @ApiExtraModels(NotificationResponseDto)
 @Controller('notification')
@@ -11,6 +12,7 @@ export class NotificationController {
     constructor(private readonly roleService: NotificationService) {}
 
     @Post()
+    @UseGuards(StaffGuard)
     @ApiOperation({ summary: 'Create a new notification' })
         @ApiCreatedResponse({
             description: 'Notification created successfully',
@@ -58,6 +60,7 @@ export class NotificationController {
             }
         })
     @Get()
+    @UseGuards(UniversalGuard)
     async getNotification() {
         const notification = await this.roleService.findNotification();
         return {
@@ -88,6 +91,7 @@ export class NotificationController {
         description: 'Notification not found',
         type: ErrorResponseDto
     })
+    @UseGuards(UniversalGuard)
     @Get(':id')
     async getNotificationById(@Param('id', ParseUUIDPipe) id: string) {
         const notification = await this.roleService.findNotificationById(id);
@@ -122,6 +126,7 @@ export class NotificationController {
             description: 'Invalid input data',
             type: ErrorResponseDto
         })
+    @UseGuards(StaffGuard)
     @Put(':id')
     async updateNotificationById(
         @Param('id', ParseUUIDPipe) id: string,
@@ -136,6 +141,7 @@ export class NotificationController {
         }
     
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
+        @UseGuards(StaffGuard)
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })
         @ApiNoContentResponse({ description: 'deleted successfully' })

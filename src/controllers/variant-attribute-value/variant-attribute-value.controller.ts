@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateVariantAttributeValueDto } from '../../DTOs/VariantAttributeDTO/CreateVariantAttributeValue.dto';
 import { UpdateVariantAttributeValueDto } from '../../DTOs/VariantAttributeDTO/UpdateVariantAttributeValue.dto';
 import { VariantAttributeValueService } from '../../Services/variant-attribute-value/variant-attribute-value.service';
 import { ApiResponseDto, ErrorResponseDto, VariantAttributeValueResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
+import { StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
 
 @ApiExtraModels(
     ApiResponseDto,
@@ -14,6 +15,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModel
 export class VariantAttributeValueController {
     constructor(private readonly variantAttributeValueService: VariantAttributeValueService) {}
 
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new variant attribute value' })
         @ApiCreatedResponse({
@@ -43,6 +45,7 @@ export class VariantAttributeValueController {
         };
     }
 
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all variant attributes value' })
         @ApiOkResponse({
@@ -72,6 +75,7 @@ export class VariantAttributeValueController {
         };
     }
 
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get variant attribute value by ID' })
         @ApiOkResponse({
@@ -105,6 +109,7 @@ export class VariantAttributeValueController {
         };
     }
 
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update variant attribute value by ID' })
         @ApiOkResponse({
@@ -144,6 +149,7 @@ export class VariantAttributeValueController {
             };
         }
     
+    @UseGuards(UserGuard) // Assuming UserGuard is defined to protect the routes
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

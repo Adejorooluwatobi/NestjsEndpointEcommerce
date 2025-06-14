@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateProductShippingDto } from '../../DTOs/ProductShippingDTO/CreateProductShipping.dto';
 import { UpdateProductShippingDto } from '../../DTOs/ProductShippingDTO/UpdateProductShipping.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { ProductShippingService } from '../../Services/product-shipping/product-shipping.service';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, ProductShippingResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
@@ -11,7 +11,7 @@ import { ApiResponseDto, ErrorResponseDto, ProductShippingResponseDto } from 'sr
 export class ProductShippingController {
     constructor(private productService: ProductShippingService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a Product shipping' })
         @ApiCreatedResponse({
@@ -41,7 +41,7 @@ export class ProductShippingController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all payment shipping' })
         @ApiOkResponse({
@@ -71,7 +71,7 @@ export class ProductShippingController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product shipping by ID' })
         @ApiOkResponse({
@@ -105,7 +105,7 @@ export class ProductShippingController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update product shipping by ID' })
         @ApiOkResponse({
@@ -145,7 +145,7 @@ export class ProductShippingController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateTagDto } from '../../DTOs/TagDTO/CreateTag.dto';
 import { UpdateTagDto } from '../../DTOs/TagDTO/UpdateTag.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { TagService } from '../../Services/tag/tag.service';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, TagResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
@@ -11,7 +11,7 @@ import { ApiResponseDto, ErrorResponseDto, TagResponseDto } from 'src/DTOs/Respo
 export class TagController {
     constructor(private tagService: TagService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new tag' })
         @ApiCreatedResponse({
@@ -41,7 +41,7 @@ export class TagController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all tag' })
         @ApiOkResponse({
@@ -71,7 +71,7 @@ export class TagController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get tag by ID' })
         @ApiOkResponse({
@@ -105,7 +105,7 @@ export class TagController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @ApiOperation({ summary: 'Update tag by ID' })
         @ApiOkResponse({
@@ -145,7 +145,7 @@ export class TagController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

@@ -6,7 +6,7 @@ export class CreateCustomerAddressDto {
 //   @ApiProperty()
 // @IsNotEmpty()
 //   @IsString()
-//   customerId: string;
+  customerId: string;
 
   @ApiProperty()
 @IsNotEmpty()

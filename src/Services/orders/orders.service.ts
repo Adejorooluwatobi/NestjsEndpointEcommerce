@@ -20,14 +20,14 @@ export class OrdersService {
 
     findOrders() {
         return this.orderRepository.find({ 
-            relations: ['customer', 'orderItems.product', 'orderStatus', 'coupon'] 
+            relations: ['customer', 'orderItems', 'orderStatus', 'coupon'] 
         });
     }
 
     findOrderById(id: string) {
         return this.orderRepository.findOne({ 
             where: { id },
-            relations: ['customer', 'orderItems.product', 'orderStatus', 'coupon']
+            relations: ['customer', 'orderItems', 'orderStatus', 'coupon']
         });
     }
 
@@ -52,7 +52,7 @@ export class OrdersService {
         }
 
         // Generate order number
-        const orderNo = `ORD-${Date.now()}`;
+        const orderNo = `ORD-${new Date()}`;
         
         // Create and save the order
         const newOrder = this.orderRepository.create({

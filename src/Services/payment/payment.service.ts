@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Payment } from 'src/database/entities/payment.entity';
 import { Customer } from 'src/database/entities';
 import { CreatePaymentParam, UpdatePaymentParam } from 'src/utils/types';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class PaymentService {
@@ -33,10 +34,16 @@ export class PaymentService {
           HttpStatus.BAD_REQUEST,
         );
       }
-  
-      const newPayment = this.paymentRepository.create(createCustomerPaymentDetails);
+      if (!createCustomerPaymentDetails.transactionId) {
+        createCustomerPaymentDetails.transactionId = randomUUID();
+    }
+      const newPayment = this.paymentRepository.create({
+        ...createCustomerPaymentDetails,
+        customerId: id,
+        customer: customer
+      });
       const savedPayment = await this.paymentRepository.save(newPayment);
-      return this.customerRepository.save(savedPayment);
+      return savedPayment;
     }
 
   refundPayment(customerId: string, updateCustomerPaymentDetails: UpdatePaymentParam) {

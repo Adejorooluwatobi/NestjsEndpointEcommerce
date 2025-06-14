@@ -3,7 +3,7 @@ import { CardItemsService } from '../../Services/card-items/card-items.service';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateCardItemDto } from '../../DTOs/CardItemDTO/CreateCardItems.dto';
 import { UpdateCardItemDto } from '../../DTOs/CardItemDTO/UpdateCardItems.dto';
-import { UserGuard } from 'src/security/auth/guards';
+import { UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, CardItemsResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -79,7 +79,7 @@ export class CardItemsController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get card items by cardID' })
         @ApiOkResponse({

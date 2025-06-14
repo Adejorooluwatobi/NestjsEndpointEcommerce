@@ -15,4 +15,9 @@ export class CreateProductAttributeDto{
     @IsString()
     attributeId: string;
 
+    @ApiProperty()
+@IsNotEmpty()
+    @IsString()
+    attributeValueId: string;
+
 }

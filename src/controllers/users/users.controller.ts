@@ -140,7 +140,7 @@ export class UsersController {
         }
         return {
             succeeded: true,
-            message: 'User created successfully',
+            message: 'User updated successfully',
             statusCode: 201,
             resultData: user,
         };

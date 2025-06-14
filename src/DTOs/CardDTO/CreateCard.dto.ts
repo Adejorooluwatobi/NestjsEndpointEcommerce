@@ -5,9 +5,9 @@ import { CreateCardItemDto } from '../CardItemDTO/CreateCardItems.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCardDto {
-  @ApiProperty()
-@IsNotEmpty()
-  @IsUUID()
+//   @ApiProperty()
+// @IsNotEmpty()
+//   @IsUUID()
   customerId: string;
 
   @ApiProperty()

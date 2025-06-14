@@ -3,7 +3,7 @@ import { OrderItemsService } from '../../Services/order-items/order-items.servic
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateOrderItemDto } from '../../DTOs/OrderItemDTO/CreateOrderItems.dto';
 import { UpdateOrderItemDto } from '../../DTOs/OrderItemDTO/UpdateOrderItems.dto';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { UniversalGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, OrderItemsResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -13,7 +13,7 @@ import { ApiResponseDto, ErrorResponseDto, OrderItemsResponseDto } from 'src/DTO
 export class OrderItemsController {
     constructor(private orderItemsService: OrderItemsService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @Get()
     @ApiOperation({ summary: 'Get all order items' })
@@ -43,7 +43,7 @@ export class OrderItemsController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @Get(':id')
     @ApiOperation({ summary: 'Get order item by ID' }) // Changed summary to be more accurate
@@ -79,7 +79,7 @@ export class OrderItemsController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
     @Get('order/:orderId')
     @ApiOperation({ summary: 'Get order items by order ID' }) // Changed summary to plural
@@ -191,7 +191,7 @@ async createOrderItem(@Body() createOrderItemDto: CreateOrderItemDto) {
         };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @Delete(':id')
     @ApiOperation({ summary: 'Delete order item by ID' }) // Updated summary

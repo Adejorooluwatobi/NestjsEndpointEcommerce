@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
 import { CreateProfileDto } from '../../DTOs/ProfileDTO/CreateProfile.dto';
 import { ProfileService } from '../../Services/profile/profile.service';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { CustomerGuard, StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiExtraModels, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, ProfileResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -10,7 +10,7 @@ import { ApiResponseDto, ErrorResponseDto, ProfileResponseDto } from 'src/DTOs/R
 export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
-  @UseGuards(UserGuard, StaffGuard)
+  @UseGuards(UserGuard)
   @Post('users/:id/profiles')
   @ApiOperation({ summary: 'Create user profile by ID' })
       @ApiOkResponse({
@@ -103,7 +103,7 @@ export class ProfileController {
     };
   }
 
-  @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+  @UseGuards(UniversalGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all customer profiles' })
       @ApiOkResponse({
@@ -165,7 +165,7 @@ export class ProfileController {
     };
   }
 
-  @UseGuards(UserGuard, StaffGuard)
+  @UseGuards(StaffGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all staff profiles' })
       @ApiOkResponse({

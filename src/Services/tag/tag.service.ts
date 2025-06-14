@@ -14,8 +14,8 @@ export class TagService {
     async createTag(tagDetails: CreateTagParams) {
         const newTag = this.tagRepository.create({
             ...tagDetails,
-            createdAt: Date.now(),
-            updatedAt: Date.now()
+            createdAt: new Date(),
+            updatedAt: new Date()
         });
 
         const savedTag = await this.tagRepository.save(newTag);
@@ -25,21 +25,21 @@ export class TagService {
     }
 
     findTag() {
-        // Logic to find all customers
-        return this.tagRepository.find(); // Fetch customers with their profiles
+        
+        return this.tagRepository.find(); 
     }
 
     findTagById(id: string) {
-        // Logic to find a customer by ID
-        return this.tagRepository.findOne({ where: { id }}); // Fetch customer with their profile
+        
+        return this.tagRepository.findOne({ where: { id }}); 
     }
 
     async updateTag(id: string, updateTagDetails: UpdateTagParams) {
-                return this.tagRepository.update(id, { ...updateTagDetails, updatedAt: Date.now() });
+                return this.tagRepository.update(id, { ...updateTagDetails, updatedAt: new Date() });
     }
 
     deleteTag(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.tagRepository.delete(id);
     }
 

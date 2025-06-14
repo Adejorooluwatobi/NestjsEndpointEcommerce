@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard} from 'src/security/auth/guards';
 import { AttributeValueService } from '../../Services/attribute-value/attribute-value.service';
 import { CreateAttributeValueDto } from '../../DTOs/AttributeValueDTO/CreateAttribute.dto';
 import { UpdateAttributeValueDto } from '../../DTOs/AttributeValueDTO/UpdateAttribute.dto';
@@ -11,7 +11,7 @@ import { ApiResponseDto, AttributeValueResponseDto, ErrorResponseDto } from 'src
 export class AttributeValueController {
     constructor(private attributeValueService: AttributeValueService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new attribute value' })
         @ApiCreatedResponse({
@@ -41,7 +41,7 @@ export class AttributeValueController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all attributes' })
         @ApiOkResponse({
@@ -71,7 +71,7 @@ export class AttributeValueController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get attribute by ID' })
         @ApiOkResponse({
@@ -105,7 +105,7 @@ export class AttributeValueController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update attribute value by ID' })
         @ApiOkResponse({
@@ -145,7 +145,7 @@ export class AttributeValueController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

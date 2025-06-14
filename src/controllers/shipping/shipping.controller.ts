@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { CreateShippingDto } from '../../DTOs/ShippingDTO/CreateShipping.dto';
 import { UpdateShippingDto } from '../../DTOs/ShippingDTO/UpdateShipping.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ShippingService } from '../../Services/shipping/shipping.service';
 import { ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, ShippingResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
@@ -11,7 +11,7 @@ import { ApiResponseDto, ErrorResponseDto, ShippingResponseDto } from 'src/DTOs/
 export class ShippingController {
     constructor(private shippingService: ShippingService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Create a new shipping' })
         @ApiCreatedResponse({
@@ -42,7 +42,7 @@ export class ShippingController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all shipment' })
         @ApiOkResponse({
@@ -72,7 +72,7 @@ export class ShippingController {
         }
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get shipping by ID' })
         @ApiOkResponse({
@@ -106,7 +106,7 @@ export class ShippingController {
         }
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update shipping by ID' })
         @ApiOkResponse({
@@ -142,7 +142,7 @@ export class ShippingController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(UserGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

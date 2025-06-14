@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { CreateProductAttributeDto } from '../../DTOs/ProductAttributeDTO/CreateProductAttribute.dto';
 import { ProductAttributeService } from '../../Services/product-attribute/product-attribute.service';
 import { UpdateProductAttributeDto } from '../../DTOs/ProductAttributeDTO/UpdateProductAttribute.dto';
@@ -11,7 +11,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModel
 export class ProductAttributeController {
     constructor(private productAttributeService: ProductAttributeService) {}
 
-    // @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new product attribute' })
         @ApiCreatedResponse({
@@ -41,7 +41,7 @@ export class ProductAttributeController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all attributes product' })
         @ApiOkResponse({
@@ -71,7 +71,7 @@ export class ProductAttributeController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get attribute product by ID' })
         @ApiOkResponse({
@@ -105,7 +105,7 @@ export class ProductAttributeController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update product attribute by ID' })
         @ApiOkResponse({
@@ -145,7 +145,7 @@ export class ProductAttributeController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

@@ -22,13 +22,13 @@ export class AttributeValueService {
     }
 
     findAttributeValue() {
-        // Logic to find all customers
-        return this.attributeValueRepository.find(); // Fetch customers with their profiles
+        
+        return this.attributeValueRepository.find(); 
     }
 
     findAttributeValueById(id: string) {
-        // Logic to find a customer by ID
-        return this.attributeValueRepository.findOne({ where: { id }}); // Fetch customer with their profile
+        
+        return this.attributeValueRepository.findOne({ where: { id }}); 
     }
 
     async updateAttributeValue(id: string, updateAttributeValueDetails: UpdateAttributeValueParams) {
@@ -36,7 +36,7 @@ export class AttributeValueService {
     }
 
     deleteAttributeValue(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.attributeValueRepository.delete(id);
     }
 

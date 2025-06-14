@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { OrderStatusesService } from '../../Services/order-statuses/order-statuses.service';
-import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
+import {  } from 'src/security/auth/guards/customer.guard';
 import { CreateOrderStatusDto } from '../../DTOs/OrderStatus/CreateOrderStatus.dto';
 import { UpdateOrderStatusDto } from '../../DTOs/OrderStatus/UpdateOrderStatus.dto';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, OrderStatusResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -12,7 +12,7 @@ import { ApiResponseDto, ErrorResponseDto, OrderStatusResponseDto } from 'src/DT
 export class OrderStatusesController {
     constructor(private orderStatusesService: OrderStatusesService) {}
 
-    @UseGuards(UserGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @Get()
         @ApiOperation({ summary: 'Get all order status' })
@@ -42,7 +42,7 @@ export class OrderStatusesController {
         }
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(StaffGuard)
     // @ApiBearerAuth()
         @Get(':id')
         @ApiOperation({ summary: 'Get order status by ID' })
@@ -76,7 +76,7 @@ export class OrderStatusesController {
         };
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new Order status Record' })
         @ApiCreatedResponse({
@@ -109,7 +109,7 @@ export class OrderStatusesController {
         };
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @Put(':id')
         @ApiOperation({ summary: 'Update Order status by ID' })
@@ -143,7 +143,7 @@ export class OrderStatusesController {
             };
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

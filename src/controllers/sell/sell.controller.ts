@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, SellResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { CreateSellDto } from 'src/DTOs/SellDTO/CreateSell.dto';
 import { UpdateSellDto } from 'src/DTOs/SellDTO/UpdateSell.dto';
+import { StaffGuard, UserGuard } from 'src/security/auth/guards';
 import { SellService } from 'src/Services/sell/sell.service';
 
 @ApiExtraModels(SellResponseDto)
@@ -10,6 +11,7 @@ import { SellService } from 'src/Services/sell/sell.service';
 export class SellController {
     constructor(private readonly sellService: SellService) {}
 
+    @UseGuards(StaffGuard) // Assuming UserGuard is defined to protect the routes
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Create a new sale' })
         @ApiOkResponse({
@@ -40,6 +42,7 @@ export class SellController {
         };
     }
 
+    @UseGuards(StaffGuard) // Assuming UserGuard is defined to protect the routes
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @ApiOperation({ summary: 'Get all sales' })
         @ApiOkResponse({
@@ -69,6 +72,7 @@ export class SellController {
         };
     }
 
+    @UseGuards(StaffGuard) // Assuming UserGuard is defined to protect the routes
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get sales by ID' })
         @ApiOkResponse({
@@ -102,6 +106,7 @@ export class SellController {
         };
     }
 
+    @UseGuards(StaffGuard) // Assuming UserGuard is defined to protect the routes
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @ApiOperation({ summary: 'Update sales by ID' })
         @ApiOkResponse({
@@ -137,6 +142,7 @@ export class SellController {
             };
         }
     
+    @UseGuards(UserGuard) // Assuming UserGuard is defined to protect the routes
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

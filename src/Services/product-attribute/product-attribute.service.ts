@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Attribute, Product, ProductAttribute } from 'src/database/entities';
+import { Attribute, AttributeValue, Product, ProductAttribute } from 'src/database/entities';
 import { CreateProductAttributeParams, UpdateProductAttributeParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
@@ -9,6 +9,7 @@ export class ProductAttributeService {
     constructor(
         @InjectRepository(ProductAttribute) private productAttributeRepository: Repository<ProductAttribute>,
         @InjectRepository(Attribute) private attributeRepository: Repository<Attribute>,
+        @InjectRepository(AttributeValue) private attributeValueRepository: Repository<AttributeValue>,
         @InjectRepository(Product) private productRepository: Repository<Product>,
     ) {}
 
@@ -24,13 +25,13 @@ export class ProductAttributeService {
     }
 
     findProductAttribute() {
-        // Logic to find all customers
-        return this.productAttributeRepository.find(); // Fetch customers with their profiles
+        
+        return this.productAttributeRepository.find({relations: ['product', 'attribute', 'attributeValue']}); 
     }
 
     findProductAttributeById(id: string) {
-        // Logic to find a customer by ID
-        return this.productAttributeRepository.findOne({ where: { id }}); // Fetch customer with their profile
+        
+        return this.productAttributeRepository.findOne({ where: { id }, relations: ['product', 'attribute', 'attributeValue'] }); 
     }
 
     async updateProductAttribute(id: string, updateProductAttributeDetails: UpdateProductAttributeParams) {
@@ -38,7 +39,7 @@ export class ProductAttributeService {
     }
 
     deleteProductAttribute(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.productAttributeRepository.delete(id);
     }
 

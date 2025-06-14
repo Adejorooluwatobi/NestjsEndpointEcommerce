@@ -149,6 +149,7 @@ export type UpdateCardParams = {
 // Types for OrderStatus
 export type CreateOrderStatusParams = {
     statusName: string;
+    statusCode: string;
     color: string;
     privacy: string;
     // createdBy: string;
@@ -157,6 +158,7 @@ export type CreateOrderStatusParams = {
 
 export type UpdateOrderStatusParams = {
     statusName?: string;
+    statusCode?: string;
     color?: string;
     privacy?: string;
     // updatedBy: string;
@@ -221,11 +223,13 @@ export type UpdateCouponParams = {
 export type CreateProductAttributeParams = {
     productId: string;
     attributeId: string;
+    attributeValueId: string;
 };
 
 export type UpdateProductAttributeParams = {
     productId: string;
     attributeId: string;
+    attributeValueId: string;
 };
 
 export type CreateProductCategoryParams = {
@@ -250,10 +254,12 @@ export type UpdateProductCouponParams = {
 
 export type CreateProductTagParams = {
     productId: string;
+    tagId: string;  
 };
 
 export type UpdateProductTagParams = {
     productId: string;
+    tagId: string;
 };
 
 export type CreateProductShippingParams = {
@@ -424,8 +430,6 @@ export type CreatePaymentParam = {
     transactionId: string;
     amount: number;
     status: 'pending' | 'completed' | 'failed';
-    createdAt: Date;
-    refundedAt: Date;
 };
 
 export type UpdatePaymentParam = {
@@ -435,7 +439,6 @@ export type UpdatePaymentParam = {
     transactionId: string;
     amount: number;
     status: 'pending' | 'completed' | 'failed';
-    createdAt: Date;
     refundedAt: Date;
 };
 

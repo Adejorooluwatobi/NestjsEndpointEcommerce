@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNotEmpty,IsNumber,IsString } from "class-validator";
+import { IsDate, IsNotEmpty,IsNumber,IsOptional,IsString } from "class-validator";
 
 export class CreatePaymentDto{
 
@@ -8,9 +8,9 @@ export class CreatePaymentDto{
 @IsString()
 orderId: string;
 
-@ApiProperty()
-@IsNotEmpty()
-@IsString()
+// @ApiProperty()
+// @IsNotEmpty()
+// @IsString()
 customerId: string;
 
 @ApiProperty()
@@ -19,7 +19,7 @@ customerId: string;
 paymentMethod: string;
 
 @ApiProperty()
-@IsNotEmpty()
+@IsOptional()
 @IsString()
 transactionId: string;
 
@@ -28,18 +28,8 @@ transactionId: string;
 @IsNumber()
 amount: number;
 
-@ApiProperty()
-@IsNotEmpty()
+@ApiProperty({default: 'pending'})
+@IsOptional()
 @IsString()
 status: 'pending' | 'completed' | 'failed';
-
-@ApiProperty()
-@IsNotEmpty()
-@IsDate()
-createdAt: Date;
-
-@ApiProperty()
-@IsNotEmpty()
-@IsDate()
-refundedAt: Date;
 }

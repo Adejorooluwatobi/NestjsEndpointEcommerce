@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { ProductService } from '../../Services/product/product.service';
 import { CreateProductDto } from '../../DTOs/ProductDTO/CreateProduct.dto';
 import { UpdateProductDto } from '../../DTOs/ProductDTO/UpdateProduct.dto';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard } from 'src/security/auth/guards';
 import { ApiResponseDto, ErrorResponseDto, ProductResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 
@@ -11,7 +11,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModel
 export class ProductController {
     constructor(private productService: ProductService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiOperation({ summary: 'Create a new product' })
         @ApiCreatedResponse({
             description: 'Product created successfully',
@@ -104,7 +104,7 @@ export class ProductController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update product by code' })
         @ApiOkResponse({
@@ -144,7 +144,7 @@ export class ProductController {
             };
         }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
     @Delete(':productCode')
     @ApiOperation({ summary: 'Delete by ID' })

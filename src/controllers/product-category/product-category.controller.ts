@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { CreateProductCategoryDto } from '../../DTOs/ProductCategoryDTO/CreateProductCategory.dto';
 import { UpdateProductCategoryDto } from '../../DTOs/ProductCategoryDTO/UpdateProductCategory.dto';
 import { ProductCategoryService } from '../../Services/product-category/product-category.service';
@@ -11,7 +11,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModel
 export class ProductCategoryController {
     constructor(private productService: ProductCategoryService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new product category' })
         @ApiCreatedResponse({
@@ -41,6 +41,7 @@ export class ProductCategoryController {
         };
     }
     
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all product category' })
         @ApiOkResponse({
@@ -61,7 +62,7 @@ export class ProductCategoryController {
         })
     @Get()
     async getProductCategory() {
-        const prodCate = this.productService.findProductCategory();
+        const prodCate = await this.productService.findProductCategory();
         return {
             succeeded: true,
             message: 'Product Categories retrieved successfully',
@@ -70,6 +71,7 @@ export class ProductCategoryController {
         };
     }
 
+    @UseGuards(UniversalGuard)
      @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product category by ID' })
         @ApiOkResponse({
@@ -103,7 +105,7 @@ export class ProductCategoryController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update product category by ID' })
         @ApiOkResponse({
@@ -143,7 +145,7 @@ export class ProductCategoryController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

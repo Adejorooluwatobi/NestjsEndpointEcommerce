@@ -1,15 +1,17 @@
-import { Controller, Post, Body, Param, Get, ParseUUIDPipe, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Get, ParseUUIDPipe, Put, Delete, UseGuards, Req } from '@nestjs/common';
 import { CreatePaymentDto } from '../../DTOs/PaymentDTO/CreatePayment.dto';
 import { PaymentService } from '../../Services/payment/payment.service';
 import { UpdatePaymentParam } from 'src/utils/types';
 import { ApiResponseDto, ErrorResponseDto, PaymentResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
+import { CustomerGuard, StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
 
 @ApiExtraModels(PaymentResponseDto)
 @Controller('payments')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
+  @UseGuards(CustomerGuard)
   @Post(':customerId')
   @ApiOperation({ summary: 'Create a Payment with  customer ID' })
       @ApiCreatedResponse({
@@ -30,10 +32,10 @@ export class PaymentController {
               type: ErrorResponseDto
           })
 async createPayment(
-  @Param('customerId', ParseUUIDPipe) customerId: string,
-  @Body() createPaymentDto: CreatePaymentDto,
+  // @Param('customerId', ParseUUIDPipe) customerId: string,
+  @Body() createPaymentDto: CreatePaymentDto, @Req() req
 ) {
-
+  const customerId = req.customer.sub;
   const payment = await this.paymentService.createPayment(customerId, createPaymentDto);
   return {
     succeeded: true,
@@ -43,6 +45,7 @@ async createPayment(
   }
 }
 
+@UseGuards(UniversalGuard)
 @ApiBearerAuth()
     @ApiOperation({ summary: 'Get all Payment' })
     @ApiOkResponse({
@@ -72,6 +75,7 @@ async createPayment(
     };
   }
 
+  @UseGuards(UniversalGuard)
   @ApiBearerAuth()
       @ApiOperation({ summary: 'Get Payment by customer ID' })
       @ApiOkResponse({
@@ -105,6 +109,7 @@ async createPayment(
     };
   }
 
+  @UseGuards(StaffGuard)
   @ApiBearerAuth()
       @ApiOperation({ summary: 'Update payment refund by customer ID' })
       @ApiOkResponse({
@@ -145,6 +150,7 @@ async refundPayment(
   };
 }
 
+@UseGuards(StaffGuard)
   @ApiBearerAuth()
       @ApiOperation({ summary: 'Update payment status by ID' })
       @ApiOkResponse({
@@ -185,6 +191,7 @@ async refundPayment(
     };
   }
 
+  @UseGuards(UniversalGuard)
   @ApiOperation({ summary: 'Get Payment by ID' })
       @ApiOkResponse({
           description: 'Customer Payment retrieved successfully',
@@ -217,6 +224,7 @@ async refundPayment(
     };
   }
 
+  @UseGuards(UserGuard)
   @ApiBearerAuth()
   @Delete(':customerId')
   @ApiOperation({ summary: 'Delete by ID' })

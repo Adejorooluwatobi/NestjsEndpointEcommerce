@@ -13,4 +13,9 @@ export class UpdateProductAttributeDto{
     @IsString()
     attributeId: string;
 
+    @ApiProperty()
+
+    @IsString()
+    attributeValueId: string;
+
 }

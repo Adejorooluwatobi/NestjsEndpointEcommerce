@@ -17,6 +17,7 @@ type AttributeValue {
   attributeValue: String!
   color: String!
   id: String!
+  productAttributes: [ProductAttribute!]!
   variantAttributeValues: [VariantAttributeValue!]!
 }
 
@@ -85,6 +86,7 @@ input CreateOrderItemDto {
 input CreateOrderStatusDto {
   color: String!
   privacy: String!
+  statusCode: String!
   statusName: String!
 }
 
@@ -183,6 +185,7 @@ type OrderStatus {
   id: Float!
   orders: [Order!]!
   privacy: String!
+  statusCode: String!
   statusName: String!
   updatedAt: DateTime!
   updatedBy: String!
@@ -242,6 +245,8 @@ type Product {
 type ProductAttribute {
   attribute: Attribute!
   attributeId: String!
+  attributeValue: AttributeValue!
+  attributeValueId: String!
   id: String!
   product: Product!
   productId: String!
@@ -277,6 +282,7 @@ type ProductTag {
   product: Product!
   productId: String!
   tag: Tag!
+  tagId: String!
 }
 
 type Profile {
@@ -376,6 +382,7 @@ input UpdateOrderItemDto {
 input UpdateOrderStatusDto {
   color: String!
   privacy: String!
+  statusCode: String!
   statusName: String!
 }
 

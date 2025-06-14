@@ -14,8 +14,8 @@ export class ShippingService {
     async createShipping(shippingDetails: CreateShippingParams) {
         const newShipping = this.shippingRepository.create({
             ...shippingDetails,
-            createdAt : Date.now(),
-            updatedAt: Date.now()
+            createdAt : new Date(),
+            updatedAt: new Date()
         });
 
         const savedShipping = await this.shippingRepository.save(newShipping);
@@ -25,21 +25,21 @@ export class ShippingService {
     }
 
     findShipping() {
-        // Logic to find all customers
-        return this.shippingRepository.find(); // Fetch customers with their profiles
+        
+        return this.shippingRepository.find(); 
     }
 
     findShippingById(id: string) {
-        // Logic to find a customer by ID
-        return this.shippingRepository.findOne({ where: { id }}); // Fetch customer with their profile
+        
+        return this.shippingRepository.findOne({ where: { id }}); 
     }
 
     async updateShipping(id: string, updateShippingDetails: UpdateShippingParams) {
-                return this.shippingRepository.update(id, { ...updateShippingDetails, updatedAt: Date.now() });
+                return this.shippingRepository.update(id, { ...updateShippingDetails, updatedAt: new Date() });
     }
 
     deleteShipping(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.shippingRepository.delete(id);
     }
 

@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param, ParseUUIDPipe, Put, Delete } from '@nestjs/common'; // Removed NotFoundException
+import { Controller, Post, Get, Body, Param, ParseUUIDPipe, Put, Delete, UseGuards } from '@nestjs/common'; // Removed NotFoundException
 import { CustomerEngagementService } from '../../Services/customer-engagement/customer-engagement.service';
 import { CreateCustomerEngagementReviewDto } from '../../DTOs/CustomerEngagementDTO/CreateCustomerEngagementReview.dto';
 import { CreateCustomerEngagementWishlistDto } from '../../DTOs/CustomerEngagementDTO/CreateCustomerEngagementWishlist.dto';
@@ -6,6 +6,7 @@ import { ApiResponseDto, CustomerEngagementResponseDto, ErrorResponseDto } from 
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { UpdateCustomerEngagementReviewDto } from 'src/DTOs/CustomerEngagementDTO/UpdateCustomerEngagementReview.dto'; // New DTO
 import { UpdateCustomerEngagementWishlistDto } from 'src/DTOs/CustomerEngagementDTO/UpdateCustomerEngagementWishlist.dto'; // New DTO
+import { UniversalGuard } from 'src/security/auth/guards';
 
 
 @ApiExtraModels(CustomerEngagementResponseDto)
@@ -32,6 +33,7 @@ export class CustomerEngagementController {
     description: 'Invalid input data or product not found',
     type: ErrorResponseDto
   })
+  @UseGuards(UniversalGuard)
   async addReview(
     @Param('productId', ParseUUIDPipe) productId: string, // Changed from 'id' to 'productId'
     @Body() createCustomerEngagementReviewDto: CreateCustomerEngagementReviewDto,
@@ -68,6 +70,7 @@ export class CustomerEngagementController {
     description: 'Product reviews not found',
     type: ErrorResponseDto
   })
+  @UseGuards(UniversalGuard)
   async getReviews(@Param('productId', ParseUUIDPipe) productId: string) {
     if (!productId) {
       throw new Error('Product ID is required');
@@ -105,6 +108,7 @@ export class CustomerEngagementController {
     description: 'Invalid input data',
     type: ErrorResponseDto
   })
+  @UseGuards(UniversalGuard)
   async updateReview(
     @Param('id', ParseUUIDPipe) id: string,
     @Body() updateCustomerEngagementReviewDto: UpdateCustomerEngagementReviewDto,
@@ -126,6 +130,7 @@ export class CustomerEngagementController {
     description: 'Review not found',
     type: ErrorResponseDto
   })
+  @UseGuards(UniversalGuard)
   async deleteReview(@Param('id', ParseUUIDPipe) id: string) {
     await this.engagementService.deleteReview(id);
     return {

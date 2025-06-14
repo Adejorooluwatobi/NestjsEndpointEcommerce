@@ -25,13 +25,13 @@ export class CategoryService {
     }
 
     findCategory() {
-        // Logic to find all customers
-        return this.categoryRepository.find(); // Fetch customers with their profiles
+        
+        return this.categoryRepository.find(); 
     }
 
     findCategoryById(id: string) {
-        // Logic to find a customer by ID
-        return this.categoryRepository.findOne({ where: { id }}); // Fetch customer with their profile
+        
+        return this.categoryRepository.findOne({ where: { id }}); 
     }
 
     async updateCategory(id: string, updateCategoryDetails: UpdateCategoryParams) {
@@ -39,7 +39,7 @@ export class CategoryService {
     }
 
     deleteCategory(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.categoryRepository.delete(id);
     }
 

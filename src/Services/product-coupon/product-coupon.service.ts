@@ -24,13 +24,13 @@ export class ProductCouponService {
     }
 
     findProductCoupon() {
-        // Logic to find all customers
-        return this.productCouponRepository.find({relations:['coupon', 'product']}); // Fetch customers with their profiles
+        
+        return this.productCouponRepository.find({relations:['coupon', 'product']}); 
     }
 
     findProductCouponById(id: string) {
-        // Logic to find a customer by ID
-        return this.productCouponRepository.findOne({ where: { id }, relations: ['coupon', 'product']}); // Fetch customer with their profile
+        
+        return this.productCouponRepository.findOne({ where: { id }, relations: ['coupon', 'product']}); 
     }
 
     async updateProductCoupon(id: string, updateProductCouponDetails: UpdateProductCouponParams) {
@@ -38,7 +38,7 @@ export class ProductCouponService {
     }
 
     deleteProductCoupon(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.productCouponRepository.delete(id);
     }
 

@@ -3,7 +3,7 @@ import { CustomersService } from '../../Services/customers/customers.service';
 import { CreateCustomerDto } from 'src/DTOs/CustomerDTO/CreateCustomer.dto';
 import { UpdateCustomerDto } from 'src/DTOs/CustomerDTO/UpdateCustomer.dto';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiResponseDto, CustomersResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath, ApiNoContentResponse, ApiExtraModels } from '@nestjs/swagger';
 import { Customer } from 'src/database/entities/customers.entity'; // Import Customer entity
@@ -13,7 +13,7 @@ import { Customer } from 'src/database/entities/customers.entity'; // Import Cus
 export class CustomersController {
     constructor(private customersService: CustomersService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
     @Get() // Removed duplicate @Get()
     @ApiOperation({ summary: 'Get all customers' })
@@ -43,7 +43,7 @@ export class CustomersController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @Get(':id')
     @ApiOperation({ summary: 'Get customer by ID' })
@@ -144,7 +144,7 @@ export class CustomersController {
         };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
     @Delete(':id')
     @ApiOperation({ summary: 'Delete customer by ID' }) // Added ApiOperation

@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards, Req } from '@nestjs/common';
 import { CardsService } from '../../Services/cards/cards.service';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateCardDto } from '../../DTOs/CardDTO/CreateCard.dto';
 import { UpdateCardDto } from '../../DTOs/CardDTO/UpdateCard.dto';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import {  UniversalGuard } from 'src/security/auth/guards';
 import { ApiResponseDto, CardsResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse, ApiExtraModels, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 
@@ -12,7 +12,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedRe
 export class CardsController {
     constructor(private cardsService: CardsService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @Get()
         @ApiOperation({ summary: 'Get all cards' })
@@ -49,7 +49,7 @@ export class CardsController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @Get(':id')
         @ApiOperation({ summary: 'Get card by ID' })
@@ -87,7 +87,7 @@ export class CardsController {
         };
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
     @Get('customer/:customerId')
     @ApiOperation({ summary: 'Get card by CustomerID' })
@@ -150,8 +150,9 @@ export class CardsController {
     description: 'Card info already exists'
 })
 @Post()
-async createCard(@Body() createCardDto: CreateCardDto) {
+async createCard(@Body() createCardDto: CreateCardDto, @Req() req) {
     // Check if card number is available
+    const customerId = req.customer.sub;
     const isAvailable = await this.cardsService.isCardNumberAvailable(createCardDto.cardNumber);
     
     if (!isAvailable) {
@@ -162,7 +163,10 @@ async createCard(@Body() createCardDto: CreateCardDto) {
         };
     }
     
-    const card = await this.cardsService.createCard(createCardDto);
+    const card = await this.cardsService.createCard({
+        ...createCardDto,
+        customerId
+    });
     return {
         succeeded: true,
         message: 'Card created successfully',
@@ -172,7 +176,7 @@ async createCard(@Body() createCardDto: CreateCardDto) {
 }
 
 // You could also add a dedicated endpoint to check card number availability
-@UseGuards(UserGuard)
+@UseGuards(UniversalGuard)
 @ApiBearerAuth()
 @Get('check-availability/:cardNumber')
 @ApiOperation({ summary: 'Check if card number is available' })

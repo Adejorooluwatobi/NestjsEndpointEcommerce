@@ -3,7 +3,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModel
 import { CreateProductTagDto } from 'src/DTOs/ProductTagDTO/CreateProductTag.dto';
 import { UpdateProductTagDto } from 'src/DTOs/ProductTagDTO/UpdateProductTag.dto';
 import { ApiResponseDto, ErrorResponseDto, ProductResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { ProductTagService } from 'src/Services/product-tag/product-tag.service';
 
 @ApiExtraModels(ProductResponseDto)
@@ -11,7 +11,7 @@ import { ProductTagService } from 'src/Services/product-tag/product-tag.service'
 export class ProductTagController {
     constructor(private productService: ProductTagService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
     
     @Post()
@@ -43,7 +43,7 @@ export class ProductTagController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all Product tag' })
         @ApiOkResponse({
@@ -73,7 +73,7 @@ export class ProductTagController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product tag by ID' })
         @ApiOkResponse({
@@ -107,7 +107,7 @@ export class ProductTagController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update product tag by ID' })
         @ApiOkResponse({
@@ -147,7 +147,7 @@ export class ProductTagController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

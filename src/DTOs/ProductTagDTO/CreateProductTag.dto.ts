@@ -10,4 +10,9 @@ export class CreateProductTagDto{
     @IsString()
     productId: string;
 
+    @ApiProperty()
+    @IsNotEmpty()
+    @IsString()
+    tagId: string;
+
 }

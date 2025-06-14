@@ -8,6 +8,10 @@ export class UpdateOrderStatusDto extends PartialType(CreateOrderStatusDto) {
       @Field()
       @ApiProperty()
       statusName: string;
+
+      @Field()
+      @ApiProperty()
+      statusCode: string;
     
       @Field()
       @ApiProperty()

@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { ProductCouponService } from '../../Services/product-coupon/product-coupon.service';
 import { UpdateProductCouponDto } from '../../DTOs/ProductCouponDTO/UpdateProductCoupon.dto';
 import { CreateProductCouponDto } from '../../DTOs/ProductCouponDTO/CreateProductCoupon.dto';
@@ -12,7 +12,7 @@ import { ApiResponseDto, ErrorResponseDto, ProductCouponResponseDto } from 'src/
 export class ProductCouponController {
     constructor(private productService: ProductCouponService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @Post()
      @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product coupon by ID' })
@@ -43,6 +43,7 @@ export class ProductCouponController {
         };
     }
 
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all product coupon' })
         @ApiOkResponse({
@@ -73,6 +74,7 @@ export class ProductCouponController {
     }
 
 
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get product coupon by ID' })
         @ApiOkResponse({
@@ -106,7 +108,7 @@ export class ProductCouponController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Update product coupon by ID' })
         @ApiOkResponse({
@@ -146,7 +148,7 @@ export class ProductCouponController {
             };
         }
 
-        @UseGuards(UserGuard, StaffGuard)
+        @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

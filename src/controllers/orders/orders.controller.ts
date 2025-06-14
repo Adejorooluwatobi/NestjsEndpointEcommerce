@@ -1,9 +1,9 @@
-import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards, Req } from '@nestjs/common';
 import { OrdersService } from '../../Services/orders/orders.service';
 import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
 import { CreateOrderDto } from '../../DTOs/OrderDTO/CreateOrder.dto';
 import { UpdateOrderDto } from '../../DTOs/OrderDTO/UpdateOrder.dto';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, OrdersResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -12,7 +12,7 @@ import { ApiResponseDto, ErrorResponseDto, OrdersResponseDto } from 'src/DTOs/Re
 export class OrdersController {
     constructor(private ordersService: OrdersService) {}
 
-    // @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all order' })
         @ApiOkResponse({
@@ -42,7 +42,7 @@ export class OrdersController {
         };
     }
 
-    @UseGuards(UserGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get order by ID' })
         @ApiOkResponse({
@@ -76,7 +76,7 @@ export class OrdersController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get order by customer ID' })
         @ApiOkResponse({
@@ -131,8 +131,12 @@ export class OrdersController {
             description: 'Invalid input data',
             type: ErrorResponseDto
         })
-    async createOrder(@Body() createOrderDto: CreateOrderDto) {
-        const order = await this.ordersService.createOrder(createOrderDto);
+    async createOrder(@Body() createOrderDto: CreateOrderDto, @Req() req) {
+        const customerId = req.customer.sub;
+        const order = await this.ordersService.createOrder({
+            ...createOrderDto,
+            customerId,
+        }); // Use the ID from the token
         return {
             succeeded: true,
             message: 'Order created successfully',

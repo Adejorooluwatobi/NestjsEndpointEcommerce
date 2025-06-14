@@ -189,6 +189,7 @@ export class OrderItemsResponseDto {
 export class OrderStatusResponseDto {
   @ApiProperty() id: string;
   @ApiProperty() statusName: string;
+  @ApiProperty() statusCode: string;
   @ApiProperty() color: string;
   @ApiProperty() privacy: string;
   @ApiProperty() createdAt: Date;

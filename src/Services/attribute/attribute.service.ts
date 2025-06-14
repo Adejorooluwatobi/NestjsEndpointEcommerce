@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Attribute, ProductAttribute } from 'src/database/entities';
+import { Attribute, AttributeValue, ProductAttribute } from 'src/database/entities';
 import { CreateAttributeParams, UpdateAttributeParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
@@ -8,7 +8,8 @@ import { Repository } from 'typeorm';
 export class AttributeService {
     constructor(
         @InjectRepository(Attribute) private attributeRepository: Repository<Attribute>,
-        @InjectRepository(ProductAttribute) private productRepository: Repository<ProductAttribute>
+        @InjectRepository(ProductAttribute) private productRepository: Repository<ProductAttribute>,
+        @InjectRepository(AttributeValue) private AttributeValueRepository: Repository<AttributeValue>
     ) {}
 
     async createAttribute(attributeDetails: CreateAttributeParams) {
@@ -25,13 +26,13 @@ export class AttributeService {
     }
 
     findAttribute() {
-        // Logic to find all customers
-        return this.attributeRepository.find(); // Fetch customers with their profiles
+        
+        return this.attributeRepository.find({ relations: ['attributeValues'] }); 
     }
 
     findAttributeById(id: string) {
-        // Logic to find a customer by ID
-        return this.attributeRepository.findOne({ where: { id }}); // Fetch customer with their profile
+        
+        return this.attributeRepository.findOne({ where: { id }, relations: ['attributeValues'] }); 
     }
 
     async updateAttribute(id: string, updateAttributeDetails: UpdateAttributeParams) {
@@ -39,7 +40,7 @@ export class AttributeService {
     }
 
     deleteAttribute(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.attributeRepository.delete(id);
     }
 

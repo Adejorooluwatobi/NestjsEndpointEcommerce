@@ -14,6 +14,10 @@ export class ProductTag {
     @Column('uuid')
     productId: string;
 
+    @Field()
+    @Column('uuid')
+    tagId: string;
+
     @Field(() => Tag)
     @ManyToOne(() => Tag, (tag) => tag.productTags)
     tag: Tag;

@@ -7,8 +7,8 @@ export class UpdatePaymentDto{
 @IsString()
 orderId: string;
 
-@ApiProperty()
-@IsString()
+// @ApiProperty()
+// @IsString()
 customerId: string;
 
 @ApiProperty()
@@ -26,10 +26,6 @@ amount: number;
 @ApiProperty()
 @IsString()
 status: 'pending' | 'completed' | 'failed';
-
-@ApiProperty()
-@IsDate()
-createdAt: Date;
 
 @ApiProperty()
 @IsDate()

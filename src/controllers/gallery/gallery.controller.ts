@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
-import { CustomerGuard } from 'src/security/auth/guards/customer.guard';
-import { StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { StaffGuard, UniversalGuard } from 'src/security/auth/guards';
 import { GalleryService } from '../../Services/gallery/gallery.service';
 import { CreateGalleryDto } from '../../DTOs/GalleryDTO/CreateGallery.dto';
 import { UpdateGalleryDto } from '../../DTOs/GalleryDTO/UpdateGallery.dto';
@@ -12,7 +11,7 @@ import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModel
 export class GalleryController {
     constructor(private gallerysService: GalleryService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all Gallery' })
         @ApiOkResponse({
@@ -42,7 +41,7 @@ export class GalleryController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get gallery by ID' })
         @ApiOkResponse({
@@ -76,7 +75,7 @@ export class GalleryController {
         };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UniversalGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new gallery' })
         @ApiCreatedResponse({
@@ -106,7 +105,7 @@ export class GalleryController {
         };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UniversalGuard)
      @ApiBearerAuth()
         @ApiOperation({ summary: 'Update gallery by ID' })
         @ApiOkResponse({
@@ -143,7 +142,7 @@ export class GalleryController {
             };
     }
 
-    @UseGuards(CustomerGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
         @Delete(':id')
         @ApiOperation({ summary: 'Delete by ID' })

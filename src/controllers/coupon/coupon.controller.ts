@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nes
 import { CouponService } from '../../Services/coupon/coupon.service';
 import { CreateCouponDto } from '../../DTOs/CouponDTO/CreateCoupon.dto';
 import { UpdateCouponDto } from '../../DTOs/CouponDTO/UpdateCoupon.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { UniversalGuard, UserGuard} from 'src/security/auth/guards';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, CouponResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 
@@ -11,7 +11,7 @@ import { ApiResponseDto, CouponResponseDto, ErrorResponseDto } from 'src/DTOs/Re
 export class CouponController {
     constructor(private couponService: CouponService) {}
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @ApiOperation({ summary: 'Create a new coupon' })
         @ApiCreatedResponse({
             description: 'Coupon created successfully',
@@ -41,7 +41,7 @@ export class CouponController {
         };  
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all coupon' })
         @ApiOkResponse({
@@ -71,7 +71,7 @@ export class CouponController {
         };
     }
 
-    @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+    @UseGuards(UniversalGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get coupon by code' })
         @ApiOkResponse({
@@ -105,7 +105,7 @@ export class CouponController {
         };
     }
 
-    @UseGuards(UserGuard, StaffGuard)
+    @UseGuards(UserGuard)
     @ApiOperation({ summary: 'Update coupon by Code' })
         @ApiOkResponse({
             description: 'Coupon updated successfully',
@@ -144,7 +144,7 @@ export class CouponController {
             };
         }
 
-        // @UseGuards(UserGuard)
+        @UseGuards(UserGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
             @Delete(':couponCode')
             @ApiOperation({ summary: 'Delete by ID' })

@@ -31,13 +31,13 @@ export class ProductService {
     }
 
     findProduct() {
-        // Logic to find all customers
-        return this.productRepository.find(); // Fetch customers with their profiles
+        
+        return this.productRepository.find({relations: ['productCategory', 'productAttributes', 'galleries', 'variants', 'productTags', 'productCoupons', 'productShippings']}); // Fetch products with their related entities
     }
 
     findProductByCode(productCode: string) {
-        // Logic to find a customer by ID
-        return this.productRepository.findOne({ where: { productCode }}); // Fetch customer with their profile
+        
+        return this.productRepository.findOne({ where: { productCode }, relations: ['productCategory', 'productAttributes', 'galleries', 'variants', 'productTags', 'productCoupons', 'productShippings'] }); // Fetch product with its related entities
     }
 
     async updateProduct(productCode: string, updateProductDetails: UpdateProductParams) {
@@ -46,7 +46,7 @@ export class ProductService {
     }
 
     async deleteProduct(productCode: string) {
-        // Logic to delete an customer by ID
+        
         return this.productRepository.delete({productCode});
     }
 

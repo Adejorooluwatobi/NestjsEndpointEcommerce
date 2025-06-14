@@ -2,9 +2,9 @@ import { IsNotEmpty, IsUUID, IsOptional, IsNumber } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateOrderDto {
-  @ApiProperty()
-@IsNotEmpty()
-  @IsUUID()
+//   @ApiProperty()
+// @IsNotEmpty()
+//   @IsUUID()
   customerId: string;
 
   @ApiProperty()

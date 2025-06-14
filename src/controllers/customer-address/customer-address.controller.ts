@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Put, UseGuards, Req } from '@nestjs/common';
 import { CreateCustomerAddressDto } from '../../DTOs/CustomerAddressDTO/CreateCustomerAddress.dto';
-import { CustomerGuard, StaffGuard, UserGuard } from 'src/security/auth/guards';
+import { CustomerGuard, UniversalGuard} from 'src/security/auth/guards';
 import { CustomerAddressService } from '../../Services/customer-address/customer-address.service';
 import { UpdateCustomerAddressDto } from '../../DTOs/CustomerAddressDTO/UpdateCustomerAddress.dto';
 import { ApiResponseDto, CustomerAddressResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
@@ -32,10 +32,11 @@ export class CustomerAddressController {
               type: ErrorResponseDto
           })
   async createCustomerAddress(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() createCustomerAddressDto: CreateCustomerAddressDto,
+    // @Param('id', ParseUUIDPipe) id: string,
+    @Body() createCustomerAddressDto: CreateCustomerAddressDto, @Req() req
   ) {
-    const cusAddress = await this.customerAddressService.createCustomerAddress(id, createCustomerAddressDto);
+    const customerId = req.customer.sub;
+    const cusAddress = await this.customerAddressService.createCustomerAddress(customerId, createCustomerAddressDto);
     return {
       succeeded: true,
       message: 'Customer Address created successfully',
@@ -44,7 +45,7 @@ export class CustomerAddressController {
     };
   }
 
-  @UseGuards(CustomerGuard, UserGuard, StaffGuard)
+  @UseGuards(UniversalGuard)
   @ApiBearerAuth()
       @ApiOperation({ summary: 'Get all customer Address' })
       @ApiOkResponse({

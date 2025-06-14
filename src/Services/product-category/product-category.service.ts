@@ -24,13 +24,13 @@ export class ProductCategoryService {
     }
 
     findProductCategory() {
-        // Logic to find all customers
-        return this.productCategoryRepository.find({relations:['product', 'category']}); // Fetch customers with their profiles
+        
+        return this.productCategoryRepository.find({relations:['product', 'category']}); 
     }
 
     findProductCategoryById(id: string) {
-        // Logic to find a customer by ID
-        return this.productCategoryRepository.findOne({ where: { id }, relations:['product', 'category']}); // Fetch customer with their profile
+        
+        return this.productCategoryRepository.findOne({ where: { id }, relations:['product', 'category']}); 
     }
 
     async updateProductCategory(id: string, updateProductCategoryDetails: UpdateProductCategoryParams) {
@@ -38,7 +38,7 @@ export class ProductCategoryService {
     }
 
     deleteProductCategory(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.productCategoryRepository.delete(id);
     }
 

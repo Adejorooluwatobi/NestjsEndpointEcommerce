@@ -1,14 +1,16 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { StaffRolesService } from '../../Services/staff-roles/staff-roles.service';
 import { CreateStaffRoleDto } from '../../DTOs/StaffRoleDTO/CreateStaffRoles.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiCreatedResponse, ApiExtraModels, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 import { ApiResponseDto, ErrorResponseDto, StaffRolesResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
+import { UserGuard } from 'src/security/auth/guards';
 
 @ApiExtraModels(StaffRolesResponseDto)
 @Controller('staff-roles')
 export class StaffRolesController {
     constructor(private readonly staffRoleService: StaffRolesService) {}
 
+    @UseGuards(UserGuard)
     @Post()
      @ApiOperation({ summary: 'Create a new staff role' })
         @ApiCreatedResponse({
@@ -38,6 +40,7 @@ export class StaffRolesController {
         };
     }
 
+    @UseGuards(UserGuard)
     @ApiBearerAuth()
         @ApiOperation({ summary: 'Get all staff Role' })
         @ApiOkResponse({

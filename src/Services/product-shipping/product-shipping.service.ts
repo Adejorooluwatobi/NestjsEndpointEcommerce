@@ -24,13 +24,13 @@ export class ProductShippingService {
     }
 
     findProductShipping() {
-        // Logic to find all customers
-        return this.productShippingRepository.find({relations:['product', 'shipping']}); // Fetch customers with their profiles
+        
+        return this.productShippingRepository.find({relations:['product', 'shipping']}); 
     }
 
     findProductShippingById(id: string) {
-        // Logic to find a customer by ID
-        return this.productShippingRepository.findOne({ where: { id }, relations: ['product', 'shipping']}); // Fetch customer with their profile
+        
+        return this.productShippingRepository.findOne({ where: { id }, relations: ['product', 'shipping']}); 
     }
 
     async updateProductShipping(id: string, updateProductShippingDetails: UpdateProductShippingParams) {
@@ -38,7 +38,7 @@ export class ProductShippingService {
     }
 
     deleteProductShipping(id: string) {
-        // Logic to delete an customer by ID
+        
         return this.productShippingRepository.delete(id);
     }
 

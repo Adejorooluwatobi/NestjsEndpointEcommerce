@@ -27,7 +27,7 @@ import * as Controllers from './controllers';
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
     entities: [__dirname + '/../database/entities/*.entity.{ts,js}'],
-    synchronize: false,
+    synchronize: true,
     autoLoadEntities: true,
     logging: true,
   }),
