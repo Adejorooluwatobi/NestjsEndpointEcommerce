@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseUUIDPipe, Post, UseGuards, Req } from '@nestjs/common';
 import { CreateProfileDto } from '../../DTOs/ProfileDTO/CreateProfile.dto';
 import { ProfileService } from '../../Services/profile/profile.service';
 import { CustomerGuard, StaffGuard, UniversalGuard, UserGuard } from 'src/security/auth/guards';
@@ -11,7 +11,7 @@ export class ProfileController {
   constructor(private readonly profileService: ProfileService) {}
 
   @UseGuards(UserGuard)
-  @Post('users/:id/profiles')
+  @Post('users/profiles')
   @ApiOperation({ summary: 'Create user profile by ID' })
       @ApiOkResponse({
           description: 'User profile created successfully',
@@ -29,10 +29,11 @@ export class ProfileController {
       @ApiNotFoundResponse({ description: 'User not found', type: ErrorResponseDto })
       @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
   async createUserProfile(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() createProfileDto: CreateProfileDto,
+    //@Param('id', ParseUUIDPipe) id: string,
+    @Body() createProfileDto: CreateProfileDto, @Req() req
   ) {
-    const profile = await this.profileService.createUserProfile(id, createProfileDto);
+    const userId = req.user.sub;
+    const profile = await this.profileService.createUserProfile(userId, createProfileDto);
     return {
       succeeded: true,
       message: 'User profile created successfully',
@@ -73,7 +74,7 @@ export class ProfileController {
   }
 
   @UseGuards(CustomerGuard)
-  @Post('customers/:id/profiles')
+  @Post('customers/profiles')
   @ApiOperation({ summary: 'Create customer profile by ID' })
       @ApiOkResponse({
           description: 'Customer profile created successfully',
@@ -91,10 +92,11 @@ export class ProfileController {
       @ApiNotFoundResponse({ description: 'Customer not found', type: ErrorResponseDto })
       @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
   async createCustomerProfile(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() createCustomerProfileDto: CreateProfileDto,
+    //@Param('id', ParseUUIDPipe) id: string,
+    @Body() createCustomerProfileDto: CreateProfileDto, @Req() req
   ) {
-    const profile = await this.profileService.createCustomerProfile(id, createCustomerProfileDto);
+    const customerId = req.customer.sub;
+    const profile = await this.profileService.createCustomerProfile(customerId, createCustomerProfileDto);
     return {
       succeeded: true,
       message: 'Customer profile created successfully',
@@ -125,7 +127,7 @@ export class ProfileController {
       @ApiNotFoundResponse({ description: 'No customer profiles found', type: ErrorResponseDto })
   @Get('customers/:id/profiles')
   async getCustomerProfile(@Param('id', ParseUUIDPipe) id: string) {
-    const profile = await this.profileService.getCustomerProfile(id.toString());
+    const profile = await this.profileService.getCustomerProfile(id);
     return {
       succeeded: true,
       message: 'Customer profile retrieved successfully',
@@ -135,7 +137,7 @@ export class ProfileController {
   }
 
   @UseGuards(StaffGuard)
-  @Post('staffs/:id/profiles')
+  @Post('staffs/profiles')
   @ApiOperation({ summary: 'Create staff profile by ID' })
       @ApiOkResponse({
           description: 'staff profile created successfully',
@@ -153,10 +155,11 @@ export class ProfileController {
       @ApiNotFoundResponse({ description: 'Staff not found', type: ErrorResponseDto })
       @ApiBadRequestResponse({ description: 'Invalid input data', type: ErrorResponseDto })
   async createStaffProfile(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Body() createStaffProfileDto: CreateProfileDto,
+    //@Param('id', ParseUUIDPipe) id: string,
+    @Body() createStaffProfileDto: CreateProfileDto, @Req() req
   ) {
-    const profile = await this.profileService.createStaffProfile(id, createStaffProfileDto);
+    const staffId = req.customer.sub;
+    const profile = await this.profileService.createStaffProfile(staffId, createStaffProfileDto);
     return {
       succeeded: true,
       message: 'Staff profile created successfully',

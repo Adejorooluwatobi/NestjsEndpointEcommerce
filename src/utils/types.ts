@@ -167,15 +167,17 @@ export type UpdateOrderStatusParams = {
 // Types for OrderItem
 export type CreateOrderItemParams = {
     orderId: string;
-    productId: string[];
-    price: number[];
-    quantity: number[];
+    items: {
+    productId: string;
+    price: number;
+    quantity: number;
+  }[];
 };
 
 export type UpdateOrderItemParams = {
-    productId?: string[];
-    price?: number[];
-    quantity?: number[];
+  productId?: string;
+  price?: number;
+  quantity?: number;
 };
 
 export type CreateRoleParams = {

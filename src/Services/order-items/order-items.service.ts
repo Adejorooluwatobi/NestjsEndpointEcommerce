@@ -48,10 +48,10 @@ export class OrderItemsService {
         }
 
         // Create and save the order item
-       const itemsToCreate = orderItemDetails.productId.map((productId, idx) => ({
-        productId,
-        price: orderItemDetails.price[idx],
-        quantity: orderItemDetails.quantity[idx],
+       const itemsToCreate = orderItemDetails.items.map(item => ({
+        productId: item.productId,
+        price: item.price,
+        quantity: item.quantity,
         order: order,
     }));
 
@@ -66,12 +66,14 @@ export class OrderItemsService {
         }
         
         // Only update with single values, not arrays
-        const { productId, price, quantity } = updateOrderItemDetails;
-        await this.orderItemRepository.update(id, {
-            ...(productId && { productId: Array.isArray(productId) ? productId[0] : productId }),
-            ...(price && { price: Array.isArray(price) ? price[0] : price }),
-            ...(quantity && { quantity: Array.isArray(quantity) ? quantity[0] : quantity }),
-        });
+        // const { productId, price, quantity } = updateOrderItemDetails;
+        await this.orderItemRepository.update(id, updateOrderItemDetails 
+            //{
+            // ...(productId && { productId: Array.isArray(productId) ? productId[0] : productId }),
+            // ...(price && { price: Array.isArray(price) ? price[0] : price }),
+            // ...(quantity && { quantity: Array.isArray(quantity) ? quantity[0] : quantity }),
+        //}
+    );
         
         return this.findOrderItemById(id);
     }
