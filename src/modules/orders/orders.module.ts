@@ -4,16 +4,17 @@ import { Order } from 'src/database/entities/orders.entity';
 import { OrderItem } from 'src/database/entities/orderItems.entity';
 import { OrderStatus } from 'src/database/entities/orderStatuses.entity';
 import { Coupon } from 'src/database/entities/coupons.entity';
-import { OrdersController } from './controllers/orders/orders.controller';
-import { OrdersService } from './services/orders/orders.service';
+import { OrdersController } from '../../controllers/orders/orders.controller';
+import { OrdersService } from '../../Services/orders/orders.service';
 import { CustomersModule } from 'src/modules/customers/customers.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Product } from 'src/database/entities';
+import { Payment } from 'src/database/entities/payment.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Order, OrderItem, OrderStatus, Coupon, Product]),
+    TypeOrmModule.forFeature([Order, OrderItem, OrderStatus, Coupon, Product, Payment]), // Import necessary entities
     CustomersModule, // Import CustomersModule to use CustomersService
     JwtModule.registerAsync({
         imports: [ConfigModule],

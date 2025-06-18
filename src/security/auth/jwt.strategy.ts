@@ -24,8 +24,17 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       email: payload.email,
       role: payload.role 
     };
+    const staffData = {
+      id: payload.sub, 
+      email: payload.email,
+      role: payload.role 
+    };
+
     if (payload.role === 'customer') {
       return { customer: customerData };
+    } else if (payload.role === 'staff') {
+      return { staff: staffData };
+      // return { user: userData };
     } else {
       return { user: userData };
     }

@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { ProductAttribute } from './productAttributes.entity';
+import { AttributeValue } from './attributeValues.entity';
 
 @ObjectType()
 @Entity({ name: 'attributes' })
@@ -12,6 +13,9 @@ export class Attribute {
     @Field()
     @Column({ length: 255 })
     attributeName: string;
+
+    @OneToMany(() => AttributeValue, (attributeValue) => attributeValue.attribute)
+    attributeValues: AttributeValue[];
 
     @Field()
     @CreateDateColumn()
@@ -30,6 +34,6 @@ export class Attribute {
     updatedBy: string;
 
     @Field(() => [ProductAttribute])
-    @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.attribute)
+    @OneToMany(() => ProductAttribute, (productAttributes) => productAttributes.attributeValue)
     productAttributes: ProductAttribute[];
 }

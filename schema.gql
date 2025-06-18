@@ -17,11 +17,13 @@ type AttributeValue {
   attributeValue: String!
   color: String!
   id: String!
+  productAttributes: [ProductAttribute!]!
   variantAttributeValues: [VariantAttributeValue!]!
 }
 
 type Card {
   cardItems: [CardItem!]!
+  cardNumber: String!
   customer: Customer!
   customerId: String!
   id: String!
@@ -45,7 +47,6 @@ type Category {
   id: String!
   imagePath: String!
   isActive: Boolean!
-  parentId: String!
   productCategory: [ProductCategory!]!
   updatedAt: DateTime!
   updatedBy: String!
@@ -76,15 +77,14 @@ input CreateCardItemDto {
 }
 
 input CreateOrderItemDto {
+  items: [OrderItemDataDto!]!
   orderId: String!
-  price: Float!
-  productId: String!
-  quantity: Float!
 }
 
 input CreateOrderStatusDto {
   color: String!
   privacy: String!
+  statusCode: String!
   statusName: String!
 }
 
@@ -98,6 +98,7 @@ type Customer {
   lastName: String!
   orders: [Order!]!
   password: String!
+  payments: [Payment!]!
   phoneNumber: String!
   profile: Profile
   registeredAt: DateTime!
@@ -125,7 +126,7 @@ type Gallery {
 
 type Mutation {
   createCardItem(createCardItemInput: CreateCardItemDto!): CardItem!
-  createOrderItem(createOrderItemInput: CreateOrderItemDto!): OrderItem!
+  createOrderItem(createOrderItemInput: CreateOrderItemDto!): [OrderItem!]!
   createOrderStatus(createOrderStatusInput: CreateOrderStatusDto!): OrderStatus!
   deleteCardItem(id: String!): Boolean!
   deleteOrderItem(id: String!): Boolean!
@@ -160,6 +161,7 @@ type Order {
   orderNo: String!
   orderStatus: OrderStatus!
   orderStatusId: Float!
+  payments: [Payment!]!
   updatedAt: DateTime!
   updatedBy: String!
 }
@@ -174,6 +176,12 @@ type OrderItem {
   quantity: Float!
 }
 
+input OrderItemDataDto {
+  price: Float!
+  productId: String!
+  quantity: Float!
+}
+
 type OrderStatus {
   color: String!
   createdAt: DateTime!
@@ -181,9 +189,24 @@ type OrderStatus {
   id: Float!
   orders: [Order!]!
   privacy: String!
+  statusCode: String!
   statusName: String!
   updatedAt: DateTime!
   updatedBy: String!
+}
+
+type Payment {
+  amount: Float!
+  createdAt: DateTime!
+  customer: Customer!
+  customerId: String!
+  id: String!
+  order: Order!
+  orderId: String!
+  paymentMethod: String!
+  refundedAt: DateTime!
+  status: String!
+  transactionId: String!
 }
 
 type Post {
@@ -226,6 +249,8 @@ type Product {
 type ProductAttribute {
   attribute: Attribute!
   attributeId: String!
+  attributeValue: AttributeValue!
+  attributeValueId: String!
   id: String!
   product: Product!
   productId: String!
@@ -261,6 +286,7 @@ type ProductTag {
   product: Product!
   productId: String!
   tag: Tag!
+  tagId: String!
 }
 
 type Profile {
@@ -352,15 +378,15 @@ input UpdateCardItemDto {
 }
 
 input UpdateOrderItemDto {
-  orderId: String!
-  price: Float!
-  productId: String!
-  quantity: Float!
+  price: Float
+  productId: String
+  quantity: Float
 }
 
 input UpdateOrderStatusDto {
   color: String!
   privacy: String!
+  statusCode: String!
   statusName: String!
 }
 

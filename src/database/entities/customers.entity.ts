@@ -4,6 +4,7 @@ import { Order } from './orders.entity';
 import { Card } from './cards.entity';
 import { Profile } from './Profile.entity';
 import { CustomerAddress } from './customerAddresses.entity';
+import { Payment } from './payment.entity';
 
 @ObjectType()
 @Entity({ name: 'customers' })
@@ -68,4 +69,8 @@ export class Customer {
     @OneToOne(() => CustomerAddress, { cascade: true })
     @JoinColumn()
     customerAddress: CustomerAddress;
+
+    @Field(() => [Payment])
+    @OneToMany(() => Payment, (payment) => payment.customer)
+    payments: Payment[];
 }

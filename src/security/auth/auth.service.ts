@@ -1,9 +1,10 @@
 import { Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { UsersService } from 'src/modules/users/services/users/users.service';
-import { CustomersService } from 'src/modules/customers/services/customers/customers.service';
-import { StaffAccountsService } from 'src/modules/staff-accounts/services/staff-accounts/staff-accounts.service';
+import { UsersService } from 'src/Services/users/users.service';
+import { CustomersService } from 'src/Services/customers/customers.service';
+import { StaffAccountsService } from 'src/Services/staff-accounts/staff-accounts.service';
+
 
 @Injectable()
 export class AuthService {
@@ -47,7 +48,8 @@ export class AuthService {
     const payload = { 
       email: user.email, 
       sub: user.id, 
-      role: 'user'
+      role: 'user',
+      name: user.userName,
     };
     
     return {
@@ -108,7 +110,8 @@ export class AuthService {
         const payload = {
             sub: customer.id,
             email: customer.email,
-            role: 'customer'
+            role: 'customer',
+            name: customer.firstName,
         };
 
         return {
@@ -116,7 +119,7 @@ export class AuthService {
             customer: {
                 id: customer.id,
                 email: customer.email,
-                userName: customer.userName,
+                userName: customer.firstName,
                 isActive: customer.isActive,
             }
         };
@@ -163,7 +166,8 @@ export class AuthService {
         const payload = {
             sub: staff.id,
             email: staff.email,
-            role: 'staff'
+            role: 'staff',
+            name: staff.firstName
         };
 
         return {
@@ -172,6 +176,7 @@ export class AuthService {
                 id: staff.id,
                 email: staff.email,
                 isActive: staff.isActive,
+                name: staff.firstName
             }
         };
     } catch (error) {

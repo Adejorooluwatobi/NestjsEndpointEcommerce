@@ -2,6 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Product } from './products.entity';
 import { Attribute } from './attributes.entity';
+import { AttributeValue } from './attributeValues.entity';
 
 
 @ObjectType()
@@ -19,6 +20,10 @@ export class ProductAttribute {
     @Column('uuid')
     attributeId: string;
 
+    @Field()
+    @Column('uuid')
+    attributeValueId: string;
+
     @Field(() => Product)
     @ManyToOne(() => Product, (product) => product.productAttributes)
     product: Product;
@@ -26,4 +31,8 @@ export class ProductAttribute {
     @Field(() => Attribute)
     @ManyToOne(() => Attribute, (attribute) => attribute.productAttributes)
     attribute: Attribute;
+
+    @Field(() => AttributeValue)
+    @ManyToOne(() => AttributeValue, (attributeValue) => attributeValue.productAttributes)
+    attributeValue: AttributeValue;
 }

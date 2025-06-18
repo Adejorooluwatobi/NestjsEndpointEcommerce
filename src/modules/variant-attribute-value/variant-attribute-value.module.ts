@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { VariantAttributeValue } from 'src/database/entities/variantAttributeValues.entity';
-import { VariantAttributeValueController } from './controllers/variant-attribute-value/variant-attribute-value.controller';
-import { VariantAttributeValueService } from './services/variant-attribute-value/variant-attribute-value.service';
-import { VariantAttributeValueResolver } from './variant-attribute-value.resolver';
+import { VariantAttributeValueController } from '../../controllers/variant-attribute-value/variant-attribute-value.controller';
+import { VariantAttributeValueService } from '../../Services/variant-attribute-value/variant-attribute-value.service';
 import { AttributeValue, Variant } from 'src/database/entities';
+import { VariantAttributeValueResolver } from 'src/resolver/variant-attribute-value/variant-attribute-value.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([VariantAttributeValue, Variant, AttributeValue]),

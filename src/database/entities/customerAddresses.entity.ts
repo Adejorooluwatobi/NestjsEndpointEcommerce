@@ -8,9 +8,9 @@ export class CustomerAddress {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Field()
-    @Column('uuid')
-    customerId: string;
+    // @Field()
+    // @Column('uuid')
+    // customerId: string;
 
     @Field()
     @Column('text')

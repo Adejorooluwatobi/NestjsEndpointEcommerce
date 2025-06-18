@@ -1,0 +1,119 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Card } from 'src/database/entities/cards.entity';
+import { CreateCardParams, UpdateCardParams } from 'src/utils/types';
+import { CustomersService } from 'src/Services/customers/customers.service';
+import { CardItem } from 'src/database/entities/cardItems.entity';
+
+@Injectable()
+export class CardsService {
+    constructor(
+        @InjectRepository(Card) private cardRepository: Repository<Card>,
+        @InjectRepository(CardItem) private cardItemRepository: Repository<CardItem>,
+        private customersService: CustomersService,
+    ) {}
+
+    findCards() {
+        return this.cardRepository.find({ 
+            relations: ['customer', 'cardItems'] 
+        });
+    }
+
+    findCardById(id: string) {
+        return this.cardRepository.findOne({ 
+            where: { id },
+            relations: ['customer', 'cardItems']
+        });
+    }
+
+    async findCardsByCustomerId(customerId: string) {
+        // Verify customer exists first
+        const customer = await this.customersService.findCustomerById(customerId);
+        if (!customer) {
+            throw new NotFoundException('Customer not found');
+        }
+        
+        return this.cardRepository.find({
+            where: { customerId: customerId },
+            relations: ['cardItems']
+        });
+    }
+
+    // Method to check if card number is available (returns boolean)
+    async isCardNumberAvailable(cardNumber: string): Promise<boolean> {
+        const existingCard = await this.cardRepository.findOne({ 
+            where: { cardNumber } 
+        });
+        
+        // Return true if card number is available (not found), false if already in use
+        return !existingCard;
+    }
+
+    // Original method for finding cards by card number (if you still need it)
+    async findCardsByCardNumber(cardNumber: string) {
+        const card = await this.cardRepository.findOne({ where: { cardNumber } });
+        if (!card) {
+            throw new NotFoundException('Card not found');
+        }
+        
+        return this.cardRepository.find({
+            where: { cardNumber: cardNumber },
+            relations: ['customer', 'cardItems']
+        });
+    }
+
+    async createCard(cardDetails: CreateCardParams) {
+        // Verify customer exists first
+        const customer = await this.customersService.findCustomerById(cardDetails.customerId);
+        if (!customer) {
+            throw new NotFoundException('Customer not found');
+        }
+        
+        // Create and save the card
+        const newCard = this.cardRepository.create({
+            ...cardDetails
+        });
+        
+        const savedCard = await this.cardRepository.save(newCard);
+        
+        // Create card items if provided
+        if (cardDetails.cardItems && cardDetails.cardItems.length > 0) {
+            const cardItems = cardDetails.cardItems.map(item => {
+                return this.cardItemRepository.create({
+                    ...item,
+                    cardId: savedCard.id
+                });
+            });
+            await this.cardItemRepository.save(cardItems);
+        }
+        
+        return this.findCardById(savedCard.id);
+    }
+
+    async updateCard(id: string, updateCardDetails: UpdateCardParams) {
+        const card = await this.cardRepository.findOne({ where: { id } });
+        if (!card) {
+            throw new NotFoundException('Card not found');
+        }
+        
+        await this.cardRepository.update(id, {
+            ...updateCardDetails
+        });
+        
+        return this.findCardById(id);
+    }
+
+    async deleteCard(id: string) {
+        const card = await this.cardRepository.findOne({ where: { id } });
+        if (!card) {
+            throw new NotFoundException('Card not found');
+        }
+        
+        // Delete associated card items first
+        await this.cardItemRepository.delete({ cardId: id });
+        
+        // Then delete the card
+        return this.cardRepository.delete(id);
+    }
+}

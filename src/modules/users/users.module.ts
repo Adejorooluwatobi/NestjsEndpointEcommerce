@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UsersController } from './controllers/users/users.controller';
-import { UsersService } from './services/users/users.service';
+import { UsersController } from '../../controllers/users/users.controller';
+import { UsersService } from '../../Services/users/users.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/User.entity';
 import { Profile } from 'src/database/entities/Profile.entity';
 import { Post } from 'src/database/entities/Post.entity';
-import { UsersResolver } from './users.resolver';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { UsersResolver } from 'src/resolver/users/users.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Profile, Post]),

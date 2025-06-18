@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CardItem } from 'src/database/entities/cardItems.entity';
-import { CardItemsController } from './controllers/card-items/card-items.controller';
-import { CardItemsService } from './services/card-items/card-items.service';
-import { CardItemsResolver } from './card-items.resolver';
+import { CardItemsController } from '../../controllers/card-items/card-items.controller';
+import { CardItemsService } from '../../Services/card-items/card-items.service';
 import { CardsModule } from '../cards/cards.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Card } from 'src/database/entities';
+import { CardItemsResolver } from 'src/resolver/card-items/card-items.resolver';
 
 @Module({
   imports: [

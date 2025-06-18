@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Coupon, Product, ProductCoupon } from 'src/database/entities';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { ProductCouponController } from './controllers/product-coupon/product-coupon.controller';
-import { ProductCouponService } from './services/product-coupon/product-coupon.service';
+import { ProductCouponController } from '../../controllers/product-coupon/product-coupon.controller';
+import { ProductCouponService } from '../../Services/product-coupon/product-coupon.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ProductCoupon, Coupon, Product]),

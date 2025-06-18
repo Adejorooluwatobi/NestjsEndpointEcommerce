@@ -3,8 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomersModule } from 'src/modules/customers/customers.module';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { GalleryController } from './controllers/gallery/gallery.controller';
-import { GalleryService } from './services/gallery/gallery.service';
+import { GalleryController } from '../../controllers/gallery/gallery.controller';
+import { GalleryService } from '../../Services/gallery/gallery.service';
 import { Gallery, Product } from 'src/database/entities';
 
 @Module({

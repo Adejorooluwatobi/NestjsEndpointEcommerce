@@ -11,6 +11,10 @@ export class Card {
     id: string;
 
     @Field()
+    @Column({ type: 'varchar', length: 32 })
+    cardNumber: string;
+
+    @Field()
     @Column('uuid')
     customerId: string;
 

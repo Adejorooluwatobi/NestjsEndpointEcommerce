@@ -21,7 +21,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async userLogin(@Body() loginDto: LoginDto): Promise<UserAccessTokenDto> {
     const token = await this.authService.loginUser(loginDto.email, loginDto.password);
-    return { accessToken: token.access_token, isAdmin: token.user.isAdmin, isActive: token.user.isActive };
+    return { accessToken: token.access_token, isAdmin: token.user.isAdmin, isActive: token.user.isActive, name: token.user.name };
   }
 
   @Post('customer/register')
@@ -39,7 +39,7 @@ export class AuthController {
     if (!token) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    return { accessToken: token.access_token, isActive: token.customer.isActive }
+    return { accessToken: token.access_token, isActive: token.customer.isActive , name: token.customer.userName}
   }
 
   @Post('staff/register')
@@ -57,6 +57,6 @@ export class AuthController {
     if (!token) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    return { accessToken: token.access_token, isActive: token.staff.isActive }
+    return { accessToken: token.access_token, isActive: token.staff.isActive, name: token.staff.name }
   }
 }

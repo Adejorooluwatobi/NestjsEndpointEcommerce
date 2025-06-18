@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { ProductService } from './services/product/product.service';
+import { ProductService } from '../../Services/product/product.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Gallery, Product, ProductAttribute, ProductCategory, ProductCoupon, ProductShipping, ProductTag, Variant } from 'src/database/entities';
-import { ProductController } from './controllers/product/product.controller';
+import { ProductController } from '../../controllers/product/product.controller';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 

@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { SellResolver } from './sell.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { Sell } from 'src/database/entities/sells.entity';
-import { SellController } from './controllers/sell/sell.controller';
-import { SellService } from './services/sell/sell.service';
+import { SellService } from '../../Services/sell/sell.service';
+import { SellController } from 'src/controllers/sell/sell.controller';
+import { SellResolver } from 'src/resolver/sell/sell.resolver';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Sell]),

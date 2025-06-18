@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product, ProductTag, Tag } from 'src/database/entities';
-
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { ProductTagController } from './controllers/product-tag/product-tag.controller';
-import { ProductTagService } from './services/product-tag/product-tag.service';
+import { ProductTagService } from '../../Services/product-tag/product-tag.service';
+import { ProductTagController } from 'src/controllers/product-tag/product-tag.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ProductTag, Product, Tag]),

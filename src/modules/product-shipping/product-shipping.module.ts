@@ -5,8 +5,8 @@ import { Product, ProductShipping, Shipping } from 'src/database/entities';
 
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { ProductShippingController } from './controllers/product-shipping/product-shipping.controller';
-import { ProductShippingService } from './services/product-shipping/product-shipping.service';
+import { ProductShippingController } from '../../controllers/product-shipping/product-shipping.controller';
+import { ProductShippingService } from '../../Services/product-shipping/product-shipping.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ProductShipping, Product, Shipping]),
