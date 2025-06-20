@@ -2,15 +2,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult,  } from 'typeorm'; // Import DeleteResult and UpdateResult for method signatures
 import { CreateCustomerParams, UpdateCustomerParams } from 'src/utils/types';
 import { Profile } from 'src/database/entities/Profile.entity';
-import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'; // Added NotFoundException
+import { BadRequestException, ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common'; // Added NotFoundException
 import * as bcrypt from 'bcrypt';
 import { Customer } from 'src/database/entities/customers.entity';
+import { EmailVerificationService } from '../EmailVerification/emailVerification.service';
 
 @Injectable()
 export class CustomersService {
     constructor(
         @InjectRepository(Customer) private customerRepository: Repository<Customer>,
         @InjectRepository(Profile) private profileRepository: Repository<Profile>,
+        private emailVerificationService: EmailVerificationService,
     ) {}
 
     /**
@@ -54,10 +56,13 @@ export class CustomersService {
             const newCustomer = this.customerRepository.create({
                 ...customerDetails,
                 password: hashedPassword,
+                isActive: false, // Customer starts as inactive until email is verified
                 createdAt: new Date(),
                 updatedAt: new Date()
             });
             const savedCustomer = await this.customerRepository.save(newCustomer);
+            // Send verification email
+            await this.emailVerificationService.createAndSendVerificationCode(customerDetails.email);
             console.log(`Customer created successfully with ID: ${savedCustomer.id}`);
             return savedCustomer;
         } catch (error) {
@@ -65,6 +70,65 @@ export class CustomersService {
             throw new InternalServerErrorException('Failed to create customer due to an internal error.');
         }
     }
+
+    /**
+     * Verifies customer email and activates account
+     * @param email Customer email
+     * @param verificationCode Verification code
+     * @returns Promise<Customer> Activated customer
+     */
+    async verifyCustomerEmail(email: string, verificationCode: string): Promise<Customer> {
+        // Find customer by email
+        const customer = await this.customerRepository.findOneBy({ email });
+        if (!customer) {
+            throw new NotFoundException('Customer not found');
+        }
+
+        if (customer.isActive) {
+            throw new BadRequestException('Customer account is already verified and active');
+        }
+
+        // Verify the code
+        const isCodeValid = await this.emailVerificationService.verifyCode(email, verificationCode);
+        
+        if (!isCodeValid) {
+            throw new BadRequestException('Invalid or expired verification code');
+        }
+
+        // Activate customer account
+        customer.isActive = true;
+        customer.updatedAt = new Date();
+        
+        try {
+            const updatedCustomer = await this.customerRepository.save(customer);
+            console.log(`Customer ${email} verified and activated successfully`);
+            return updatedCustomer;
+        } catch (error) {
+            console.error('Error activating customer:', error);
+            throw new InternalServerErrorException('Failed to activate customer account');
+        }
+    }
+
+    /**
+     * Resends verification code to customer email
+     * @param email Customer email
+     */
+    async resendVerificationCode(email: string): Promise<void> {
+        // Check if customer exists
+        const customer = await this.customerRepository.findOneBy({ email });
+        if (!customer) {
+            throw new NotFoundException('Customer not found');
+        }
+
+        if (customer.isActive) {
+            throw new BadRequestException('Customer account is already verified and active');
+        }
+
+        // Resend verification code
+        await this.emailVerificationService.resendVerificationCode(email);
+        console.log(`Verification code resent to ${email}`);
+    }
+
 
     /**
      * Updates an existing customer profile.

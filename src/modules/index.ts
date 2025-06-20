@@ -10,6 +10,7 @@ export * from './customer-address/customer-address.module';
 export * from './customer-engagement/customer-engagement.module';
 export * from './customers/customers.module';
 export * from './gallery/gallery.module';
+export * from './emailVerification/email_verification.module';
 export * from './inventory/inventory.module';
 export * from './notification/notification.module';
 export * from './order-items/order-items.module';

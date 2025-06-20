@@ -6,11 +6,15 @@ import { Profile } from 'src/database/entities/Profile.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { Customer } from 'src/database/entities/customers.entity';
+import { EmailVerification } from 'src/database/entities/email_verifications';
 import { CustomersResolver } from 'src/resolver/customers/customers.resolver';
+import { CustomerVerificationController } from 'src/controllers/EmailVerification/emailVerification.controller';
+import { EmailVerificationService } from 'src/Services/EmailVerification/emailVerification.service';
+import { EmailService } from 'src/Services/EmailVerification/email.service';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Customer, Profile]),
+  imports: [TypeOrmModule.forFeature([Customer, Profile, EmailVerification]), // Register the Customer, Profile, and EmailVerification entities
 JwtModule.registerAsync({
     imports: [ConfigModule],
     useFactory: async (configService: ConfigService) => ({
@@ -19,8 +23,8 @@ JwtModule.registerAsync({
     }),
     inject: [ConfigService],
   }),], // Import TypeOrmModule and register the Customer entity
-  controllers: [CustomersController],
-  providers: [CustomersService, CustomersResolver],
-  exports: [CustomersService] // Export CustomersService if needed in other modules
+  controllers: [CustomersController, CustomerVerificationController],
+  providers: [CustomersService, CustomersResolver, EmailVerificationService, EmailService,],
+  exports: [CustomersService, EmailVerificationService] // Export CustomersService if needed in other modules
 })
 export class CustomersModule {}

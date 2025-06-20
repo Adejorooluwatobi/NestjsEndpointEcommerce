@@ -431,7 +431,19 @@ export class UserResponseDto {
   posts?: any[];
 }
 
+export class VerificationResponseDto {
+    @ApiProperty({ description: 'Operation success status' })
+    succeeded: boolean;
 
+    @ApiProperty({ description: 'Response message' })
+    message: string;
+
+    @ApiProperty({ description: 'HTTP status code' })
+    statusCode: number;
+
+    @ApiProperty({ description: 'Response data', required: false })
+    resultData?: any;
+}
 
 // Error response DTO
 export class ErrorResponseDto {

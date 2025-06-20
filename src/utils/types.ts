@@ -5,16 +5,16 @@ export type CreateCustomerParams = {
     userName: string;
     email: string;
     password: string;
-    isActive: boolean;
+    isActive?: boolean;
 };
 
 export type UpdateCustomerParams = {
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    email: string;
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+    email?: string;
     password: string;
-    isActive: boolean;
+    isActive?: boolean;
 };
 
 export type CreateStaffParams = {

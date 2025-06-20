@@ -95,7 +95,46 @@ export class AuthService {
     return customer;
   }
 
-  async loginCustomer(email: string, password: string) {
+//   async loginCustomer(email: string, password: string) {
+//     try {
+//         const customer = await this.customersService.findCustomerByEmail(email);
+//         if (!customer) {
+//             throw new UnauthorizedException('Invalid credentials');
+//         }
+
+//         const isPasswordValid = await bcrypt.compare(password, customer.password);
+//         if (!isPasswordValid) {
+//             throw new UnauthorizedException('Invalid credentials');
+//         }
+
+//         const payload = {
+//             sub: customer.id,
+//             email: customer.email,
+//             role: 'customer',
+//             name: customer.firstName,
+//         };
+
+//         return {
+//             access_token: this.jwtService.sign(payload),
+//             customer: {
+//                 id: customer.id,
+//                 email: customer.email,
+//                 userName: customer.firstName,
+//                 isActive: customer.isActive,
+//             }
+//         };
+//     } catch (error) {
+//         console.error('Error during customer login:', error); // Log the error on the server
+//         if (error instanceof UnauthorizedException) {
+//             throw error; // Re-throw UnauthorizedException
+//         }
+//         throw new InternalServerErrorException('Login failed due to a server error');
+//     }
+// }
+// Add this method to your existing AuthService class
+// This replaces your existing loginCustomer method
+
+async loginCustomer(email: string, password: string) {
     try {
         const customer = await this.customersService.findCustomerByEmail(email);
         if (!customer) {
@@ -105,6 +144,11 @@ export class AuthService {
         const isPasswordValid = await bcrypt.compare(password, customer.password);
         if (!isPasswordValid) {
             throw new UnauthorizedException('Invalid credentials');
+        }
+
+        // Check if customer account is verified/active
+        if (!customer.isActive) {
+            throw new UnauthorizedException('Account not verified. Please check your email and verify your account before logging in.');
         }
 
         const payload = {
@@ -124,7 +168,7 @@ export class AuthService {
             }
         };
     } catch (error) {
-        console.error('Error during customer login:', error); // Log the error on the server
+        console.error('Error during customer login:', error);
         if (error instanceof UnauthorizedException) {
             throw error; // Re-throw UnauthorizedException
         }

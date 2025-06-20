@@ -101,7 +101,10 @@ export class CustomersController {
     })
     async createCustomer(@Body(new ValidationPipe()) createCustomerDto: CreateCustomerDto): Promise<Customer> {
         // The service handles the email existence check and throws ConflictException
-        const newCustomer = await this.customersService.createCustomer(createCustomerDto);
+        const newCustomer = await this.customersService.createCustomer({
+            ...createCustomerDto,
+            isActive: false
+        });
         return {
             succeeded: true,
             message: 'Customer created successfully',

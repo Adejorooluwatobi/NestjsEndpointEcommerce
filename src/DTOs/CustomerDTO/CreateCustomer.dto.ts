@@ -36,5 +36,5 @@ export class CreateCustomerDto {
     @IsBoolean()
     @ApiProperty()
 @IsNotEmpty()
-    isActive: boolean;
+    isActive?: boolean;
 }
