@@ -7,11 +7,16 @@ import { UniversalGuard, UserGuard } from 'src/security/auth/guards';
 import { ApiResponseDto, CustomersResponseDto, ErrorResponseDto } from 'src/DTOs/ResponseDTOs/response.dto';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiConflictResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, getSchemaPath, ApiNoContentResponse, ApiExtraModels } from '@nestjs/swagger';
 import { Customer } from 'src/database/entities/customers.entity'; // Import Customer entity
+import { EmailService } from 'src/Services/EmailVerification/email.service';
+import { EmailVerificationService } from 'src/Services/EmailVerification/emailVerification.service';
 
 @ApiExtraModels(CustomersResponseDto, ApiResponseDto, ErrorResponseDto) // Added ApiExtraModels for Swagger documentation
 @Controller('customers')
 export class CustomersController {
-    constructor(private customersService: CustomersService) {}
+    constructor(private customersService: CustomersService,
+    private readonly emailService: EmailService,
+    private readonly emailVerificationService: EmailVerificationService
+  ) {}
 
     @UseGuards(UserGuard)
     @ApiBearerAuth()
@@ -101,12 +106,18 @@ export class CustomersController {
     })
     async createCustomer(@Body(new ValidationPipe()) createCustomerDto: CreateCustomerDto): Promise<Customer> {
         // The service handles the email existence check and throws ConflictException
-        const newCustomer = await this.customersService.createCustomer(createCustomerDto);
+        const newCustomer = await this.customersService.createCustomer({
+            ...createCustomerDto,
+            isActive: false
+        });
+        const { email } = createCustomerDto;
+        const verificationCode = await this.emailService.createAndSendVerificationCode(email);
         return {
             succeeded: true,
             message: 'Customer created successfully',
             statusCode: HttpStatus.CREATED, // Use HttpStatus enum
             resultData: newCustomer,
+            verificationCode, // <-- include this in your response
         } as any; // Cast to any to satisfy Promise<Customer> return type with custom response object
     }
 

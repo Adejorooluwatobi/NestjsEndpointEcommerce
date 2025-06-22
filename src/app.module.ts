@@ -51,6 +51,7 @@ import * as Controllers from './controllers';
     Modules.CustomerEngagementModule,
     Modules.CustomersModule,
     Modules.GalleryModule,
+    Modules.EmailVerificationModule,
     Modules.InventoryModule,
     Modules.NotificationModule,
     Modules.OrderItemsModule,
