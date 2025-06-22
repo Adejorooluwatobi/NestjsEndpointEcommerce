@@ -113,7 +113,7 @@ export class CustomersService {
      * Resends verification code to customer email
      * @param email Customer email
      */
-    async resendVerificationCode(email: string): Promise<void> {
+    async resendVerificationCode(email: string): Promise<{ verificationCode: string, resentAt: Date, expiresInMinutes: number }> {
         // Check if customer exists
         const customer = await this.customerRepository.findOneBy({ email });
         if (!customer) {
@@ -124,9 +124,10 @@ export class CustomersService {
             throw new BadRequestException('Customer account is already verified and active');
         }
 
-        // Resend verification code
-        await this.emailVerificationService.resendVerificationCode(email);
+        // Resend verification code and return the result
+        const result = await this.emailVerificationService.resendVerificationCode(email);
         console.log(`Verification code resent to ${email}`);
+        return result;
     }
 
 
@@ -203,5 +204,9 @@ export class CustomersService {
             console.error('Error finding customer by email:', error);
             throw new InternalServerErrorException('Database error occurred while finding customer');
         }
+    }
+
+    private generateVerificationCode(): string {
+        return Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit code
     }
 }

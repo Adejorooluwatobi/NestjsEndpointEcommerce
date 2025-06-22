@@ -67,16 +67,17 @@ export class CustomerVerificationController {
     async resendVerificationCode(
         @Body(new ValidationPipe()) resendDto: ResendVerificationDto
     ): Promise<VerificationResponseDto> {
-        await this.customersService.resendVerificationCode(resendDto.email);
+        const { verificationCode, resentAt, expiresInMinutes } = await this.customersService.resendVerificationCode(resendDto.email);
 
         return {
             succeeded: true,
-            message: 'Verification code has been resent to your email address. Please check your inbox.',
+            message: `Verification code has been resent to ${resendDto.email}. Please check your inbox.`,
             statusCode: HttpStatus.OK,
             resultData: {
                 email: resendDto.email,
-                resentAt: new Date().toISOString(),
-                expiresInMinutes: 15,
+                resentAt,
+                expiresInMinutes,
+                verificationCode, // <-- Now included!
             },
         };
     }
