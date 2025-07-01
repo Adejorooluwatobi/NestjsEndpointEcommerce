@@ -1,22 +1,26 @@
 import { InputType } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class UpdateAuditLogDto {
   @ApiProperty()
+  @IsOptional()
   @IsString()
-  userId: string;
+  userId?: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsString()
-  staffId: string;
+  staffId?: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsString()
-  action: string;
+  action?: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsString()
-  details: string;
+  details?: string;
 }

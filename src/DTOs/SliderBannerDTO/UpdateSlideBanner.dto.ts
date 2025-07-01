@@ -1,21 +1,29 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString, IsUUID } from "class-validator";
+import { IsNumber, IsOptional, IsString, IsUUID } from "class-validator";
 
-export class CreateSlideBannerDto {
+export class UpdateSlideBannerDto {
 
   @ApiProperty()
+  @IsOptional()
   @IsUUID()
-  destinationId: string;
+  destinationId?: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'Image file to upload (optional)'
+  })
+  @IsOptional()
   @IsString()
-  image_url: string;
+  image?: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsString()
-  title: string;
+  title?: string;
 
   @ApiProperty()
+  @IsOptional()
   @IsNumber()
-  clicks: number;
+  clicks?: number;
 }

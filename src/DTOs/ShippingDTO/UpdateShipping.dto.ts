@@ -1,16 +1,19 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateShippingDto{
         @ApiProperty()
+        @IsOptional()
         @IsString()
-        name: string;
+        name?: string;
     
         @ApiProperty()
+        @IsOptional()
         @IsBoolean()
-        isActive: boolean;
+        isActive?: boolean;
     
         @ApiProperty()
+        @IsOptional()
         @IsNumber()
-        iconPath: string;
+        iconPath?: string;
 }

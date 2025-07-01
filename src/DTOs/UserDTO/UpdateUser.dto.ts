@@ -3,35 +3,37 @@ import { IsEmail, IsString, IsBoolean, IsOptional } from 'class-validator';
 
 export class UpdateUserDto {
   @ApiProperty()
-  
+  @IsOptional()
   @IsString()
-  firstName: string;
-
-  @ApiProperty()
-  
-  @IsString()
-  lastName: string;
+  firstName?: string;
 
   @ApiProperty()
   @IsOptional()
   @IsString()
-  userName: string;
+  lastName?: string;
 
   @ApiProperty()
-  
-  @IsEmail()
-  email: string;
-
-  @ApiProperty()
-  @IsBoolean()
-  isAdmin: boolean;
-
-  @ApiProperty()
-  @IsBoolean()
-  isActive: boolean;
-
-  @ApiProperty()
-  
+  @IsOptional()
   @IsString()
-  password: string;
+  userName?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsEmail()
+  email?: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  isAdmin?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  password?: string;
 }

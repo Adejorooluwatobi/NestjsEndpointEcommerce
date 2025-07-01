@@ -1,22 +1,23 @@
 import { Field, InputType } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsOptional } from "class-validator";
 
 
 @InputType()
 export class UpdateCardItemDto {
 
   @ApiProperty()
-
+  @IsOptional()
   @Field()
-  productId: string;
+  productId?: string;
   
   @ApiProperty()
-
+  @IsOptional()
   @Field()
-  cardId: string;
+  cardId?: string;
 
   @ApiProperty()
-
+  @IsOptional()
   @Field()
-  itemDetails: string;
+  itemDetails?: string;
   }

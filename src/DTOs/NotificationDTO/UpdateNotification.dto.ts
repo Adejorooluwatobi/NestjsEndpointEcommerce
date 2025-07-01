@@ -1,24 +1,29 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsString, IsUUID } from "class-validator";
+import { IsBoolean, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class UpdateNotificationDto {
-   @ApiProperty()
+    @ApiProperty()
+    @IsOptional()
     @IsUUID()
-    accountId: string;
+    accountId?: string;
   
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    title: string;
+    title?: string;
   
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    content: string;
+    content?: string;
   
     @ApiProperty()
+    @IsOptional()
     @IsBoolean()
-    read: boolean;
+    read?: boolean;
   
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    notification_expiryDate: string;
+    notification_expiryDate?: string;
 }

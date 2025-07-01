@@ -1,14 +1,12 @@
 // src/cards/dtos/CreateCard.dto.ts
-import { IsNotEmpty, IsUUID, IsOptional, IsArray, ValidateNested, IsString, IsBoolean } from 'class-validator';
-import { Type } from 'class-transformer';
-import { CreateCardItemDto } from '../CardItemDTO/CreateCardItems.dto';
+import { IsNotEmpty, IsUUID, IsString, IsBoolean } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateCardDto {
 //   @ApiProperty()
 // @IsNotEmpty()
 //   @IsUUID()
-  customerId: string;
+  // customerId: string;
 
   @ApiProperty()
   @IsNotEmpty()
@@ -29,11 +27,4 @@ export class CreateCardDto {
   @IsNotEmpty()
   @IsBoolean()
   isActive: boolean;
-
-  @ApiProperty()
-  @IsOptional()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => CreateCardItemDto)
-  cardItems?: CreateCardItemDto[];
 }

@@ -8,10 +8,14 @@ export class CreateSlideBannerDto {
   @IsUUID()
   destinationId: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'Image file to upload (required)'
+  })
 @IsNotEmpty()
   @IsString()
-  image_url: string;
+  image: string;
 
   @ApiProperty()
 @IsNotEmpty()

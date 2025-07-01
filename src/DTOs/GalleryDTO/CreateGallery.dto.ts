@@ -1,26 +1,34 @@
-// src/cards/dtos/CreateGallery.dto.ts
 import { IsBoolean, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 
 export class CreateGalleryDto {
-  @ApiProperty()
-@IsNotEmpty()
-  @IsUUID()
-  productId: string;
+    @ApiProperty({ description: 'Product ID that this gallery item belongs to' })
+    @IsNotEmpty()
+    @IsUUID()
+    productId: string;
 
-  @ApiProperty()
-@IsNotEmpty()
-  @IsString()
-  imagePath: string;
+  @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'Image file to upload (required)'
+  })
+  @IsNotEmpty()
+  image: string;
 
-  @ApiProperty()
-@IsNotEmpty()
-  @IsString()
-  thumbnail: string;
+    @ApiProperty({ description: 'Thumbnail path' })
+    @IsNotEmpty()
+    @IsString()
+    thumbnail: string;
 
-  @ApiProperty()
-@IsNotEmpty()
-  @IsBoolean()
-  displayOrder: boolean;
-
+    @ApiProperty({ description: 'Display order for the gallery item' })
+    @IsNotEmpty()
+    @IsBoolean()
+    @Transform(({ value }) => {
+        if (typeof value === 'string') {
+            return value === 'true';
+        }
+        return value;
+    })
+    displayOrder: boolean;
 }

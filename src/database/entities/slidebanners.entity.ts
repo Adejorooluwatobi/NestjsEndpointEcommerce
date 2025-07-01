@@ -14,7 +14,7 @@ export class SlideBanner {
 
     @Field()
     @Column('text')
-    image_url: string;
+    image: string;
 
     @Field()
     @Column('text')

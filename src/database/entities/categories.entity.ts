@@ -27,7 +27,7 @@ export class Category {
 
     @Field()
     @Column('text')
-    imagePath: string;
+    image: string;
 
     @Field()
     @Column('boolean')

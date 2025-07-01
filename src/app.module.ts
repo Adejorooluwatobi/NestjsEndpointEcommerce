@@ -11,9 +11,11 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './security/auth/auth.module';
 import * as Modules from './modules';
 import * as Controllers from './controllers';
+import { FilesModule } from './files/files.module';
 
 @Module({
   imports: [
+    FilesModule, // Import the FilesModule for file handling
     ConfigModule.forRoot({
       isGlobal: true, // Make the configuration globally available
       envFilePath: '.env', // Path to the .env file

@@ -1,15 +1,18 @@
 import { ApiProperty } from "@nestjs/swagger";
-import {IsNumber, IsString } from "class-validator";
+import {IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateAnalyticDto{
 @ApiProperty()
+@IsOptional()
 @IsString()
-metric: string;
+metric?: string;
     
 @ApiProperty()
+@IsOptional()
 @IsNumber()
-value: number;
+value?: number;
 
 @ApiProperty()
-metadata: Record<string, any>;
+@IsOptional()
+metadata?: Record<string, any>;
 }

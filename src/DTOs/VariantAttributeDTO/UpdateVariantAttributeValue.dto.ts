@@ -1,12 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsUUID } from "class-validator";
+import { IsOptional, IsUUID } from "class-validator";
 
 export class UpdateVariantAttributeValueDto {
   @ApiProperty()
+  @IsOptional()
     @IsUUID()
-    variantId: string;
+    variantId?: string;
   
     @ApiProperty()
+    @IsOptional()
     @IsUUID()
-    attributeValueId: string;
+    attributeValueId?: string;
 }

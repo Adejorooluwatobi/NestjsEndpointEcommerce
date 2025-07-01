@@ -1,22 +1,26 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateCustomerEngagementReviewDto{
 
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    productId: string;
+    productId?: string;
 
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    customerId: string;
+    customerId?: string;
 
     @ApiProperty()
+    @IsOptional()
     @IsNumber()
-    rating: number;
+    rating?: number;
 
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    comment: string;
+    comment?: string;
 
 }

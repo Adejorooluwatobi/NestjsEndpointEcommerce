@@ -25,10 +25,13 @@ export class CreateCategoryDto{
     @IsString()
     icon: string;
 
-    @ApiProperty()
-@IsNotEmpty()
-    @IsString()
-    imagePath: string;
+    @ApiProperty({
+    type: 'string',
+    format: 'binary',
+    description: 'Image file to upload (required)'
+    })
+    @IsNotEmpty()
+    image: string;
 
     @ApiProperty()
 @IsNotEmpty()

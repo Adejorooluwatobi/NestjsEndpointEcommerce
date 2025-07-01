@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, Put, UploadedFile, UseGuards } from '@nestjs/common';
 import { CategoryService } from '../../Services/category/category.service';
 import { CreateCategoryDto } from '../../DTOs/CategoryDTO/CreateCategory.dto';
 import { UpdateCategoryDto } from '../../DTOs/CategoryDTO/UpdateCategory.dto';
@@ -31,8 +31,18 @@ export class CategoryController {
             })
     @UseGuards(StaffGuard)
     @Post()
-    async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
-        const category = await this.categoryService.createCategory(createCategoryDto);
+    async createCategory(@Body() createCategoryDto: CreateCategoryDto,
+    @UploadedFile() image?: Express.Multer.File
+) {
+    if (!image) {
+        throw new BadRequestException('Image file is required');
+    }
+
+    const categoryData = {
+        ...createCategoryDto,
+        image: image.path, // Pass the file path as string
+    };
+        const category = await this.categoryService.createCategory(categoryData);
         return {
             succeeded: true,
             message: 'Category created successfully',
@@ -131,25 +141,36 @@ export class CategoryController {
     @Put(':id')
     async updateCategoryById(
         @Param('id') id: string,
-        @Body() updateCategoryDto: UpdateCategoryDto,) {
-            await this.categoryService.updateCategory(id, updateCategoryDto);
-            return this.categoryService.findCategoryById(id);
-        }
+        @Body() updateCategoryDto: UpdateCategoryDto,
+        @UploadedFile() image?: Express.Multer.File
+    ) {
+        const updateData = {
+            ...updateCategoryDto,
+            image: image ? image.path : '', // Pass the file path as string
+        }; 
+        const category = await this.categoryService.updateCategory(id, updateData);
+        return {
+            succeeded: true,
+            message: 'Category updated successfully',
+            statusCode: 200,
+            resultData: category,
+        };
+    }
 
-        @UseGuards(StaffGuard)
+    @UseGuards(StaffGuard)
     @ApiBearerAuth() // Added ApiBearerAuth for consistency
-        @Delete(':id')
-        @ApiOperation({ summary: 'Delete by ID' })
-        @ApiNoContentResponse({ description: 'deleted successfully' })
-        @ApiNotFoundResponse({ description: 'ot found', type: ErrorResponseDto })
+    @Delete(':id')
+    @ApiOperation({ summary: 'Delete by ID' })
+    @ApiNoContentResponse({ description: 'deleted successfully' })
+    @ApiNotFoundResponse({ description: 'ot found', type: ErrorResponseDto })
     async deleteCategoryById(
-        @Param('id') id: string) {
-            const result = await this.categoryService.deleteCategory(id);
-            if (result.affected && result.affected > 0) {
-                return {success: true, message: 'Category deleted successfully'};
-            } else {
-                return {error: false, message: 'not found.', statusCode: 200, resultData: result};
-            }
+        @Param('id') id: string
+    ) {
+        const result = await this.categoryService.deleteCategory(id);
+        if (result.affected && result.affected > 0) {
+            return { success: true, message: 'Category deleted successfully' };
+        } else {
+            return { error: false, message: 'not found.', statusCode: 200, resultData: result };
         }
-
+    }
 }

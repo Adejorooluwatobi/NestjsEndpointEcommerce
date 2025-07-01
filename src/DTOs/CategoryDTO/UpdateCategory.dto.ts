@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsBoolean, IsString } from "class-validator";
+import { IsBoolean, IsOptional, IsString } from "class-validator";
 
 export class UpdateCategoryDto{
 
@@ -8,22 +8,31 @@ export class UpdateCategoryDto{
     //     parentId: string;
     
     @ApiProperty()
+        @IsOptional()
         @IsString()
-        categoryName: string;
+        categoryName?: string;
     
         @ApiProperty()
+        @IsOptional()
         @IsString()
-        categoryDescription: string;
+        categoryDescription?: string;
     
         @ApiProperty()
+        @IsOptional()
         @IsString()
-        icon: string;
+        icon?: string;
+    
+        @ApiProperty({ 
+        type: 'string', 
+        format: 'binary',
+        description: 'Image file to upload (optional)' 
+    })
+        @IsOptional()
+        @IsString()
+        image?: string;
     
         @ApiProperty()
-        @IsString()
-        imagePath: string;
-    
-        @ApiProperty()
+        @IsOptional()
         @IsBoolean()
-        isActive: boolean;
+        isActive?: boolean;
 }

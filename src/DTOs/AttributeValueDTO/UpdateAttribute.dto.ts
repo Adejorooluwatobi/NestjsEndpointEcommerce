@@ -1,17 +1,20 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 export class UpdateAttributeValueDto{
 
     @ApiProperty()
+    @IsOptional()
         @IsString()
-        attributeId: string;
+        attributeId?: string;
     
     @ApiProperty()
+    @IsOptional()
         @IsString()
-        attributeValue: string;
+        attributeValue?: string;
     
         @ApiProperty()
+        @IsOptional()
         @IsString()
-        color: string;
+        color?: string;
 }

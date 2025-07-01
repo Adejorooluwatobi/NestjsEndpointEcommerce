@@ -11,9 +11,11 @@ export class CategoryService {
         @InjectRepository(ProductCategory) private productCategoryRepository: Repository<ProductCategory>,
     ) {}
 
-    async createCategory(categoryDetails: CreateCategoryParams) {
+    async createCategory(categoryDetails: CreateCategoryParams & { image: string }) {
+        const { image: _image, ...rest } = categoryDetails;
         const newCategory = this.categoryRepository.create({
-            ...categoryDetails,
+            ...rest,
+            image: _image, 
             createdAt: new Date(),
             updatedAt: new Date(),
         });
@@ -34,12 +36,24 @@ export class CategoryService {
         return this.categoryRepository.findOne({ where: { id }}); 
     }
 
-    async updateCategory(id: string, updateCategoryDetails: UpdateCategoryParams) {
-                return this.categoryRepository.update(id, { ...updateCategoryDetails, updatedAt: new Date() });
+    async updateCategory(id: string, updateCategoryDetails: UpdateCategoryParams & { image?: string }) {
+        const { image, ...rest } = updateCategoryDetails;
+        const existingCategory = await this.categoryRepository.findOne({ where: { id } });
+        if (!existingCategory) {
+            throw new Error(`Category with ID ${id} not found`);
+        }
+        const updatedData: Partial<Category> = { ...rest, updatedAt: new Date() };
+        if (image) {
+            updatedData.image = image;
+        }
+                const category = await this.categoryRepository.update(id, { ...updatedData, updatedAt: new Date() });
+                return category;
+
     }
 
-    deleteCategory(id: string) {
-        
+    async deleteCategory(id: string) {
+        const banner = await this.categoryRepository.findOne({ where: { id } });
+        if (!banner) throw new Error(`Category with ID ${id} not found`);
         return this.categoryRepository.delete(id);
     }
 

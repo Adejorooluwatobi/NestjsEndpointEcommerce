@@ -83,7 +83,7 @@ export class CategoryResponseDto {
   @ApiProperty() categoryName: string;
   @ApiProperty() categoryDescription: string;
   @ApiProperty() icon: string;
-  @ApiProperty() imagePath: string;
+  @ApiProperty() image: string;
   @ApiProperty() isActive: boolean;
   @ApiProperty() createdAt: Date;
   @ApiProperty() updatedAt: Date;
@@ -144,7 +144,7 @@ export class CustomersResponseDto {
 export class GalleryResponseDto {
   @ApiProperty() id: string;
   @ApiProperty() productId: string;
-  @ApiProperty() imagePath: string;
+  @ApiProperty() image: string;
   @ApiProperty() thumbnail: string;
   @ApiProperty() displayOrder: boolean;
   @ApiProperty() createdAt: Date;

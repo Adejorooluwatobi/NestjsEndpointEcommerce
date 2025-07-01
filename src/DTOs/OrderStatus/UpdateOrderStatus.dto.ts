@@ -2,24 +2,29 @@ import { PartialType } from '@nestjs/mapped-types';
 import { CreateOrderStatusDto } from './CreateOrderStatus.dto';
 import { Field, InputType } from '@nestjs/graphql';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional } from 'class-validator';
 
 @InputType()
 export class UpdateOrderStatusDto extends PartialType(CreateOrderStatusDto) {
       @Field()
+      @IsOptional()
       @ApiProperty()
-      statusName: string;
+      statusName?: string;
 
       @Field()
+      @IsOptional()
       @ApiProperty()
-      statusCode: string;
+      statusCode?: string;
     
       @Field()
+      @IsOptional()
       @ApiProperty()
-      color: string;
+      color?: string;
 
       @Field()
+      @IsOptional()
       @ApiProperty()
-      privacy: string;
+      privacy?: string;
     
       // @Field()
       // @ApiProperty()

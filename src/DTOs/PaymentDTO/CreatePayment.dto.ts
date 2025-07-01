@@ -11,7 +11,7 @@ orderId: string;
 // @ApiProperty()
 // @IsNotEmpty()
 // @IsString()
-customerId: string;
+// customerId: string;
 
 @ApiProperty()
 @IsNotEmpty()
@@ -31,5 +31,5 @@ amount: number;
 @ApiProperty({default: 'pending'})
 @IsOptional()
 @IsString()
-status: 'pending' | 'completed' | 'failed';
+status?: 'pending' | 'completed' | 'failed';
 }

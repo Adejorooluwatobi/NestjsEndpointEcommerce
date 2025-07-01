@@ -28,13 +28,13 @@ export type CreateStaffParams = {
 };
 
 export type UpdateStaffParams = {
-    firstName: string;
-    lastName: string;
-    phoneNumber: string;
-    email: string;
-    password: string;
-    isActive: boolean;
-    profileImg: string;
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+    email?: string;
+    password?: string;
+    isActive?: boolean;
+    profileImg?: string;
 };
 export type CreateUserParams = {
     firstName: string;
@@ -47,12 +47,12 @@ export type CreateUserParams = {
 };
 
 export type UpdateUserParams = {
-    firstName: string;
-    lastName: string;
-    userName: string;
-    email: string;
-    isAdmin: boolean;
-    isActive: boolean;
+    firstName?: string;
+    lastName?: string;
+    userName?: string;
+    email?: string;
+    isAdmin?: boolean;
+    isActive?: boolean;
     password: string;
 };
 
@@ -65,11 +65,40 @@ export type CreateProfileParams = {
     postalCode: string;
     dateOfBirth: Date;
 };
+export type UpdateProfileParams = {
+    altPhoneNumber?: string;
+    address?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    postalCode?: string;
+    dateOfBirth?: Date;
+};
 
 export type CreatePostParams = {
     title: string;
     description: string;
     isActive: boolean;
+};
+
+export type UpdatePostParams = {
+    title?: string;
+    description?: string;
+    isActive?: boolean;
+};
+
+export type CreateSlideBannerParams = {
+    destinationId: string;
+    image: string;
+    title: string;
+    clicks: number;
+};
+
+export type UpdateSlideBannerParams = {
+    destinationId?: string;
+    image?: string;
+    title?: string;
+    clicks?: number;
 };
 
 export type CreateProductParams = {
@@ -86,16 +115,16 @@ export type CreateProductParams = {
 };
 
 export type UpdateProductParams = {
-    productName: string;
-    sku: string;
-    regularPrice: number;
-    discountPrice: number;
-    quantity: number;
-    shortDescription: string;
-    productDescription: string;
-    productWeight: number;
-    productCode: string;
-    published: boolean;
+    productName?: string;
+    sku?: string;
+    regularPrice?: number;
+    discountPrice?: number;
+    quantity?: number;
+    shortDescription?: string;
+    productDescription?: string;
+    productWeight?: number;
+    productCode?: string;
+    published?: boolean;
 };
 
 export type CreateOrderParams = {
@@ -123,9 +152,9 @@ export type CreateCardItemParams = {
 };
 
 export type UpdateCardItemParams = {
-    productId: string;
-    itemDetails: string;
-    cardId: string;
+    productId?: string;
+    itemDetails?: string;
+    cardId?: string;
 };
 
 export type CreateCardParams = {
@@ -186,8 +215,8 @@ export type CreateRoleParams = {
 };
 
 export type UpdateRoleParams = {
-    roleName: string;
-    privileges: string;
+    roleName?: string;
+    privileges?: string;
 };
 
 export type CreateStaffRoleParams = {
@@ -196,8 +225,8 @@ export type CreateStaffRoleParams = {
 };
 
 export type UpdateStaffRoleParams = {
-    staffId: string;
-    roleId: string;
+    staffId?: string;
+    roleId?: string;
 };
 
 export type CreateCouponParams = {
@@ -212,14 +241,14 @@ export type CreateCouponParams = {
 };
 
 export type UpdateCouponParams = {
-    code: string;
-    couponDescription: string;
-    discountValue: number;
-    discountType: string;
-    timesUsed: number;
-    maxUsage: number;
-    couponStartDate: Date;
-    couponEndDate: Date;
+    code?: string;
+    couponDescription?: string;
+    discountValue?: number;
+    discountType?: string;
+    timesUsed?: number;
+    maxUsage?: number;
+    couponStartDate?: Date;
+    couponEndDate?: Date;
 };
 
 export type CreateProductAttributeParams = {
@@ -229,9 +258,9 @@ export type CreateProductAttributeParams = {
 };
 
 export type UpdateProductAttributeParams = {
-    productId: string;
-    attributeId: string;
-    attributeValueId: string;
+    productId?: string;
+    attributeId?: string;
+    attributeValueId?: string;
 };
 
 export type CreateProductCategoryParams = {
@@ -240,8 +269,8 @@ export type CreateProductCategoryParams = {
 };
 
 export type UpdateProductCategoryParams = {
-    productId: string;
-    categoryId: string;
+    productId?: string;
+    categoryId?: string;
 };
 
 export type CreateProductCouponParams = {
@@ -250,8 +279,8 @@ export type CreateProductCouponParams = {
 };
 
 export type UpdateProductCouponParams = {
-    productId: string;
-    couponId: string;
+    productId?: string;
+    couponId?: string;
 };
 
 export type CreateProductTagParams = {
@@ -260,8 +289,8 @@ export type CreateProductTagParams = {
 };
 
 export type UpdateProductTagParams = {
-    productId: string;
-    tagId: string;
+    productId?: string;
+    tagId?: string;
 };
 
 export type CreateProductShippingParams = {
@@ -273,11 +302,11 @@ export type CreateProductShippingParams = {
 };
 
 export type UpdateProductShippingParams = {
-    productId: string;
-    shippingId: string;
-    shipCharge: number;
-    free: boolean;
-    estimatedDays: number;
+    productId?: string;
+    shippingId?: string;
+    shipCharge?: number;
+    free?: boolean;
+    estimatedDays?: number;
 };
 
 export type CreateCategoryParams = {
@@ -285,17 +314,17 @@ export type CreateCategoryParams = {
     categoryName: string;
     categoryDescription: string;
     icon: string;
-    imagePath: string;
+    image: string;
     isActive: boolean;
 };
 
 export type UpdateCategoryParams = {
-    //parentId: string;
-    categoryName: string;
-    categoryDescription: string;
-    icon: string;
-    imagePath: string;
-    isActive: boolean;
+    //parentId?: string;
+    categoryName?: string;
+    categoryDescription?: string;
+    icon?: string;
+    image?: string;
+    isActive?: boolean;
 };
 
 export type CreateAttributeParams = {
@@ -303,7 +332,7 @@ export type CreateAttributeParams = {
 };
 
 export type UpdateAttributeParams = {
-    attributeName: string;
+    attributeName?: string;
 };
 
 export type CreateAttributeValueParams = {
@@ -313,9 +342,9 @@ export type CreateAttributeValueParams = {
 };
 
 export type UpdateAttributeValueParams = {
-    attributeId: string;
-    attributeValue: string;
-    color: string;
+    attributeId?: string;
+    attributeValue?: string;
+    color?: string;
 };
 
 export type CreateCustomerAddressParams = {
@@ -331,27 +360,27 @@ export type CreateCustomerAddressParams = {
 
 export type UpdateCustomerAddressParams = {
     // customerId: string;
-    address_line1: string;
-    address_line2: string;
-    city: string;
-    state: string;
-    country: string;
-    postalCode: string;
-    phoneNumber: string;
+    address_line1?: string;
+    address_line2?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+    postalCode?: string;
+    phoneNumber?: string;
 };
 
 export type CreateGalleryParams = {
     productId: string;
-    imagePath: string;
+    image?: string;
     thumbnail: string;
     displayOrder: boolean;
 };
 
 export type UpdateGalleryParams = {
-    productId: string;
-    imagePath: string;
-    thumbnail: string;
-    displayOrder: boolean;
+    productId?: string;
+    image?: string;
+    thumbnail?: string;
+    displayOrder?: boolean;
 };
 
 export type CreateShippingParams = {
@@ -361,9 +390,9 @@ export type CreateShippingParams = {
 };
 
 export type UpdateShippingParams = {
-    name: string;
-    isActive: boolean;
-    iconPath: string;
+    name?: string;
+    isActive?: boolean;
+    iconPath?: string;
 };
 
 export type CreateTagParams = {
@@ -372,8 +401,8 @@ export type CreateTagParams = {
 };
 
 export type UpdateTagParams = {
-    tagName: string;
-    icon: string;
+    tagName?: string;
+    icon?: string;
 };
 
 export type CreateVariantParams = {
@@ -381,10 +410,11 @@ export type CreateVariantParams = {
     quantity: number;
     productId: string;
 };
+
 export type UpdateVariantParams = {
-    price: number;
-    quantity: number;
-    productId: string;
+    price?: number;
+    quantity?: number;
+    productId?: string;
 };
 
 export type CreateVariantAttributeValueParams = {
@@ -393,8 +423,8 @@ export type CreateVariantAttributeValueParams = {
 };
 
 export type UpdateVariantAttributeValueParams = {
-    variantId: string;
-    attributeValueId: string;
+    variantId?: string;
+    attributeValueId?: string;
 };
 
 export type CreateSellParams = {
@@ -404,9 +434,9 @@ export type CreateSellParams = {
 };
 
 export type UpdateSellParams = {
-    productId: string;
-    price: number;
-    quantity: number;
+    productId?: string;
+    price?: number;
+    quantity?: number;
 };
 
 export type CreateNotificationParams = {
@@ -418,11 +448,11 @@ export type CreateNotificationParams = {
 };
 
 export type UpdateNotificationParams = {
-    accountId: string;
-    title: string;
-    content: string;
-    read: boolean;
-    notification_expiryDate: string;
+    accountId?: string;
+    title?: string;
+    content?: string;
+    read?: boolean;
+    notification_expiryDate?: string;
 };
 
 export type CreatePaymentParam = {
@@ -435,13 +465,12 @@ export type CreatePaymentParam = {
 };
 
 export type UpdatePaymentParam = {
-    orderId: string;
-    customerId: string;
-    paymentMethod: string;
-    transactionId: string;
-    amount: number;
-    status: 'pending' | 'completed' | 'failed';
-    refundedAt: Date;
+    orderId?: string;
+    customerId?: string;
+    paymentMethod?: string;
+    transactionId?: string;
+    amount?: number;
+    status?: 'pending' | 'completed' | 'failed';
 };
 
 export type CreateCustomerEngagementReviewParams = {
@@ -450,11 +479,12 @@ export type CreateCustomerEngagementReviewParams = {
     rating: number;
     comment: string;
 };
+
 export type UpdateCustomerEngagementReviewParams = {
     productId: string;
     customerId: string;
-    rating: number;
-    comment: string;
+    rating?: number;
+    comment?: string;
 };
 
 export type CreateCustomerEngagementWishlistParams = {
@@ -463,8 +493,8 @@ export type CreateCustomerEngagementWishlistParams = {
 };
 
 export type UpdateCustomerEngagementWishlistParams = {
-    customerId: string;
-    productId: string;
+    customerId?: string;
+    productId?: string;
 };
 
 export type CreateInventoryParams = {
@@ -475,10 +505,10 @@ export type CreateInventoryParams = {
 };
 
 export type UpdateInventoryParams = {
-    productId: string;
-    stockLevel: number;
-    stock: number;
-    reservedStock: number;
+    productId?: string;
+    stockLevel?: number;
+    stock?: number;
+    reservedStock?: number;
 };
 
 export type UpdateAnalyticParams = {

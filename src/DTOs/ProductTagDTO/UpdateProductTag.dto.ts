@@ -1,14 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 export class UpdateProductTagDto{
 
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    productId: string;
+    productId?: string;
 
     @ApiProperty()
+    @IsOptional()
     @IsString()
-    tagId: string;
+    tagId?: string;
 
 }

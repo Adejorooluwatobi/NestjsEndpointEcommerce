@@ -16,7 +16,7 @@ export class Gallery {
 
     @Field()
     @Column('text')
-    imagePath: string;
+    image: string;
 
     @Field()
     @Column('text')

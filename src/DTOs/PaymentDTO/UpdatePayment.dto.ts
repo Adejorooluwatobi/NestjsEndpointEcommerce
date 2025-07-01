@@ -1,33 +1,39 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsNumber, IsString } from "class-validator";
+import { IsDate, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdatePaymentDto{
 
 @ApiProperty()
+@IsOptional()
 @IsString()
-orderId: string;
+orderId?: string;
 
 // @ApiProperty()
 // @IsString()
-customerId: string;
+// customerId: string;
 
 @ApiProperty()
+@IsOptional()
 @IsString()
-paymentMethod: string;
+paymentMethod?: string;
 
 @ApiProperty()
+@IsOptional()
 @IsString()
-transactionId: string;
+transactionId?: string;
 
 @ApiProperty()
+@IsOptional()
 @IsNumber()
-amount: number;
+amount?: number;
 
 @ApiProperty()
+@IsOptional()
 @IsString()
-status: 'pending' | 'completed' | 'failed';
+status?: 'pending' | 'completed' | 'failed';
 
 @ApiProperty()
+@IsOptional()
 @IsDate()
-refundedAt: Date;
+refundedAt?: Date;
 }
