@@ -32,7 +32,7 @@ export type UpdateStaffParams = {
     lastName?: string;
     phoneNumber?: string;
     email?: string;
-    password?: string;
+    password: string;
     isActive?: boolean;
     profileImg?: string;
 };
@@ -505,10 +505,10 @@ export type CreateInventoryParams = {
 };
 
 export type UpdateInventoryParams = {
-    productId?: string;
-    stockLevel?: number;
-    stock?: number;
-    reservedStock?: number;
+    productId: string;
+    stockLevel: number;
+    stock: number;
+    reservedStock: number;
 };
 
 export type UpdateAnalyticParams = {

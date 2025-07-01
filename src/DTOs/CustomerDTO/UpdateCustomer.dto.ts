@@ -30,7 +30,7 @@ export class UpdateCustomerDto {
     @IsString()
     @ApiProperty()
     @IsOptional()
-    password?: string;
+    password: string;
 
     @IsBoolean()
     @ApiProperty()

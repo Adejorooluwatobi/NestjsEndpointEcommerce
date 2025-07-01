@@ -25,7 +25,7 @@ export class UpdateStaffAccountDto {
     @IsString()
     @ApiProperty()
     @IsOptional()
-    password?: string;
+    password: string;
 
     @IsBoolean()
     @ApiProperty()

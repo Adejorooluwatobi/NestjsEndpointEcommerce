@@ -45,7 +45,7 @@ type Category {
   createdBy: String!
   icon: String!
   id: String!
-  imagePath: String!
+  image: String!
   isActive: Boolean!
   productCategory: [ProductCategory!]!
   updatedAt: DateTime!
@@ -116,7 +116,7 @@ type Gallery {
   createdBy: String!
   displayOrder: Boolean!
   id: String!
-  imagePath: String!
+  image: String!
   product: Product!
   productId: String!
   thumbnail: String!

@@ -16,7 +16,7 @@ export class CreateCustomerAddressDto {
   @ApiProperty()
 @IsOptional()
   @IsString()
-  address_line2?: string;
+  address_line2: string;
 
   @ApiProperty()
 @IsNotEmpty()

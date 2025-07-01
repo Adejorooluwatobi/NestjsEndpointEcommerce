@@ -6,12 +6,12 @@ export class UpdateCustomerEngagementReviewDto{
     @ApiProperty()
     @IsOptional()
     @IsString()
-    productId?: string;
+    productId: string;
 
     @ApiProperty()
     @IsOptional()
     @IsString()
-    customerId?: string;
+    customerId: string;
 
     @ApiProperty()
     @IsOptional()

@@ -6,21 +6,21 @@ export class UpdateInventoryDto{
     @ApiProperty()
     @IsOptional()
     @IsString()
-    productId?: string;
+    productId: string;
 
     @ApiProperty()
     @IsOptional()
     @IsNumber()
-    stockLevel?: number;
+    stockLevel: number;
 
     @ApiProperty()
     @IsOptional()
     @IsNumber()
-    stock?: number;
+    stock: number;
 
     @ApiProperty()
     @IsOptional()
     @IsNumber()
-    reservedStock?: number;
+    reservedStock: number;
 
 }

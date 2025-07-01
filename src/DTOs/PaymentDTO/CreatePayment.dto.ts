@@ -4,6 +4,11 @@ import { IsDate, IsNotEmpty,IsNumber,IsOptional,IsString } from "class-validator
 export class CreatePaymentDto{
 
 @ApiProperty()
+@IsOptional()
+@IsString()
+customerId: string;
+
+@ApiProperty()
 @IsNotEmpty()
 @IsString()
 orderId: string;
@@ -31,5 +36,5 @@ amount: number;
 @ApiProperty({default: 'pending'})
 @IsOptional()
 @IsString()
-status?: 'pending' | 'completed' | 'failed';
+status: 'pending' | 'completed' | 'failed';
 }

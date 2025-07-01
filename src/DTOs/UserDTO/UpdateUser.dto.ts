@@ -35,5 +35,5 @@ export class UpdateUserDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  password?: string;
+  password: string;
 }
